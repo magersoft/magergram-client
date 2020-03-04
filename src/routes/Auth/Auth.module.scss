@@ -1,0 +1,72 @@
+@import '../../theme/mixins';
+
+.Main {
+  flex-grow: 1;
+  order: 4;
+}
+
+.Wrapper {
+  min-height: 100%;
+  overflow: hidden;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: center;
+  padding-bottom: 44px;
+}
+
+.Article {
+  margin: 0 auto;
+  max-width: 935px;
+  width: 100%;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.Content {
+  flex-grow: 1;
+  justify-content: center;
+  margin-top: 12px;
+  max-width: 350px;
+  width: 100%;
+}
+
+.Box {
+  padding: 10px 0;
+  margin: 0 0 10px;
+  @include whiteBox()
+}
+
+.Title {
+  display: block;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
+  margin: 22px auto 12px;
+  background-image: url('../../assets/sprite.png');
+  background-repeat: no-repeat;
+  background-position: -98px 0;
+  height: 51px;
+  width: 175px;
+}
+
+.Controls {
+  margin-bottom: 10px;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+}
+
+.SpacingL {
+  margin-bottom: var(--spacing-l);
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.Control {
+  margin: 0 40px 6px;
+}
