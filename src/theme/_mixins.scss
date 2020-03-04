@@ -1,5 +1,9 @@
 @mixin whiteBox() {
-  border: var(--boxBorder);
+  border: 1px solid var(--boxBorder);
   border-radius: var(--borderRadius);
   background-color: var(--whiteColor);
+}
+
+@mixin animationInputLabel() {
+  transition: transform ease-out .1s;
 }

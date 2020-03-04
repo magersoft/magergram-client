@@ -1,0 +1,62 @@
+@import '../../../theme/mixins';
+
+.Control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--inputBorder);
+  border-radius: 3px;
+  color: var(--blackColor);
+  position: relative;
+}
+
+.Label {
+  display: flex;
+  height: var(--inputHeight);
+  flex: 1 0 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  position: relative;
+
+  &.active {
+    .Placeholder {
+      transform: scale(.83333) translateY(-10px);
+    }
+
+    .Input {
+      font-size: var(--small-font);
+      padding: 14px 0 2px 8px;
+    }
+  }
+}
+
+.Placeholder {
+  color: var(--darkGrayColor);
+  font-size: var(--small-font);
+  height: var(--inputHeight);
+  line-height: var(--inputHeight);
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform-origin: left;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  @include animationInputLabel();
+}
+
+.Input {
+  background: var(--bgColor);
+  font-size: var(--medium-font);
+  border: 0;
+  flex: 1 0 auto;
+  margin: 0;
+  outline: 0;
+  overflow: hidden;
+  padding: 9px 0 7px 8px;
+  text-overflow: ellipsis;
+}
