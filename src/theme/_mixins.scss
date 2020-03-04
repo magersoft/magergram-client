@@ -1,0 +1,5 @@
+@mixin whiteBox() {
+  border: var(--boxBorder);
+  border-radius: var(--borderRadius);
+  background-color: var(--whiteColor);
+}
