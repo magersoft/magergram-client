@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import PropType from 'prop-types';
 import style from './Input.module.scss';
 
-const Input = ({ type = 'text', name, placeholder }) => {
-  const [value, setValue] = useState('');
+const Input = ({ type = 'text', value, name, placeholder, onChange }) => {
 
   const labelClasses = [style.Label, value ? style.active : ''];
 
@@ -23,7 +22,7 @@ const Input = ({ type = 'text', name, placeholder }) => {
           maxLength="75"
           name={name}
           className={style.Input}
-          onChange={event => setValue(event.target.value)}
+          onChange={onChange}
         />
       </label>
     </div>
