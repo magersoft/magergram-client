@@ -1,0 +1,24 @@
+.OrBlock {
+  margin: 10px 40px 18px;
+  flex-direction: row;
+}
+
+.Separator {
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: var(--inputBorder);
+  height: 1px;
+  position: relative;
+  top: .45rem;
+}
+
+.Or {
+  color: var(--darkGrayColor);
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 15px;
+  margin: 0 18px;
+  text-transform: uppercase;
+}

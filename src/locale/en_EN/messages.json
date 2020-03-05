@@ -1,6 +1,3 @@
 {
-  "error": "Error",
-  "This is not a real application! This is a clone for fun": "This is not a real application! This is a clone for fun",
-  "Client": "Клиент",
-  "Mobile Application": "Mobile Application"
+  "error": "Error"
 }

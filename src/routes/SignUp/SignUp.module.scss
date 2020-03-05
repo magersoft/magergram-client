@@ -1,0 +1,62 @@
+@import '../../theme/mixins';
+
+.Content {
+  @include contentBlock();
+}
+
+.Box {
+  padding: 10px 0;
+  margin: 0 0 10px;
+  @include whiteBox()
+}
+
+.Title {
+  @include logoInstagram();
+}
+
+.Subtitle {
+  font-size: 17px;
+  line-height: 20px;
+  margin: 0 40px 10px;
+  font-weight: 600;
+  color: var(--darkGrayColor);
+  text-align: center;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.SocialLogin {
+  margin: 8px 40px 8px;
+  flex: 0 0 auto;
+  justify-content: flex-start;
+}
+
+.Control {
+  margin: 0 40px 6px;
+}
+
+.Submit {
+  margin: 8px 40px
+}
+
+.SingUp {
+  display: block;
+  color: var(--darkGrayColor);
+  font-weight: 300;
+  margin: -3px 0 -4px;
+}
+
+.SignUpText {
+  margin: 15px;
+  text-align: center;
+}
+
+.SignUpLink {
+  margin-left: 3px;
+  display: inline;
+  @include link();
+}

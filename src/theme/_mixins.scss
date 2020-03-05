@@ -2,6 +2,25 @@
   border: 1px solid var(--boxBorder);
   border-radius: var(--borderRadius);
   background-color: var(--whiteColor);
+
+  @media (max-width: 450px) {
+    background-color: transparent;
+    border: 0;
+  }
+}
+
+@mixin contentBlock() {
+  flex-grow: 1;
+  justify-content: center;
+  margin-top: 12px;
+  max-width: 350px;
+  width: 100%;
+
+  @media (max-width: 450px) {
+    margin-top: 0;
+    justify-content: space-between;
+    max-width: 100%;
+  }
 }
 
 @mixin smallLink() {
@@ -20,4 +39,16 @@
 
 @mixin animationInputLabel() {
   transition: transform ease-out .1s;
+}
+
+@mixin logoInstagram() {
+  display: block;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
+  margin: 22px auto 12px;
+  background-repeat: no-repeat;
+  background-position: -98px 0;
+  height: 51px;
+  width: 175px;
 }

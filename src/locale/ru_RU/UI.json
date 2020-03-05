@@ -6,6 +6,11 @@
   "Login with Facebook": "Войти через Facebook",
   "Forgot password": "Забыли пароль",
   "Sign Up": "Зарегистрироваться",
+  "Sign In": "Вход",
   "You are not account": "У вас ещё нет аккаунт",
-  "Install application": "Установите приложение"
+  "Install application": "Установите приложение",
+  "Username": "Имя пользователя",
+  "First name and Last name": "Имя и фамилия",
+  "Phone or email": "Моб. телефон или эл. адрес",
+  "Have an account": "Есть аккаунт"
 }

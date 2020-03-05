@@ -1,34 +1,7 @@
 @import '../../theme/mixins';
 
-.Main {
-  flex-grow: 1;
-  order: 4;
-}
-
-.Wrapper {
-  min-height: 100%;
-  overflow: hidden;
-  flex-direction: row;
-  flex-grow: 1;
-  justify-content: center;
-  padding-bottom: 44px;
-}
-
-.Article {
-  margin: 0 auto;
-  max-width: 935px;
-  width: 100%;
-  flex-direction: row;
-  flex-grow: 1;
-  justify-content: center;
-}
-
 .Content {
-  flex-grow: 1;
-  justify-content: center;
-  margin-top: 12px;
-  max-width: 350px;
-  width: 100%;
+  @include contentBlock();
 }
 
 .Box {
@@ -38,15 +11,7 @@
 }
 
 .Title {
-  display: block;
-  overflow: hidden;
-  text-indent: 110%;
-  white-space: nowrap;
-  margin: 22px auto 12px;
-  background-repeat: no-repeat;
-  background-position: -98px 0;
-  height: 51px;
-  width: 175px;
+  @include logoInstagram();
 }
 
 .Controls {
@@ -72,31 +37,6 @@
 
 .Submit {
   margin: 8px 40px
-}
-
-.OrBlock {
-  margin: 10px 40px 18px;
-  flex-direction: row;
-}
-
-.Separator {
-  flex-grow: 1;
-  flex-shrink: 1;
-  background-color: var(--inputBorder);
-  height: 1px;
-  position: relative;
-  top: .45rem;
-}
-
-.Or {
-  color: var(--darkGrayColor);
-  flex-grow: 0;
-  flex-shrink: 0;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 15px;
-  margin: 0 18px;
-  text-transform: uppercase;
 }
 
 .SocialLogin {
