@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import style from './Auth.module.scss';
-import Input from '../../components/UI/Input/Input';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Button from '../../components/UI/Button/Button';
+import { Button, Input, AppButtons } from '../../components/UI';
+import style from './Auth.module.scss';
 
 export default () => {
   const [action, setAction] = useState("logIn");
@@ -22,7 +22,7 @@ export default () => {
         <article className={style.Article}>
           <div className={style.Content}>
             <div className={style.Box}>
-              <h1 className={style.Title}>Magergram</h1>
+              <h1 className={`${style.Title} sprite`}>Magergram</h1>
               <div className={style.Controls}>
                 <form className={style.Form} method="post">
                   <div className={style.SpacingL} />
@@ -44,11 +44,34 @@ export default () => {
                     />
                   </div>
                   <div className={style.Submit}>
-                    <Button label={t('Log In')} disabled={!state.username || !state.password} />
+                    <Button label={t('Login')} disabled={!state.username || !state.password} />
                   </div>
+                  <div className={style.OrBlock}>
+                    <div className={style.Separator} />
+                    <div className={style.Or}>{ t('or') }</div>
+                    <div className={style.Separator} />
+                  </div>
+                  <div className={style.SocialLogin}>
+                    <button className={style.FacebookButton}>
+                      <span className={`${style.FacebookIcon} sprite`} />
+                      <span className={style.FacebookText}>{t('Login with Facebook')}</span>
+                    </button>
+                  </div>
+                  <Link to="/" className={style.ForgotPassword}>{t('Forgot password')}?</Link>
                 </form>
               </div>
             </div>
+            <div className={style.Box}>
+              <div className={style.SignUp}>
+                <p className={style.SignUpText}>
+                  { t('You are not account') }?
+                  <Link to="/" >
+                    <span className={style.SignUpLink}>{t('Sign Up')}</span>
+                  </Link>
+                </p>
+              </div>
+            </div>
+            <AppButtons />
           </div>
         </article>
       </div>

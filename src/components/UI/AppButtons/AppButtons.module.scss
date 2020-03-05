@@ -1,0 +1,30 @@
+.AppButtons {}
+
+.Text {
+  margin: 10px 20px;
+  text-align: center;
+}
+
+.Buttons {
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.Link {
+  margin-right: 8px;
+}
+
+.AppStore {
+  width: 130px;
+  height: 41px;
+  background-position: 2px -181px;
+  background-repeat: no-repeat;
+}
+
+.GooglePlay {
+  width: 130px;
+  height: 41px;
+  background-position: -98px -53px;
+  background-repeat: no-repeat;
+}

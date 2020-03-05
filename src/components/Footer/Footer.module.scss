@@ -1,0 +1,37 @@
+.Footer {
+  padding: 0 20px;
+  order: 5
+}
+
+.Container {
+  max-width: 1012px;
+  padding: 38px 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-size: var(--small-font);
+  font-weight: 600;
+  margin: 0 auto;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.Nav {
+  max-width: 100%;
+
+  ul {
+    margin-right: 16px;
+    flex-grow: 1;
+    margin-bottom: 3px;
+  }
+
+  li {
+    display: inline-block;
+    margin-bottom: 7px;
+    margin-right: var(--spacing-m);
+  }
+}
+
+.Info {
+  color: var(--darkGrayColor)
+}

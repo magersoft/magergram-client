@@ -4,6 +4,20 @@
   background-color: var(--whiteColor);
 }
 
+@mixin smallLink() {
+  font-size: var(--small-font);
+  line-height: 14px;
+  margin-top: 12px;
+  text-align: center;
+  color: var(--darkBlueColor);
+  text-decoration: none;
+}
+
+@mixin link() {
+  color: var(--blueColor);
+  font-weight: 600;
+}
+
 @mixin animationInputLabel() {
   transition: transform ease-out .1s;
 }

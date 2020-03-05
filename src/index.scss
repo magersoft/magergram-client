@@ -8,9 +8,14 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  height: 100%;
+}
+
 body {
   background-color: var(--bgColor);
   color: var(--blackColor);
+  overflow-y: scroll;
 }
 
 body, button, input, textarea {
@@ -22,10 +27,9 @@ body, button, input, textarea {
 
 #root {
   z-index: 0;
-  height: 100%;
 }
 
-#root, main, div, article {
+#root, main, section, article, div, footer, nav, header {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -34,11 +38,15 @@ body, button, input, textarea {
   border: 0 solid #000;
 }
 
-a {
-  color: var(--blueColor);
+a, a:visited {
+  color: var(--darkBlueColor);
   text-decoration: none;
 }
 
 button {
   outline: none;
+}
+
+.sprite {
+  background-image: url('./assets/sprite.png');
 }

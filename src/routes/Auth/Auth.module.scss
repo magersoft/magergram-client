@@ -43,7 +43,6 @@
   text-indent: 110%;
   white-space: nowrap;
   margin: 22px auto 12px;
-  background-image: url('../../assets/sprite.png');
   background-repeat: no-repeat;
   background-position: -98px 0;
   height: 51px;
@@ -73,4 +72,87 @@
 
 .Submit {
   margin: 8px 40px
+}
+
+.OrBlock {
+  margin: 10px 40px 18px;
+  flex-direction: row;
+}
+
+.Separator {
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: var(--inputBorder);
+  height: 1px;
+  position: relative;
+  top: .45rem;
+}
+
+.Or {
+  color: var(--darkGrayColor);
+  flex-grow: 0;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 15px;
+  margin: 0 18px;
+  text-transform: uppercase;
+}
+
+.SocialLogin {
+  margin: 8px 40px 8px;
+  flex: 0 0 auto;
+  justify-content: flex-start;
+}
+
+.FacebookButton {
+  border: 0;
+  color: var(--blueColor);
+  display: inline;
+  padding: 0;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  text-transform: inherit;
+  text-overflow: ellipsis;
+  user-select: none;
+  width: auto;
+  background: 0 0;
+}
+
+.FacebookIcon {
+  display: inline-block;
+  margin-right: 8px;
+  position: relative;
+  top: 3px;
+  background-position: -320px -224px;
+  background-repeat: no-repeat;
+  height: 16px;
+  width: 16px;
+}
+
+.ForgotPassword {
+  @include smallLink();
+
+  &:hover, &:visited, &:active {
+    @include smallLink();
+  }
+}
+
+.SingUp {
+  display: block;
+  color: var(--darkGrayColor);
+  font-weight: 300;
+  margin: -3px 0 -4px;
+}
+
+.SignUpText {
+  margin: 15px;
+  text-align: center;
+}
+
+.SignUpLink {
+  margin-left: 3px;
+  display: inline;
+  @include link();
 }

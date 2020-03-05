@@ -1,3 +1,6 @@
 {
-  "error": "Ошибка"
+  "error": "Ошибка",
+  "This is not a real application. This is a clone for fun": "Это не настоящее приложение! Это клон ради фана",
+  "Client": "Клиент",
+  "Mobile Application": "Мобильное приложение"
 }
