@@ -2,7 +2,7 @@ import React from 'react';
 import PropType from 'prop-types';
 import style from './Input.module.scss';
 
-const Input = ({ type = 'text', value, name, placeholder, onChange }) => {
+const Input = ({ type = 'text', value, name, placeholder = '', required, onChange }) => {
 
   const labelClasses = [style.Label, value ? style.active : ''];
 
@@ -15,12 +15,13 @@ const Input = ({ type = 'text', value, name, placeholder, onChange }) => {
         <input
           type={type}
           value={value}
-          aria-label
+          aria-label={placeholder}
           aria-required="true"
           autoCapitalize="off"
           autoCorrect="off"
           maxLength="75"
           name={name}
+          required={required}
           className={style.Input}
           onChange={onChange}
         />
