@@ -81,9 +81,11 @@ export default ({ history }) => {
           logUserIn({
             variables: {
               token: confirmSecret
+            },
+            update: (_, __) => {
+              window.location.reload();
             }
           });
-          history.push('/');
         }
       }
     })
@@ -94,27 +96,29 @@ export default ({ history }) => {
   };
 
   const checkUsername = () => {
-    checkUserExist({
-      variables: {
-        username: state.username
-      },
-      update: (_, result) => {
-        const { data: { checkExistUsername } } = result;
-        if (!checkExistUsername.ok) {
-          setState({
-            ...state,
-            error: checkExistUsername.error,
-            usernameFieldIcon: style.ErrorIcon
-          })
-        } else {
-          setState({
-            ...state,
-            usernameFieldIcon: style.SuccessIcon,
-            error: null
-          })
+    if (state.username) {
+      checkUserExist({
+        variables: {
+          username: state.username
+        },
+        update: (_, result) => {
+          const { data: { checkExistUsername } } = result;
+          if (!checkExistUsername.ok) {
+            setState({
+              ...state,
+              error: checkExistUsername.error,
+              usernameFieldIcon: style.ErrorIcon
+            })
+          } else {
+            setState({
+              ...state,
+              usernameFieldIcon: style.SuccessIcon,
+              error: null
+            })
+          }
         }
-      }
-    });
+      });
+    }
   };
 
   return (

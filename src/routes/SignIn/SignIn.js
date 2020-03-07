@@ -9,7 +9,7 @@ import style from './SignIn.module.scss';
 import { LOG_USER_IN } from '../../apollo/GlobalQueries';
 import { isValidPhone } from '../../utils/phoneRegExp';
 
-export default () => {
+export default ({ history }) => {
   const [state, setState] = useState({
     username: '',
     password: '',
@@ -49,6 +49,9 @@ export default () => {
           logUserIn({
             variables: {
               token
+            },
+            update: (_, __) => {
+              window.location.reload();
             }
           })
         }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import LayoutDefault from '../layout/Default';
 import LayoutMain from '../layout/Main';
 import SignIn from '../routes/SignIn/SignIn';
@@ -16,22 +16,24 @@ const LoggedInRoutes = () =>
     <Route exact path="/" component={Feed} />
     <Route path="/post" component={Post} />
     <Route path="/explore" component={Explore} />
-    <Route path="/profile" component={Profile} />
+    <Route path="/:username" component={Profile} />
     <Route path="/edit-profile" component={EditProfile} />
+    <Redirect from={'*'} to={'/'} />
   </LayoutMain>;
 
 const LoggedOutRoutes = () =>
   <LayoutDefault>
     <Route exact path="/" component={SignIn} />
     <Route path="/signup" component={SignUp} />
+    <Redirect from={'*'} to={'/'} />
   </LayoutDefault>;
 
 const AppRouter = ({ isLoggedIn }) =>
-  <Router>
+  <BrowserRouter>
     <Switch>
       { isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes /> }
     </Switch>
-  </Router>;
+  </BrowserRouter>;
 
 AppRouter.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired
