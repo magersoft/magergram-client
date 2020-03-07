@@ -10,11 +10,11 @@ export default () => {
     value: ''
   });
 
-  const input = useRef();
+  const inputRef = useRef();
 
   const onFocusInput = () => {
     setState({ ...state, focus: true });
-    input.current.focus();
+    inputRef.current.focus();
   };
 
   const onBlurInput = () => {
@@ -32,7 +32,7 @@ export default () => {
   return (
     <React.Fragment>
       <input
-        ref={input}
+        ref={inputRef}
         type="text"
         autoCapitalize="none"
         className={style.Input}

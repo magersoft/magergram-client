@@ -1,4 +1,4 @@
-# Magergram - Instagram clone
+# Magergram - Instagram clone for practice React, GraphQL, Apollo 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

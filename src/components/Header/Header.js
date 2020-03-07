@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LogoImg from '../../assets/logo.png';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
-import { useTranslation } from 'react-i18next';
 import { Search } from '../UI';
 import { HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
 import style from './Header.module.scss';
@@ -44,8 +43,8 @@ export default () => {
                   </Link>
                 </div>
                 <div className={style.NavigationIcon}>
-                  <Link to="/" className={style.UserProfile}>
-                    <img src={NoAvatarImg} alt="Photo profile"/>
+                  <Link to="/profile" className={style.UserProfile}>
+                    <img src={NoAvatarImg} alt="Avatar profile"/>
                   </Link>
                 </div>
               </div>

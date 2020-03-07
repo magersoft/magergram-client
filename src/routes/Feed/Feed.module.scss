@@ -1,0 +1,21 @@
+.Container {
+  position: relative;
+  padding-top: 60px;
+  flex-grow: 1;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+
+  &.fullWidth {
+    max-width: 935px;
+    flex-flow: row nowrap;
+  }
+}
+
+.Feed {
+  float: left;
+  margin-right: 28px;
+  max-width: 614px;
+  width: 100%;
+  height: 100vh;
+}

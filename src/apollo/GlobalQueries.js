@@ -11,3 +11,15 @@ export const LOG_USER_OUT = gql`
     logUserOut @client
   }
 `;
+
+export const SET_LOADING = gql`
+  mutation setLoading {
+    setLoading @client
+  }
+`;
+
+export const REMOVE_LOADING = gql`
+  mutation removeLoading {
+    removeLoading @client
+  }
+`;

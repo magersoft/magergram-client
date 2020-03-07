@@ -1,5 +1,6 @@
 export const defaults = {
-  isLoggedIn: Boolean(localStorage.getItem('token'))
+  isLoggedIn: Boolean(localStorage.getItem('token')),
+  loading: false
 };
 
 export const resolvers = {
@@ -22,6 +23,20 @@ export const resolvers = {
       });
       window.location.reload();
       return null;
+    },
+    setLoading: (_, __, { cache }) => {
+      cache.writeData({
+        data: {
+          loading: true
+        }
+      })
+    },
+    removeLoading: (_, __, { cache }) => {
+      cache.writeData({
+        data: {
+          loading: false
+        }
+      })
     }
   }
 };
