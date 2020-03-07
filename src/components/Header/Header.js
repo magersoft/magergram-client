@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import LogoImg from '../../assets/logo.png';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { useTranslation } from 'react-i18next';
+import { Search } from '../UI';
 import { HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
 import style from './Header.module.scss';
 
 export default () => {
-  const { t } = useTranslation();
-
   return (
     <nav className={style.Header}>
       <div className={style.Wrapper} />
@@ -25,7 +24,7 @@ export default () => {
               </Link>
             </div>
             <div className={style.Search}>
-              <input type="text" autoCapitalize="none" placeholder={t('Search')} />
+              <Search />
             </div>
             <div className={style.Navigation}>
               <div className={style.NavigationContainer}>
