@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button, Input, AppButtons, Separator } from '../../components/UI';
@@ -57,6 +58,9 @@ export default () => {
 
   return (
     <div className={style.Content}>
+      <Helmet>
+        <title>Sign In | Magergram</title>
+      </Helmet>
       <div className={style.Box}>
         <h1 className={`${style.Title} sprite`}>Magergram</h1>
         <div className={style.Controls}>

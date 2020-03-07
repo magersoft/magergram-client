@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { CONFIRM_SECRET, EXIST_USER, SIGN_UP } from './SignUpQueries';
 import { LOG_USER_IN } from '../../apollo/GlobalQueries';
 import { isValidPhone } from '../../utils/phoneRegExp';
+import Helmet from 'react-helmet';
 
 export default ({ history }) => {
   const [state, setState] = useState({
@@ -118,6 +119,9 @@ export default ({ history }) => {
 
   return (
     <div className={style.Content}>
+      <Helmet>
+        <title>Sign Up | Magergram</title>
+      </Helmet>
       <div className={style.Box}>
         <h1 className={`${style.Title} sprite`}>Magergram</h1>
         { !confirm ?

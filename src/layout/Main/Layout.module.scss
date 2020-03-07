@@ -1,0 +1,12 @@
+.Section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.Main {
+  flex-grow: 1;
+  order: 4;
+}

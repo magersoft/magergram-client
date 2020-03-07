@@ -5,6 +5,6 @@
   "Enter a valid phone number": "Введите корректный номер телефона",
   "Password must be more 6 symbols": "Пароль должен быть не менее 6 символов",
   "Username is already in use": "Пользователь с таким имени уже существует",
-  "Field name = username": "Пользователь с таким имени уже существует",
+  " Field name = username": "Пользователь с таким имени уже существует",
   "Email or phone required field": "Эл. адрес или телефона является обязательным"
 }
