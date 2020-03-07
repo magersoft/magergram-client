@@ -2,8 +2,17 @@ import React from 'react';
 import PropType from 'prop-types';
 import style from './Input.module.scss';
 
-const Input = ({ type = 'text', value, name, placeholder = '', required, onChange }) => {
-
+const Input = ({
+    type = 'text',
+    value,
+    name,
+    placeholder = '',
+    required,
+    icon,
+    onChange,
+    onBlur,
+    onFocus
+  }) => {
   const labelClasses = [style.Label, value ? style.active : ''];
 
   return (
@@ -24,8 +33,13 @@ const Input = ({ type = 'text', value, name, placeholder = '', required, onChang
           required={required}
           className={style.Input}
           onChange={onChange}
+          onBlur={onBlur}
+          onFocus={onFocus}
         />
       </label>
+      <div className={style.Suffix}>
+        { icon && <span className={`${icon} ${style.Icon} sprite`} /> }
+      </div>
     </div>
   )
 };

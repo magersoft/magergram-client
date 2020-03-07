@@ -60,3 +60,27 @@
   display: inline;
   @include link();
 }
+
+.ConfirmText {
+  margin: 10px 60px;
+  color: var(--darkGrayColor);
+  text-align: center;
+
+  span {
+    font-weight: 600;
+  }
+}
+
+.Error {
+  color: var(--redColor);
+  margin: 10px 40px;
+  text-align: center;
+}
+
+.ErrorIcon {
+  background-position: -275px -196px;
+}
+
+.SuccessIcon {
+  background-position: -405px -344px;
+}

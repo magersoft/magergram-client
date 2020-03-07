@@ -3,5 +3,7 @@
   "This is not a real application. This is a clone for fun": "Это не настоящее приложение! Это клон ради фана",
   "Client": "Клиент",
   "Mobile Application": "Мобильное приложение",
-  "Sign Up, to watch photos and videos of your friends.": "Зарегистрируйтесь, чтобы смотреть фото и видео ваших друзей."
+  "Sign Up, to watch photos and videos of your friends.": "Зарегистрируйтесь, чтобы смотреть фото и видео ваших друзей.",
+  "An email with a secret code has been sent to your email": "На вашу почту отправлено письмо с секретным кодом",
+  "An sms with a secret code has been sent to your phone number": "На ваш номер телефона отправлено смс с секретным кодом"
 }

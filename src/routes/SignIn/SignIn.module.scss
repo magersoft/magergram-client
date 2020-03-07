@@ -96,3 +96,9 @@
   display: inline;
   @include link();
 }
+
+.Error {
+  color: var(--redColor);
+  margin: 10px 40px;
+  text-align: center;
+}

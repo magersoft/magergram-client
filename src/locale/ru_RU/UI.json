@@ -12,5 +12,6 @@
   "Username": "Имя пользователя",
   "First name and Last name": "Имя и фамилия",
   "Phone or email": "Моб. телефон или эл. адрес",
-  "Have an account": "Есть аккаунт"
+  "Have an account": "Есть аккаунт",
+  "Confirm secret": "Секретный код"
 }

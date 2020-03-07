@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import LayoutDefault from '../layout/Default';
 import LayoutMain from '../layout/Main';
-import Auth from '../routes/Auth/Auth';
+import SignIn from '../routes/SignIn/SignIn';
 import Feed from '../routes/Feed/Feed';
 import Post from '../routes/Post/Post';
 import Profile from '../routes/Profile/Profile';
@@ -22,7 +22,7 @@ const LoggedInRoutes = () =>
 
 const LoggedOutRoutes = () =>
   <LayoutDefault>
-    <Route exact path="/" component={Auth} />
+    <Route exact path="/" component={SignIn} />
     <Route path="/signup" component={SignUp} />
   </LayoutDefault>;
 

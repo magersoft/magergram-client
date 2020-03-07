@@ -5,6 +5,7 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
+  background: var(--bgColor);
   border: 1px solid var(--inputBorder);
   border-radius: 3px;
   color: var(--blackColor);
@@ -59,4 +60,18 @@
   overflow: hidden;
   padding: 9px 0 7px 8px;
   text-overflow: ellipsis;
+}
+
+.Suffix {
+  align-items: center;
+  flex-direction: row;
+  height: 100%;
+  padding-right: var(--spacing-xs);
+  vertical-align: middle;
+}
+
+.Icon {
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 22px;
 }
