@@ -1,0 +1,71 @@
+@import '../../theme/mixins';
+
+.Post {
+  padding: 0;
+  margin-bottom: var(--spacing-xxl);
+  margin-left: -1px;
+  margin-right: -1px;
+  @include whiteBox();
+
+  .Header {
+    flex-direction: row;
+    align-items: center;
+    height: var(--headerHeight);
+    padding: var(--spacing-m);
+    border-bottom: 1px solid var(--headerColorBorder);
+  }
+
+  .Avatar {
+    display: block;
+    align-self: center;
+    flex: none;
+  }
+
+  .LinkToUser {
+    width: 100%;
+    height: 100%;
+  }
+
+  .AvatarImg {
+    width: 32px;
+    height: 32px;
+    &:after {
+      content: '';
+      background-color: var(--headerColorBorder);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 1px solid rgba(0,0,0,.0975);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+  }
+
+  .UserInfo {
+    margin-left: var(--spacing-m);
+    align-items: flex-start;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+  }
+
+  .Content {
+    height: 614px;
+    width: 100%;
+    background: linear-gradient(-90deg, var(--whiteColor) 0%, var(--headerColorBorder) 50%, var(--whiteColor) 100%);
+    background-size: 400% 400%;
+    animation: pulse 1.2s ease-in-out infinite;
+    @keyframes pulse {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: -135% 0%;
+      }
+    }
+  }
+}
+
+

@@ -35,7 +35,7 @@ export default () => {
     if (!loading && data) {
       removeGlobalLoading();
     }
-  }, [loading]);
+  }, [loading, data, setGlobalLoading, removeGlobalLoading]);
 
   return (
     <nav className={style.Header}>

@@ -1,16 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Helmet from 'react-helmet';
-import style from './Feed.module.scss';
 import StoriesList from '../../components/StoriesList';
 import Sidebar from '../../components/Sidebar/Sidebar';
+import { useQuery } from '@apollo/react-hooks';
+import { FEED_QUERY } from './FeedQueries';
+import { Post, PostSkeleton } from '../../components/Post';
+import style from './Feed.module.scss';
 
 const RESIZE_BREAKPOINT = 1000;
 const RIGHT_POSITION = 28;
 
 export default () => {
+  const [feed, setFeed] = useState([]);
   const [showSidebar, setShowSidebar] = useState(true);
   const [leftFixedPosition, setLeftFixedPosition] = useState(null);
   const feedRef = useRef();
+
+  const { data, loading } = useQuery(FEED_QUERY);
+
+  useEffect(() => {
+    if (data) {
+      const { seeFeed } = data;
+      setFeed(seeFeed);
+    }
+  }, [data]);
 
   useEffect(() => {
     function handleResizeWindow(event) {
@@ -41,8 +54,31 @@ export default () => {
       </Helmet>
       <div ref={feedRef} className={showSidebar ? style.Feed : ''}>
         <StoriesList />
-        <div>
-          Posts
+        <div className={style.Posts}>
+          { !data && loading ?
+            <React.Fragment>
+              <PostSkeleton />
+              <PostSkeleton />
+            </React.Fragment>
+            :
+            feed.map(post => {
+              const { id, location, caption, likeCount, isLiked, files, user, comments, createdAt } = post;
+              return (
+                <Post
+                  key={id}
+                  postId={id}
+                  user={user}
+                  location={location}
+                  caption={caption}
+                  files={files}
+                  comments={comments}
+                  likeCount={likeCount}
+                  isLiked={isLiked}
+                  createdAt={createdAt}
+                />
+              )
+            })
+          }
         </div>
       </div>
       { showSidebar && <Sidebar leftFixedPosition={leftFixedPosition} /> }
