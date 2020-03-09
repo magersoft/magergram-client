@@ -1,1 +1,1 @@
-export default () => 'Profile';
+export default () => 'User Profile';

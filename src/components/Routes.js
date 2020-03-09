@@ -14,10 +14,10 @@ import SignUp from '../routes/SignUp/SignUp';
 const LoggedInRoutes = () =>
   <LayoutMain>
     <Route exact path="/" component={Feed} />
-    <Route path="/post" component={Post} />
-    <Route path="/explore" component={Explore} />
-    <Route path="/:username" component={Profile} />
-    <Route path="/edit-profile" component={EditProfile} />
+    <Route exact path="/edit-profile" component={EditProfile} />
+    <Route exact path="/explore" component={Explore} />
+    <Route exact path="/post/:id" component={Post} />
+    <Route exact path="/:username" component={Profile} />
     <Redirect from={'*'} to={'/'} />
   </LayoutMain>;
 

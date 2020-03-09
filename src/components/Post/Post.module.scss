@@ -201,10 +201,27 @@
     }
   }
 
+  .Caption {
+    flex-direction: row;
+    margin-bottom: var(--spacing-xxs);
+    padding-left: var(--spacing-m);
+    padding-right: var(--spacing-m);
+    flex: 0 0 auto;
+    justify-content: flex-start;
+  }
+
   .Comments {
     padding-left: var(--spacing-m);
     padding-right: var(--spacing-m);
     flex: 0 0 auto;
+
+    &More {
+      margin-bottom: var(--spacing-xxs);
+
+      a {
+        color: var(--darkGrayColor);
+      }
+    }
   }
 
   .Comment {

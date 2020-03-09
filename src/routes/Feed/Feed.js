@@ -62,8 +62,9 @@ export default () => {
             </React.Fragment>
             :
             feed.map(post => {
-              const { id, location, caption, likeCount, isLiked, files, user, comments, createdAt } = post;
+              const { id, location, caption, likeCount, isLiked, commentCount, files, user, firstComments, createdAt } = post;
               return (
+                !!files.length &&
                 <Post
                   key={id}
                   postId={id}
@@ -71,7 +72,8 @@ export default () => {
                   location={location}
                   caption={caption}
                   files={files}
-                  comments={comments}
+                  comments={firstComments}
+                  commentCount={commentCount}
                   likeCount={likeCount}
                   isLiked={isLiked}
                   createdAt={createdAt}

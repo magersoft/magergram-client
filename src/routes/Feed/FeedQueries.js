@@ -8,6 +8,7 @@ export const FEED_QUERY = gql`
       caption
       likeCount
       isLiked
+      commentCount
       user {
         id
         avatar
@@ -17,7 +18,7 @@ export const FEED_QUERY = gql`
         id
         url
       }
-      comments {
+      firstComments {
         id
         text
         user {
