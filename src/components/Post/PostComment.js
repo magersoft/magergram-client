@@ -7,11 +7,15 @@ import { useTranslation } from 'react-i18next';
 import timeAgo from '../../utils/timeAgo';
 import { ToolsIcon } from '../Icon';
 
-const PostComment = ({ id, user, text, createdAt, answerClick }) => {
+const PostComment = ({ id, user, text, createdAt, answerClick, showDialog }) => {
   const { t } = useTranslation();
 
   const handleClickAnswer = () => {
     answerClick(`@${user.username}`);
+  };
+
+  const handleShowDialog = commentId => {
+    showDialog(commentId);
   };
 
   return (
@@ -44,7 +48,7 @@ const PostComment = ({ id, user, text, createdAt, answerClick }) => {
             </div>
           </div>
           <div className={style.Actions}>
-            <button className={style.MoreButton}>
+            <button className={style.MoreButton} onClick={() => handleShowDialog(id)}>
               <ToolsIcon width="16" height="16" color="var(--darkGrayColor)" />
             </button>
           </div>
@@ -59,7 +63,8 @@ PostComment.propTypes = {
   user: PropTypes.object.isRequired,
   text: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  answerClick: PropTypes.func
+  answerClick: PropTypes.func,
+  showDialog: PropTypes.func
 };
 
 export default PostComment;

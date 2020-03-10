@@ -1,0 +1,78 @@
+.Overlay {
+  position: fixed;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(0,0,0,.65);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow-y: auto;
+  z-index: 4;
+}
+
+.Dialog {
+  width: 260px;
+  background-color: var(--whiteColor);
+  animation: IGCoreModalShow .1s ease-out;
+  border-radius: 12px;
+  flex-shrink: 1;
+  margin: 20px;
+  max-height: calc(100% - 40px);
+  overflow: hidden;
+
+  @media (min-width: 736px) {
+    width: 400px;
+  }
+}
+
+.Container {
+  justify-content: center;
+}
+
+.DialogButton {
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 1px solid var(--inputColorBorder);
+  color: inherit;
+  cursor: pointer;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 48px;
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+
+  &.danger {
+    color: var(--redColor);
+    font-weight: 700;
+  }
+
+  &:first-child {
+    border-top: none;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+
+  &:last-of-type {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+}
+
+@keyframes IGCoreModalShow {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2)
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1)
+  }
+}

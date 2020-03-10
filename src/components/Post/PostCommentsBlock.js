@@ -5,7 +5,7 @@ import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { Link } from 'react-router-dom';
 import { PostComment } from './index';
 
-const PostCommentsBlock = ({ user, caption, comments, answerClick }) => {
+const PostCommentsBlock = ({ user, caption, comments, answerClick, showDialog }) => {
   return (
     <div className={style.Comments}>
       <ul className={style.CommentsList}>
@@ -40,6 +40,7 @@ const PostCommentsBlock = ({ user, caption, comments, answerClick }) => {
             text={comment.text}
             createdAt={comment.createdAt}
             answerClick={answerClick}
+            showDialog={showDialog}
           />
         )) }
       </ul>
@@ -51,7 +52,8 @@ PostCommentsBlock.propTypes = {
   user: PropTypes.object.isRequired,
   caption: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
-  answerClick: PropTypes.func
+  answerClick: PropTypes.func,
+  showDialog: PropTypes.func
 };
 
 export default PostCommentsBlock;
