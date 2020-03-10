@@ -73,7 +73,7 @@ export default () => {
                   </Link>
                 </div>
                 <div className={style.NavigationIcon}>
-                  <Link to={state.username} className={style.UserProfile}>
+                  <Link to={`/${state.username}`} className={style.UserProfile}>
                     <img src={state.avatar ? state.avatar : NoAvatarImg} alt="Avatar profile"/>
                   </Link>
                 </div>

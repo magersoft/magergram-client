@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './PostSkeleton.module.scss';
+import style from './styles/PostSkeleton.module.scss';
 
 export default () => (
   <div className={style.Post}>

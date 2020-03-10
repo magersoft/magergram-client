@@ -1,0 +1,108 @@
+.Container {
+  margin-bottom: var(--spacing-m);
+}
+
+.Comment {
+  margin-top: -5px;
+  margin-left: -12px;
+  margin-right: 0;
+  padding: 12px 16px;
+  padding-bottom: 0;
+  word-wrap: break-word;
+  overflow: hidden;
+
+  &:hover {
+    .Actions {
+      opacity: .8;
+    }
+  }
+}
+
+.Content {
+  align-items: flex-start;
+  flex-direction: row;
+}
+
+.User {
+  flex-direction: row;
+  margin-right: 18px;
+
+  &Img {
+    display: block;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+    background-color: var(--bgColor);
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.Username {
+  margin-right: var(--spacing-xxs);
+  flex: 0 0 auto;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+
+  a {
+    color: var(--blackColor)!important;
+    font-weight: 600;
+  }
+}
+
+.Additional {
+  margin-top: var(--spacing-m);
+  margin-bottom: var(--spacing-xxs);
+  flex: 0 0 auto;
+  align-items: stretch;
+  align-content: stretch;
+}
+
+.AnswerBlock {
+  flex-direction: row;
+  align-items: center;
+  color: var(--darkGrayColor);
+  font-size: var(--small-font);
+}
+
+.AnswerButton {
+  color: var(--darkGrayColor);
+  border: 0;
+  cursor: pointer;
+  display: inline;
+  font-size: var(--small-font);
+  font-weight: 600;
+  line-height: 14px;
+  margin-left: 12px;
+  padding: 0;
+}
+
+.Text {
+  flex: auto
+}
+
+.Actions {
+  position: absolute;
+  right: 0;
+  top: 16px;
+  z-index: 1;
+  background-color: var(--whiteColor);
+  opacity: 0;
+}
+
+.MoreButton {
+  display: flex;
+  padding: var(--spacing-xs);
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}

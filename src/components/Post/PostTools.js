@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import style from './Post.module.scss';
+import style from './styles/Post.module.scss';
 
 const PostTools = () => {
   return (

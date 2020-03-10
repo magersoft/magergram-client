@@ -11,29 +11,31 @@ import EditProfile from '../routes/EditProfile/EditProfile';
 import Explore from '../routes/Explore/Explore';
 import SignUp from '../routes/SignUp/SignUp';
 
+const AppRouter = ({ isLoggedIn }) =>
+  <BrowserRouter>
+    { isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes /> }
+  </BrowserRouter>;
+
 const LoggedInRoutes = () =>
   <LayoutMain>
-    <Route exact path="/" component={Feed} />
-    <Route exact path="/edit-profile" component={EditProfile} />
-    <Route exact path="/explore" component={Explore} />
-    <Route exact path="/post/:id" component={Post} />
-    <Route exact path="/:username" component={Profile} />
-    <Redirect from={'*'} to={'/'} />
+    <Switch>
+      <Route path="/" exact={true} component={Feed} />
+      <Route path="/explore" component={Explore} />
+      <Route path="/edit-profile" component={EditProfile} />
+      <Route path="/post/:postId" component={Post} />
+      <Route path="/:username" component={Profile} />
+      <Redirect from={'*'} to={'/'} />
+    </Switch>
   </LayoutMain>;
 
 const LoggedOutRoutes = () =>
   <LayoutDefault>
-    <Route exact path="/" component={SignIn} />
-    <Route path="/signup" component={SignUp} />
-    <Redirect from={'*'} to={'/'} />
-  </LayoutDefault>;
-
-const AppRouter = ({ isLoggedIn }) =>
-  <BrowserRouter>
     <Switch>
-      { isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes /> }
+      <Route path="/" exact={true} component={SignIn} />
+      <Route path="/signup" component={SignUp} />
+      <Redirect from={'*'} to={'/'} />
     </Switch>
-  </BrowserRouter>;
+  </LayoutDefault>;
 
 AppRouter.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired

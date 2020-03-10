@@ -1,0 +1,39 @@
+@import '../../theme/mixins';
+
+$headerHeight: 72px;
+$additionalWidth: 335px;
+
+.Post {
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.Article {
+  background: var(--whiteColor);
+  width: 100%;
+  @include whiteBox();
+}
+
+.Header {
+  height: $headerHeight;
+  width: $additionalWidth;
+  position: absolute;
+  right: 0;
+}
+
+.Content {
+  justify-content: center;
+  margin-right: $additionalWidth;
+  min-height: 450px;
+  background-color: var(--bgColor);
+}
+
+.Additional {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: $headerHeight;
+  width: $additionalWidth;
+  border-left: 1px solid var(--headerColorBorder)
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import style from './Post.module.scss';
+import style from './styles/Post.module.scss';
 
 const PostLikes = ({ likeCount }) => {
   const { t } = useTranslation();

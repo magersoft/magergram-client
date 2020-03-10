@@ -4,7 +4,7 @@ import { CommentIcon, FavoriteIcon, LikeIcon, SharedIcon, UnlikeIcon } from '../
 import { useMutation } from '@apollo/react-hooks';
 import { TOGGLE_LIKE } from './PostQueries';
 import { FEED_QUERY } from '../../routes/Feed/FeedQueries';
-import style from './Post.module.scss';
+import style from './styles/Post.module.scss';
 
 const PostButtons = ({ postId, isLiked }) => {
   const [like, setLiked] = useState(isLiked);

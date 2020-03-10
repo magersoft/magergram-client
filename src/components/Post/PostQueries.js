@@ -15,6 +15,7 @@ export const ADD_COMMENT = gql`
         id
         username
       }
+      createdAt
     }
   }
 `;

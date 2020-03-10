@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PostAddComment, PostButtons, PostContent, PostHeader, PostLikes, PostTimeAgo, PostTools } from './index';
-import style from './Post.module.scss';
+import style from './styles/Post.module.scss';
 
 const Post = ({
   postId,
@@ -41,7 +41,7 @@ const Post = ({
         />
         <div className={style.Caption}>
           <div className={style.CommentText}>
-            <Link to={user.username}>{ user.username }</Link>
+            <Link to={`/${user.username}`}>{ user.username }</Link>
             &nbsp;
             <span>{ caption }</span>
           </div>

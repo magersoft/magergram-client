@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import timeAgo from '../../utils/timeAgo';
-import style from './Post.module.scss';
+import style from './styles/Post.module.scss';
 
 const PostTimeAgo = ({ createdAt }) => (
   <div className={style.TimeAgo}>

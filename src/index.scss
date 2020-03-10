@@ -47,6 +47,16 @@ button {
   outline: none;
 }
 
+.container {
+  justify-content: normal;
+  padding: 4vh 20px 0;
+  width: calc(100% - 40px);
+  flex-grow: 1;
+  margin: 0 auto;
+  max-width: 935px;
+  margin-bottom: var(--spacing-m);
+}
+
 .sprite {
   background-image: url('./assets/sprite.png');
 }

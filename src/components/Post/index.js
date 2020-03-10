@@ -6,6 +6,8 @@ import PostLikes from './PostLikes';
 import PostTimeAgo from './PostTimeAgo';
 import PostAddComment from './PostAddComment';
 import PostTools from './PostTools';
+import PostCommentsBlock from './PostCommentsBlock';
+import PostComment from './PostComment';
 import PostSkeleton from './PostSkeleton';
 
 export {
@@ -17,5 +19,7 @@ export {
   PostTimeAgo,
   PostAddComment,
   PostTools,
+  PostCommentsBlock,
+  PostComment,
   PostSkeleton
 };
