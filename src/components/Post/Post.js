@@ -19,6 +19,12 @@ const Post = ({
 }) => {
   const { t } = useTranslation();
   const [countComment, setCountComment] = useState(commentCount);
+  const [countLike, setCountLike] = useState(likeCount);
+
+  const handleLike = like => {
+    const count = like ? countLike - 1 : countLike + 1;
+    setCountLike(count);
+  };
 
   return (
     <article className={style.Post}>
@@ -35,9 +41,10 @@ const Post = ({
         <PostButtons
           postId={postId}
           isLiked={isLiked}
+          onLike={handleLike}
         />
         <PostLikes
-          likeCount={likeCount}
+          likeCount={countLike}
         />
         <div className={style.Caption}>
           <div className={style.CommentText}>

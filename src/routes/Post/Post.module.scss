@@ -37,3 +37,7 @@ $additionalWidth: 335px;
   width: $additionalWidth;
   border-left: 1px solid var(--headerColorBorder)
 }
+
+.Actions {
+  border-top: 1px solid var(--headerColorBorder);
+}

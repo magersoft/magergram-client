@@ -6,22 +6,42 @@ import { TOGGLE_LIKE } from './PostQueries';
 import { FEED_QUERY } from '../../routes/Feed/FeedQueries';
 import style from './styles/Post.module.scss';
 
-const PostButtons = ({ postId, isLiked }) => {
+const PostButtons = ({ postId, isLiked, className, onLike }) => {
   const [like, setLiked] = useState(isLiked);
   const [toggleLike] = useMutation(TOGGLE_LIKE);
 
   const handleToggleLike = () => {
     setLiked(!like);
+    if (onLike) {
+      onLike(like);
+    }
     toggleLike({
       variables: {
         postId
       },
-      refetchQueries: [{ query: FEED_QUERY }]
+      update: (cache, result) => {
+        const { data: { toggleLike } } = result;
+        if (toggleLike) {
+          try {
+            const { seeFeed } = cache.readQuery({ query: FEED_QUERY });
+            if (seeFeed) {
+              const updated = seeFeed.map(post => {
+                if (post.id === postId) {
+                  post.isLiked = !like;
+                  post.likeCount = like ? post.likeCount - 1 : post.likeCount + 1
+                }
+                return post;
+              });
+              cache.writeQuery({ query: FEED_QUERY, updated })
+            }
+          } catch {}
+        }
+      }
     });
   };
 
   return (
-    <section className={style.Actions}>
+    <section className={`${style.Actions} ${className}`}>
       <span className={`${style.LikeButton} ${ like ? style.LikeButtonAnimationLike : style.LikeButtonAnimationUnLike }`}>
             <button type="button" className={style.ButtonIcon} onClick={handleToggleLike}>
               { like ?
@@ -49,7 +69,9 @@ const PostButtons = ({ postId, isLiked }) => {
 
 PostButtons.propTypes = {
   postId: PropTypes.string.isRequired,
-  isLiked: PropTypes.bool.isRequired
+  isLiked: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  onLike: PropTypes.func
 };
 
 export default PostButtons;

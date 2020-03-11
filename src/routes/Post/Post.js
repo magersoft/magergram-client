@@ -16,6 +16,7 @@ import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { useTranslation } from 'react-i18next';
 import { REMOVE_COMMENT } from '../../components/Post/PostQueries';
+import { FEED_QUERY } from '../Feed/FeedQueries';
 
 export default ({ match, history }) => {
   const { t } = useTranslation();
@@ -31,7 +32,8 @@ export default ({ match, history }) => {
   const { data } = useQuery(POST, {
     variables: {
       id: match.params.postId
-    }
+    },
+    fetchPolicy: 'network-only'
   });
 
   useEffect(() => {
@@ -47,12 +49,17 @@ export default ({ match, history }) => {
         setPost(seeFullPost);
       }
     }
-  }, [data, post]);
+  }, [data]);
 
   const [removeComment] = useMutation(REMOVE_COMMENT);
 
+  const handleLike = like => {
+    const count = like ? post.likeCount - 1 : post.likeCount + 1;
+    setPost({ ...post, likeCount: count });
+  };
+
   const setCountComment = count => {
-    setPost({ ...post, [post.commentCount]: count })
+    setPost({ ...post, commentCount: count })
   };
 
   const handleAnswerClick = username => {
@@ -68,14 +75,29 @@ export default ({ match, history }) => {
       variables: {
         id: dialog.commentId
       },
-      update: (_, result) => {
+      update: (cache, result) => {
         const { data: { removeComment } } = result;
         if (removeComment) {
-          post.comments = post.comments.filter(comment => comment.id !== removeComment);
+          setPost({
+            ...post,
+            comments: post.comments.filter(comment => comment.id !== removeComment)
+          });
           setDialog({
             ...dialog,
             show: false
-          })
+          });
+          try {
+            const { seeFeed } = cache.readQuery({ query: FEED_QUERY });
+            if (seeFeed) {
+              const updated = seeFeed.map(p => {
+                if (p.id === post.id) {
+                  p.firstComments = p.firstComments.filter(comment => comment.id !== removeComment);
+                }
+                return p;
+              });
+              cache.writeQuery({ query: FEED_QUERY, updated });
+            }
+          } catch {}
         }
       }
     })
@@ -110,6 +132,8 @@ export default ({ match, history }) => {
                 <PostButtons
                   postId={post.id}
                   isLiked={post.isLiked}
+                  className={style.Actions}
+                  onLike={handleLike}
                 />
                 <PostLikes
                   likeCount={post.likeCount}

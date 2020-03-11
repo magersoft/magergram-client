@@ -18,7 +18,7 @@ const PostAddComment = ({ postId, comments, commentCount, userAnswer, setCountCo
         postId,
         text: comment
       },
-      update: (_, result) => {
+      update: (cache, result) => {
         const { data: { addComment } } = result;
         if (addComment) {
           comments.push(addComment);
