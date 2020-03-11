@@ -19,3 +19,9 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
+
+export const REMOVE_COMMENT = gql`
+  mutation removeComment($id: String!) {
+    removeComment(id: $id)
+  }
+`;

@@ -9,12 +9,13 @@ import {
   PostTools,
   PostCommentsBlock, PostSkeleton
 } from '../../components/Post';
-import { useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { POST } from './PostQuery';
 import style from './Post.module.scss';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { useTranslation } from 'react-i18next';
+import { REMOVE_COMMENT } from '../../components/Post/PostQueries';
 
 export default ({ match, history }) => {
   const { t } = useTranslation();
@@ -22,7 +23,9 @@ export default ({ match, history }) => {
   const [answer, setAnswer] = useState('');
   const [dialog, setDialog] = useState({
     show: false,
-    commentId: null
+    commentId: null,
+    userId: null,
+    commentUserId: null
   });
 
   const { data } = useQuery(POST, {
@@ -46,6 +49,8 @@ export default ({ match, history }) => {
     }
   }, [data, post]);
 
+  const [removeComment] = useMutation(REMOVE_COMMENT);
+
   const setCountComment = count => {
     setPost({ ...post, [post.commentCount]: count })
   };
@@ -54,12 +59,26 @@ export default ({ match, history }) => {
     setAnswer(username);
   };
 
-  const handleShowDialog = commentId => {
-    setDialog({ commentId, show: true });
+  const handleShowDialog = (commentId, userId, commentUserId) => {
+    setDialog({ commentId, userId, commentUserId, show: true });
   };
 
   const handleDeleteComment = () => {
-    console.log(dialog.commentId);
+    removeComment({
+      variables: {
+        id: dialog.commentId
+      },
+      update: (_, result) => {
+        const { data: { removeComment } } = result;
+        if (removeComment) {
+          post.comments = post.comments.filter(comment => comment.id !== removeComment);
+          setDialog({
+            ...dialog,
+            show: false
+          })
+        }
+      }
+    })
   };
 
   return (
@@ -113,8 +132,9 @@ export default ({ match, history }) => {
       </div>
       { dialog.show &&
         <Dialog>
-          <DialogButton text={t('Report')} danger />
-          <DialogButton text={t('Delete')} danger onClick={handleDeleteComment} />
+          { dialog.commentUserId === dialog.userId &&
+            <DialogButton text={t('Delete')} danger onClick={handleDeleteComment} />
+          }
           <DialogButton text={t('Cancel')} onClick={() => setDialog({ ...dialog, show: false })} />
         </Dialog>
       }

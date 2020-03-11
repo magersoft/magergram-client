@@ -1,21 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './styles/PostComment.module.scss';
 import { Link } from 'react-router-dom';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { useTranslation } from 'react-i18next';
 import timeAgo from '../../utils/timeAgo';
 import { ToolsIcon } from '../Icon';
+import { useApolloClient } from '@apollo/react-hooks';
+import style from './styles/PostComment.module.scss';
+import { MY_PROFILE } from '../Header/HeaderQueries';
 
 const PostComment = ({ id, user, text, createdAt, answerClick, showDialog }) => {
   const { t } = useTranslation();
+  const client = useApolloClient();
 
   const handleClickAnswer = () => {
     answerClick(`@${user.username}`);
   };
 
   const handleShowDialog = commentId => {
-    showDialog(commentId);
+    const { myProfile } = client.readQuery({
+      query: MY_PROFILE
+    });
+    const userId = myProfile.id;
+    const commentUserId = user.id;
+    showDialog(commentId, userId, commentUserId);
   };
 
   return (

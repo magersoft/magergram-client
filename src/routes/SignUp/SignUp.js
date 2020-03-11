@@ -83,6 +83,7 @@ export default ({ history }) => {
               token: confirmSecret
             },
             update: (_, __) => {
+              history.push('/');
               window.location.reload();
             }
           });
