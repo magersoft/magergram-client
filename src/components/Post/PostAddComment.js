@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../Loader/Spinner';
-import style from './styles/Post.module.scss';
 import { useMutation } from '@apollo/react-hooks';
 import { ADD_COMMENT } from './PostQueries';
 import { useTranslation } from 'react-i18next';
+import style from './styles/Post.module.scss';
 
 const PostAddComment = ({ postId, comments, commentCount, userAnswer, setCountComment }) => {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ const PostAddComment = ({ postId, comments, commentCount, userAnswer, setCountCo
         postId,
         text: comment
       },
-      update: (cache, result) => {
+      update: (_, result) => {
         const { data: { addComment } } = result;
         if (addComment) {
           comments.push(addComment);

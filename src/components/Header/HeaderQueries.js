@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-export const MY_PROFILE = gql`
+export const USER_INFO = gql`
  query myProfile {
    myProfile {
      id

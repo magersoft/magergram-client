@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import LogoImg from '../../assets/logo.png';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
-import { Search } from '../UI';
+import { Image, Search } from '../UI';
 import { HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { MY_PROFILE } from './HeaderQueries';
+import { USER_INFO } from './HeaderQueries';
 import style from './Header.module.scss';
 import { REMOVE_LOADING, SET_LOADING } from '../../apollo/GlobalQueries';
 
@@ -18,7 +18,7 @@ export default () => {
   const [setGlobalLoading] = useMutation(SET_LOADING);
   const [removeGlobalLoading] = useMutation(REMOVE_LOADING);
 
-  const { loading, data } = useQuery(MY_PROFILE, {
+  const { loading, data } = useQuery(USER_INFO, {
     onCompleted: data => {
       const { myProfile } = data;
       if (myProfile) {
@@ -74,7 +74,7 @@ export default () => {
                 </div>
                 <div className={style.NavigationIcon}>
                   <Link to={`/${state.username}`} className={style.UserProfile}>
-                    <img src={state.avatar ? state.avatar : NoAvatarImg} alt="Avatar profile"/>
+                    <Image src={state.avatar || NoAvatarImg} alt="Avatar profile" />
                   </Link>
                 </div>
               </div>

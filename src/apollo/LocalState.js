@@ -1,4 +1,4 @@
-export const defaults = {
+export const localState = {
   isLoggedIn: Boolean(localStorage.getItem('token')),
   loading: false
 };

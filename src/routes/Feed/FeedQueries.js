@@ -18,7 +18,7 @@ export const FEED_QUERY = gql`
         id
         url
       }
-      firstComments {
+      lastComments {
         id
         text
         user {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { CommentIcon, FavoriteIcon, LikeIcon, SharedIcon, UnlikeIcon } from '../Icon';
 import { useMutation } from '@apollo/react-hooks';
 import { TOGGLE_LIKE } from './PostQueries';
@@ -9,6 +10,7 @@ import style from './styles/Post.module.scss';
 const PostButtons = ({ postId, isLiked, className, onLike }) => {
   const [like, setLiked] = useState(isLiked);
   const [toggleLike] = useMutation(TOGGLE_LIKE);
+  const history = useHistory();
 
   const handleToggleLike = () => {
     setLiked(!like);
@@ -51,7 +53,7 @@ const PostButtons = ({ postId, isLiked, className, onLike }) => {
             </button>
           </span>
       <span className={style.CommentButton}>
-        <button type="button" className={style.ButtonIcon}>
+        <button type="button" className={style.ButtonIcon} onClick={() => history.push(`/post/${postId}`)}>
           <CommentIcon width="24" height="24" color="var(--blackColor)" />
         </button>
       </span>

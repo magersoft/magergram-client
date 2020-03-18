@@ -16,7 +16,7 @@ export default () => {
   const [leftFixedPosition, setLeftFixedPosition] = useState(null);
   const feedRef = useRef();
 
-  const { data, loading } = useQuery(FEED_QUERY);
+  const { data, loading } = useQuery(FEED_QUERY, { fetchPolicy: 'network-only' });
 
   useEffect(() => {
     if (data) {
@@ -62,7 +62,7 @@ export default () => {
             </React.Fragment>
             :
             feed.map(post => {
-              const { id, location, caption, likeCount, isLiked, commentCount, files, user, firstComments, createdAt } = post;
+              const { id, location, caption, likeCount, isLiked, commentCount, files, user, lastComments, createdAt } = post;
               return (
                 !!files.length &&
                 <Post
@@ -72,7 +72,7 @@ export default () => {
                   location={location}
                   caption={caption}
                   files={files}
-                  comments={firstComments}
+                  comments={lastComments}
                   commentCount={commentCount}
                   likeCount={likeCount}
                   isLiked={isLiked}

@@ -16,7 +16,6 @@ import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { useTranslation } from 'react-i18next';
 import { REMOVE_COMMENT } from '../../components/Post/PostQueries';
-import { FEED_QUERY } from '../Feed/FeedQueries';
 
 export default ({ match, history }) => {
   const { t } = useTranslation();
@@ -86,18 +85,6 @@ export default ({ match, history }) => {
             ...dialog,
             show: false
           });
-          try {
-            const { seeFeed } = cache.readQuery({ query: FEED_QUERY });
-            if (seeFeed) {
-              const updated = seeFeed.map(p => {
-                if (p.id === post.id) {
-                  p.firstComments = p.firstComments.filter(comment => comment.id !== removeComment);
-                }
-                return p;
-              });
-              cache.writeQuery({ query: FEED_QUERY, updated });
-            }
-          } catch {}
         }
       }
     })
@@ -157,7 +144,7 @@ export default ({ match, history }) => {
       { dialog.show &&
         <Dialog>
           { dialog.commentUserId === dialog.userId &&
-            <DialogButton text={t('Delete')} danger onClick={handleDeleteComment} />
+            <DialogButton text={t('Delete')} type="danger" onClick={handleDeleteComment} />
           }
           <DialogButton text={t('Cancel')} onClick={() => setDialog({ ...dialog, show: false })} />
         </Dialog>

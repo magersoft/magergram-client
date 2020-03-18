@@ -1,0 +1,106 @@
+.Header {
+  margin-bottom: 44px;
+  flex-direction: row;
+}
+
+.ProfilePhoto {
+  flex-grow: 1;
+  flex-basis: 0;
+  flex-shrink: 0;
+  margin-right: 30px;
+
+  &Container {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  &Block {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bgColor);
+    border-radius: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+
+    &:after {
+      content: "";
+      border: 1px solid rgba(0, 0, 0, .0975);
+      border-radius: 50%;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  &Change {
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.Profile {
+  flex-basis: 30px;
+  flex-grow: 2;
+  flex-shrink: 1;
+  min-width: 0;
+
+  &Settings {
+    margin-bottom: 20px;
+    align-items: center;
+    flex-direction: row;
+    flex-shrink: 1;
+    min-width: 0;
+
+    h1 {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 300;
+      font-size: 28px;
+      line-height: 32px;
+      margin: -5px 0 -6px;
+    }
+  }
+
+  &Edit {
+    margin-left: 20px;
+    flex-shrink: 0;
+    display: block;
+  }
+
+  &SettingIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xs);
+    background: 0 0;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+}
+
+.UploadPhotoForm {
+  input {
+    display: none!important;
+  }
+}

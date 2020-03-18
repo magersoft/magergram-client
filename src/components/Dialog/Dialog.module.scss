@@ -31,6 +31,18 @@
   justify-content: center;
 }
 
+.Title {
+  margin: 16px 32px;
+  text-align: center;
+
+  h3 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 54px;
+    margin: -4px 0 -6px;
+  }
+}
+
 .DialogButton {
   border-bottom: 0;
   border-left: 0;
@@ -48,6 +60,11 @@
 
   &.danger {
     color: var(--redColor);
+    font-weight: 700;
+  }
+
+  &.info {
+    color: var(--blueColor);
     font-weight: 700;
   }
 

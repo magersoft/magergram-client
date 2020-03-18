@@ -9,17 +9,35 @@
   text-overflow: ellipsis;
   user-select: none;
   width: auto;
-  background-color: var(--blueColor);
-  color: var(--whiteColor);
   border: 1px solid transparent;
   border-radius: var(--borderRadius);
 
-  &:active, &:focus {
-    background-color: var(--buttonColorActive);
+  &.Primary {
+    background-color: var(--blueColor);
+    color: var(--whiteColor);
+
+    &:active, &:focus {
+      background-color: var(--buttonColorActive);
+    }
+
+    &:disabled {
+      background-color: var(--buttonColorDisabled);
+    }
   }
 
-  &:disabled {
-    background-color: var(--buttonColorDisabled);
+  &.Secondary {
+    background-color: transparent;
+    color: var(--blackColor);
+    border: 1px solid var(--inputColorBorder);
+
+    &:active, &:focus {
+      opacity: .7;
+    }
+
+    &:disabled {
+      opacity: .3;
+      pointer-events: none;
+    }
   }
 }
 

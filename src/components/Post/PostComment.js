@@ -7,7 +7,7 @@ import timeAgo from '../../utils/timeAgo';
 import { ToolsIcon } from '../Icon';
 import { useApolloClient } from '@apollo/react-hooks';
 import style from './styles/PostComment.module.scss';
-import { MY_PROFILE } from '../Header/HeaderQueries';
+import { USER_INFO } from '../Header/HeaderQueries';
 
 const PostComment = ({ id, user, text, createdAt, answerClick, showDialog }) => {
   const { t } = useTranslation();
@@ -19,7 +19,7 @@ const PostComment = ({ id, user, text, createdAt, answerClick, showDialog }) => 
 
   const handleShowDialog = commentId => {
     const { myProfile } = client.readQuery({
-      query: MY_PROFILE
+      query: USER_INFO
     });
     const userId = myProfile.id;
     const commentUserId = user.id;

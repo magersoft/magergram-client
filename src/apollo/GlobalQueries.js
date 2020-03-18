@@ -23,3 +23,11 @@ export const REMOVE_LOADING = gql`
     removeLoading @client
   }
 `;
+
+export const UPLOAD_FILE = gql`
+  mutation singleUpload($file: Upload!) {
+    singleUpload(file: $file) {
+      path
+    }
+  }
+`;
