@@ -5,7 +5,7 @@ import style from './Profile.module.scss';
 import { Button, Image } from '../../components/UI';
 import SettingIcon from '../../components/Icon/SettingIcon';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { SEE_USER, UPDATE_AVATAR } from './ProfileQuery';
+import { FOLLOW, SEE_USER, UNFOLLOW, UPDATE_AVATAR } from './ProfileQuery';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { DELETE_FILE, UPLOAD_FILE } from '../../apollo/GlobalQueries';
@@ -36,6 +36,8 @@ export default ({ history, location }) => {
   const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
   const [deleteFile, { loading: deleteFileLoading }] = useMutation(DELETE_FILE);
   const [updateAvatar, { loading: updateAvatarLoading }] = useMutation(UPDATE_AVATAR);
+  const [follow, { loading: followLoading }] = useMutation(FOLLOW);
+  const [unFollow, { loading: unFollowLoading }] = useMutation(UNFOLLOW);
 
   useEffect(() => {
     if (data) {
@@ -53,15 +55,6 @@ export default ({ history, location }) => {
     }
   }, [profile, client]);
 
-  const handleClickAvatar = () => {
-    if (!itsMe) return;
-    setDialogChangePhoto({ ...dialogChangePhoto, show: true });
-  };
-
-  const fileInputRef = useRef();
-  const handleClickUploadPhotoButton = () => {
-    fileInputRef.current.click();
-  };
 
   const updateAvatarHelper = avatar => {
     updateAvatar({
@@ -82,6 +75,52 @@ export default ({ history, location }) => {
           }
           setProfile({ ...profile, avatar: editUser.avatar });
           setDialogChangePhoto({ ...dialogChangePhoto, show: false });
+        }
+      }
+    })
+  };
+
+  const handleClickAvatar = () => {
+    if (!itsMe) return;
+    setDialogChangePhoto({ ...dialogChangePhoto, show: true });
+  };
+  const fileInputRef = useRef();
+
+  const handleClickUploadPhotoButton = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFollowClick = () => {
+    follow({
+      variables: {
+        id: profile.id
+      },
+      update: (_, result) => {
+        const { data: { follow } } = result;
+        if (follow) {
+          setProfile({
+            ...profile,
+            isFollowing: true,
+            followersCount: profile.followersCount + 1
+          })
+        }
+      }
+    })
+  };
+
+  const handleUnFollowClick = () => {
+    unFollow({
+      variables: {
+        id: profile.id
+      },
+      update: (_, result) => {
+        const { data: { unfollow } } = result;
+        if (unfollow) {
+          setProfile({
+            ...profile,
+            isFollowing: false,
+            followersCount: profile.followersCount - 1
+          })
         }
       }
     })
@@ -155,10 +194,14 @@ export default ({ history, location }) => {
                       <Button
                         label={t('Unfollow')}
                         type="secondary"
+                        disabled={unFollowLoading}
                         className={style.ProfileEdit}
+                        onClick={handleUnFollowClick}
                       /> : <Button
                         label={t('Follow')}
+                        disabled={followLoading}
                         className={style.ProfileEdit}
+                        onClick={handleFollowClick}
                       />
                   }
                 </div>
