@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './Button.module.scss';
 
-const Button = ({ type = 'primary', label, disabled, className, onClick }) => {
+const Button = ({ type = 'primary', label, disabled, className = '', onClick }) => {
 
   const classes = [style.Button, className];
   if (type === 'secondary') {

@@ -5,7 +5,7 @@ import style from './Image.module.scss';
 
 const STATIC_SERVER = process.env.STATIC_SERVER || 'http://localhost:4000';
 
-const Image = ({ src, alt, className }) => {
+const Image = ({ src, alt, className = '' }) => {
   const source = src !== NoAvatarImg ? STATIC_SERVER + src : NoAvatarImg;
   return (
     <img src={source} alt={alt} className={`${style.Image} ${className}`} />

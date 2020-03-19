@@ -7,7 +7,8 @@ import timeAgo from '../../utils/timeAgo';
 import { ToolsIcon } from '../Icon';
 import { useApolloClient } from '@apollo/react-hooks';
 import style from './styles/PostComment.module.scss';
-import { USER_INFO } from '../Header/HeaderQueries';
+import { MY_PROFILE } from '../Header/HeaderQueries';
+import { Image } from '../UI';
 
 const PostComment = ({ id, user, text, createdAt, answerClick, showDialog }) => {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ const PostComment = ({ id, user, text, createdAt, answerClick, showDialog }) => 
 
   const handleShowDialog = commentId => {
     const { myProfile } = client.readQuery({
-      query: USER_INFO
+      query: MY_PROFILE
     });
     const userId = myProfile.id;
     const commentUserId = user.id;
@@ -34,7 +35,7 @@ const PostComment = ({ id, user, text, createdAt, answerClick, showDialog }) => 
             <div className={style.User}>
               <span className={style.UserImg}>
                 <Link to={`/${user.username}`}>
-                  <img src={user.avatar || NoAvatarImg} alt={`User profile ${user.username}`} />
+                  <Image src={user.avatar || NoAvatarImg} alt={`User profile ${user.username}`} />
                 </Link>
               </span>
             </div>

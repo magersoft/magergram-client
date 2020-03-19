@@ -5,7 +5,7 @@ import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { Image, Search } from '../UI';
 import { HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { USER_INFO } from './HeaderQueries';
+import { MY_PROFILE } from './HeaderQueries';
 import style from './Header.module.scss';
 import { REMOVE_LOADING, SET_LOADING } from '../../apollo/GlobalQueries';
 
@@ -18,15 +18,15 @@ export default () => {
   const [setGlobalLoading] = useMutation(SET_LOADING);
   const [removeGlobalLoading] = useMutation(REMOVE_LOADING);
 
-  const { loading, data } = useQuery(USER_INFO, {
-    onCompleted: data => {
+  const { loading, data } = useQuery(MY_PROFILE);
+
+  useEffect(() => {
+    if (data) {
       const { myProfile } = data;
-      if (myProfile) {
-        const { username, avatar } = myProfile;
-        setState({ ...state, username, avatar })
-      }
+      const { username, avatar } = myProfile;
+      setState({ username, avatar })
     }
-  });
+  }, [data]);
 
   useEffect(() => {
     if (loading) {

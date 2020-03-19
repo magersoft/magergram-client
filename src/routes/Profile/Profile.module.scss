@@ -1,19 +1,43 @@
 .Header {
-  margin-bottom: 44px;
   flex-direction: row;
+
+  @media (min-width: 736px) {
+    margin-bottom: 44px;
+  }
+
+  @media (max-width: 735px) {
+    margin-left: var(--spacing-m);
+    margin-right: var(--spacing-m);
+    margin-top: 30px;
+    border-bottom: none;
+    margin-bottom: 24px;
+    padding-bottom: 0;
+  }
 }
 
 .ProfilePhoto {
-  flex-grow: 1;
-  flex-basis: 0;
   flex-shrink: 0;
-  margin-right: 30px;
+
+  @media (min-width: 736px) {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-right: 30px;
+  }
+
+  @media (max-width: 735px) {
+    margin-right: 28px;
+  }
 
   &Container {
     width: 150px;
     height: 150px;
     display: block;
     margin: 0 auto;
+
+    @media (max-width: 735px) {
+      width: 77px;
+      height: 77px;
+    }
   }
 
   &Block {
@@ -68,6 +92,10 @@
     flex-shrink: 1;
     min-width: 0;
 
+    @media (max-width: 735px) {
+      margin-bottom: 12px;
+    }
+
     h1 {
       display: block;
       overflow: hidden;
@@ -97,6 +125,54 @@
     cursor: pointer;
     margin-left: 5px;
   }
+
+  &Info {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+
+    &Stat {
+      margin-left: 0;
+      font-size: var(--medium-font);
+      margin-right: 40px;
+
+      > span {
+        color: inherit;
+
+        > span {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  &Bio {
+    font-size: var(--medium-font);
+    line-height: 24px;
+    word-wrap: break-word;
+
+    h2 {
+      display: inline;
+      font-weight: 600;
+    }
+
+    a {
+      font-weight: 600;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.Posts {
+  flex-grow: 1;
+}
+
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .UploadPhotoForm {

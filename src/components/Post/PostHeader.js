@@ -5,7 +5,7 @@ import NoAvatarImg from '../../assets/noAvatar.jpg';
 import style from './styles/Post.module.scss';
 import { Image } from '../UI';
 
-const PostHeader =  ({ username, avatar, location, className }) => (
+const PostHeader =  ({ username, avatar, location, className = '' }) => (
   <header className={style.Header + ' ' + className}>
     <div className={style.Avatar}>
       <Link to={`/${username}`} className={style.LinkToUser}>

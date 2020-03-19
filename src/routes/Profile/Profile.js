@@ -5,38 +5,86 @@ import style from './Profile.module.scss';
 import { Button, Image } from '../../components/UI';
 import SettingIcon from '../../components/Icon/SettingIcon';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { MY_PROFILE, UPDATE_AVATAR } from './ProfileQuery';
+import { SEE_USER, UPDATE_AVATAR } from './ProfileQuery';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
-import { UPLOAD_FILE } from '../../apollo/GlobalQueries';
-import { USER_INFO } from '../../components/Header/HeaderQueries';
+import { DELETE_FILE, UPLOAD_FILE } from '../../apollo/GlobalQueries';
+import { MY_PROFILE } from '../../components/Header/HeaderQueries';
+import PostCard from '../../components/PostCard';
 
-export default ({ history }) => {
+export default ({ history, location }) => {
   const { t } = useTranslation();
   const [profile, setProfile] = useState(null);
+  const [itsMe, setItsMe] = useState(false);
   const [dialogChangePhoto, setDialogChangePhoto] = useState({
     show: false
   });
-  const { data } = useQuery(MY_PROFILE, { fetchPolicy: 'network-only' });
-  const [singleUpload] = useMutation(UPLOAD_FILE);
-  const [updateAvatar] = useMutation(UPDATE_AVATAR);
+
+  useEffect(() => {
+    const { pathname } = location;
+    if (!pathname) {
+      history.push('/')
+    }
+  }, [location, history]);
+
+  const { data, client } = useQuery(SEE_USER, {
+    variables: {
+      username: location.pathname.replace('/', '')
+    },
+    fetchPolicy: 'network-only'
+  });
+  const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
+  const [deleteFile, { loading: deleteFileLoading }] = useMutation(DELETE_FILE);
+  const [updateAvatar, { loading: updateAvatarLoading }] = useMutation(UPDATE_AVATAR);
 
   useEffect(() => {
     if (data) {
-      const { myProfile } = data;
-      if (myProfile) {
-        setProfile(myProfile);
+      const { seeUser } = data;
+      if (seeUser) {
+        setProfile(seeUser);
       }
     }
   }, [data]);
 
+  useEffect(() => {
+    if (profile) {
+      const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
+      setItsMe(profile.id === myProfile.id);
+    }
+  }, [profile, client]);
+
   const handleClickAvatar = () => {
+    if (!itsMe) return;
     setDialogChangePhoto({ ...dialogChangePhoto, show: true });
   };
 
   const fileInputRef = useRef();
   const handleClickUploadPhotoButton = () => {
     fileInputRef.current.click();
+  };
+
+  const updateAvatarHelper = avatar => {
+    updateAvatar({
+      variables: {
+        avatar
+      },
+      update: (cache, result) => {
+        const { data: { editUser } } = result;
+        if (editUser) {
+          try {
+            const { myProfile } = cache.readQuery({ query: MY_PROFILE });
+            if (myProfile) {
+              const updated = { ...myProfile, avatar: editUser.avatar };
+              cache.writeQuery({ query: MY_PROFILE, data: { myProfile: updated } });
+            }
+          } catch (e) {
+            console.log(e);
+          }
+          setProfile({ ...profile, avatar: editUser.avatar });
+          setDialogChangePhoto({ ...dialogChangePhoto, show: false });
+        }
+      }
+    })
   };
 
   const handleInputFileChange = event => {
@@ -49,32 +97,26 @@ export default ({ history }) => {
         update: (_, result) => {
           const { data: { singleUpload } } = result;
           if (singleUpload) {
-            updateAvatar({
-              variables: {
-                avatar: singleUpload.path
-              },
-              update: (cache, result) => {
-                const { data: { editUser } } = result;
-                if (editUser) {
-                  try {
-                    const { myProfile } = cache.readQuery({ query: USER_INFO });
-                    if (myProfile) {
-                      console.log(myProfile);
-                      const updated = { ...myProfile, avatar: editUser.avatar };
-                      cache.writeQuery({ query: USER_INFO, data: { myProfile: updated } })
-                    }
-                  } catch (e) {
-                    console.log(e);
-                  }
-                  setProfile({ ...profile, avatar: editUser.avatar });
-                  setDialogChangePhoto({ ...dialogChangePhoto, show: false });
-                }
-              }
-            })
+            updateAvatarHelper(singleUpload.path)
           }
         }
       })
     }
+  };
+
+  const handleClickRemovePhotoButton = () => {
+    const filename = profile.avatar.replace('/static/', '');
+    deleteFile({
+      variables: {
+        filename
+      },
+      update: (_, result) => {
+        const { data: { fileDelete } } = result;
+        if (fileDelete) {
+          updateAvatarHelper('')
+        }
+      }
+    })
   };
 
   return (
@@ -97,21 +139,53 @@ export default ({ history }) => {
               <section className={style.Profile}>
                 <div className={style.ProfileSettings}>
                   <h1>{ profile.username }</h1>
-                  <Button
-                    label={t('Edit profile')}
-                    type="secondary"
-                    className={style.ProfileEdit}
-                    onClick={() => history.push('/edit-profile')}
-                  />
-                  <button className={style.ProfileSettingIcon}>
-                    <SettingIcon width="24" height="24" color="var(--blackColor)" />
-                  </button>
+                  { itsMe ?
+                    <React.Fragment>
+                      <Button
+                        label={t('Edit profile')}
+                        type="secondary"
+                        className={style.ProfileEdit}
+                        onClick={() => history.push('/edit-profile')}
+                      />
+                      <button className={style.ProfileSettingIcon}>
+                        <SettingIcon width="24" height="24" color="var(--blackColor)" />
+                      </button>
+                    </React.Fragment>
+                    : profile.isFollowing ?
+                      <Button
+                        label={t('Unfollow')}
+                        type="secondary"
+                        className={style.ProfileEdit}
+                      /> : <Button
+                        label={t('Follow')}
+                        className={style.ProfileEdit}
+                      />
+                  }
                 </div>
-                <div className={style.ProfileInfo}>
-
-                </div>
+                <ul className={style.ProfileInfo}>
+                  <li className={style.ProfileInfoStat}>
+                    <span>
+                      <span>{ profile.postsCount }</span>
+                      &nbsp;{ t('publications') }
+                    </span>
+                  </li>
+                  <li className={style.ProfileInfoStat}>
+                    <span>
+                      <span>{ profile.followersCount }</span>
+                      &nbsp;{ t('followers') }
+                    </span>
+                  </li>
+                  <li className={style.ProfileInfoStat}>
+                    <span>
+                      <span>{ profile.followingCount }</span>
+                      &nbsp;{ t('following') }
+                    </span>
+                  </li>
+                </ul>
                 <div className={style.ProfileBio}>
-
+                  <h2>{ profile.fullName }</h2>
+                  { profile.bio && <span>{ profile.bio }</span> }
+                  { profile.website && <a href={profile.website} target="_blank" rel="noopener noreferrer">{ profile.website }</a> }
                 </div>
               </section>
             </header>
@@ -121,17 +195,39 @@ export default ({ history }) => {
             <div className={style.Navigation}>
 
             </div>
-            <div className={style.Posts}>
-
-            </div>
+            <article className={style.Posts}>
+              <div className={style.Grid}>
+                { profile.posts.map(post => {
+                  const { id, caption, files } = post;
+                  return <PostCard id={id} caption={caption} files={files} key={id} />
+                }) }
+              </div>
+            </article>
           </React.Fragment>
         }
       </div>
-      { dialogChangePhoto.show &&
+      { itsMe && dialogChangePhoto.show &&
         <Dialog title={t('Change profile photo')}>
-          <DialogButton text={t('Upload photo')} type="info" onClick={handleClickUploadPhotoButton} />
-          <DialogButton text={t('Remove current photo')} type="danger" />
-          <DialogButton text={t('Cancel')} onClick={() => setDialogChangePhoto({ ...dialogChangePhoto, show: false })} />
+          <DialogButton
+            text={t('Upload photo')}
+            type="info"
+            loading={singleUploadLoading || updateAvatarLoading}
+            disabled={singleUploadLoading || updateAvatarLoading}
+            onClick={handleClickUploadPhotoButton}
+          />
+          { profile.avatar &&
+            <DialogButton
+              text={t('Remove current photo')}
+              type="danger"
+              loading={deleteFileLoading || updateAvatarLoading}
+              disabled={deleteFileLoading || updateAvatarLoading}
+              onClick={handleClickRemovePhotoButton}
+            />
+          }
+          <DialogButton
+            text={t('Cancel')}
+            onClick={() => setDialogChangePhoto({ ...dialogChangePhoto, show: false })}
+          />
           <form method="POST" encType="multipart/form-data" className={style.UploadPhotoForm}>
             <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" onChange={handleInputFileChange} />
           </form>

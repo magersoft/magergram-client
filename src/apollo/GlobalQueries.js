@@ -31,3 +31,9 @@ export const UPLOAD_FILE = gql`
     }
   }
 `;
+
+export const DELETE_FILE = gql`
+  mutation fileDelete($filename: String!) {
+    fileDelete(filename: $filename)
+  }
+`;

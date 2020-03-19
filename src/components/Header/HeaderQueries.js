@@ -1,11 +1,11 @@
 import { gql } from 'apollo-boost';
 
-export const USER_INFO = gql`
+export const MY_PROFILE = gql`
  query myProfile {
    myProfile {
      id
-     username
      avatar
+     username
    }
  }
 `;

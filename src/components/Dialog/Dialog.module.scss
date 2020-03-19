@@ -44,6 +44,9 @@
 }
 
 .DialogButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-bottom: 0;
   border-left: 0;
   border-right: 0;

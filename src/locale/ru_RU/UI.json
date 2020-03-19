@@ -26,5 +26,10 @@
   "Change profile photo": "Сменить фото профиля",
   "Edit profile": "Редактировать профиль",
   "Upload photo": "Загрузить фото",
-  "Remove current photo": "Удалить текущее фото"
+  "Remove current photo": "Удалить текущее фото",
+  "publications": "публикаций",
+  "followers": "подписчиков",
+  "following": "подписок",
+  "Follow": "Подписаться",
+  "Unfollow": "Отписаться"
 }

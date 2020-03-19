@@ -4,6 +4,7 @@ import style from './styles/PostCommentsBlock.module.scss';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { Link } from 'react-router-dom';
 import { PostComment } from './index';
+import { Image } from '../UI';
 
 const PostCommentsBlock = ({ user, caption, comments, answerClick, showDialog }) => {
   return (
@@ -15,7 +16,7 @@ const PostCommentsBlock = ({ user, caption, comments, answerClick, showDialog })
               <div role="button" className={style.CaptionUser} tabIndex="0">
               <span className={style.CaptionAvatar}>
                 <Link to={`/${user.username}`}>
-                  <img src={user.avatar || NoAvatarImg} alt={`User profile ${user.username}`} />
+                  <Image src={user.avatar || NoAvatarImg} alt={`User profile ${user.username}`} />
                 </Link>
               </span>
               </div>

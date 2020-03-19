@@ -7,7 +7,7 @@ import { TOGGLE_LIKE } from './PostQueries';
 import { FEED_QUERY } from '../../routes/Feed/FeedQueries';
 import style from './styles/Post.module.scss';
 
-const PostButtons = ({ postId, isLiked, className, onLike }) => {
+const PostButtons = ({ postId, isLiked, className = '', onLike }) => {
   const [like, setLiked] = useState(isLiked);
   const [toggleLike] = useMutation(TOGGLE_LIKE);
   const history = useHistory();
@@ -34,7 +34,7 @@ const PostButtons = ({ postId, isLiked, className, onLike }) => {
                 }
                 return post;
               });
-              cache.writeQuery({ query: FEED_QUERY, updated })
+              cache.writeQuery({ query: FEED_QUERY, data: { seeFeed: updated } })
             }
           } catch {}
         }

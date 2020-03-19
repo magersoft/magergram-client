@@ -1,0 +1,48 @@
+.Post {
+  flex-direction: row;
+  margin-bottom: 28px;
+
+  @media (max-width: 735px) {
+    margin-bottom: 3px;
+  }
+}
+
+.Container {
+  flex: 1 0 0%;
+  display: block;
+  position: relative;
+  width: 100%;
+  margin-right: 28px;
+
+  @media (max-width: 735px) {
+    margin-right: 3px;
+  }
+}
+
+.Wrapper {
+  display: block;
+  width: 100%;
+}
+
+.Image {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 100%;
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    user-select: none;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.Block {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
