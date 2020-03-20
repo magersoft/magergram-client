@@ -28,7 +28,7 @@
   &.Secondary {
     background-color: transparent;
     color: var(--blackColor);
-    border: 1px solid var(--inputColorBorder);
+    border: 1px solid var(--borderColor);
 
     &:active, &:focus {
       opacity: .7;

@@ -27,9 +27,13 @@
   "Edit profile": "Редактировать профиль",
   "Upload photo": "Загрузить фото",
   "Remove current photo": "Удалить текущее фото",
-  "publications": "публикаций",
-  "followers": "подписчиков",
-  "following": "подписок",
+  "Publications": "Публикаций",
+  "Publication": "Публикации",
+  "Followers": "Подписчиков",
+  "Following": "Подписок",
   "Follow": "Подписаться",
-  "Unfollow": "Отписаться"
+  "Unfollow": "Отписаться",
+  "Saved": "Сохраненное",
+  "Logout": "Выйти",
+  "Mark": "Отметки"
 }

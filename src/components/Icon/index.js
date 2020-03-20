@@ -6,6 +6,8 @@ import CommentIcon from './CommentIcon';
 import SharedIcon from './SharedIcon';
 import FavoriteIcon from './FavoriteIcon';
 import ToolsIcon from './ToolsIcon';
+import PostsIcon from './PostsIcon';
+import PortretIcon from './PortretIcon';
 
 export {
   HomeIcon,
@@ -15,5 +17,7 @@ export {
   CommentIcon,
   SharedIcon,
   FavoriteIcon,
-  ToolsIcon
+  ToolsIcon,
+  PostsIcon,
+  PortretIcon
 };

@@ -21,7 +21,6 @@ export const resolvers = {
           isLoggedIn: false
         }
       });
-      window.location.reload();
       return null;
     },
     setLoading: (_, __, { cache }) => {

@@ -16,6 +16,8 @@ export const SEE_USER = gql`
       posts {
         id
         caption
+        likeCount
+        commentCount
         files {
           id
           url

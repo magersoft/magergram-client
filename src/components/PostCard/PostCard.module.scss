@@ -1,6 +1,5 @@
 .Post {
   flex-direction: row;
-  margin-bottom: 28px;
 
   @media (max-width: 735px) {
     margin-bottom: 3px;
@@ -12,7 +11,6 @@
   display: block;
   position: relative;
   width: 100%;
-  margin-right: 28px;
 
   @media (max-width: 735px) {
     margin-right: 3px;
@@ -40,9 +38,50 @@
 }
 
 .Block {
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  background-color: rgba(0,0,0,.3);
+  transition: opacity .2s ease-in-out;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.Icon {
+  color: var(--whiteColor);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: var(--medium-font);
+  font-weight: 600;
+  margin: 0 var(--spacing-s);
+
+  span {
+    margin-left: var(--spacing-xs);
+  }
+}
+
+.IconHeart, .IconComment {
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+}
+
+.IconHeart {
+  background-position: -383px -123px
+}
+
+.IconComment {
+  background-position: -383px -165px;
 }

@@ -138,6 +138,7 @@
 
       > span {
         color: inherit;
+        text-transform: lowercase;
 
         > span {
           font-weight: 600;
@@ -166,6 +167,52 @@
   }
 }
 
+.Navigation {
+  flex-direction: row;
+  font-size: var(--small-font);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 1px;
+  border-top: 1px solid var(--borderColor);
+
+  &Item {
+    color: var(--darkGrayColor);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 52px;
+    margin-right: 60px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: -1px;
+    cursor: not-allowed;
+
+    svg {
+      fill: var(--darkGrayColor);
+    }
+
+    &.active {
+      color: var(--blackColor);
+      border-top: 1px solid var(--blackColor);
+      cursor: pointer;
+
+      svg {
+        fill: var(--blackColor);
+      }
+    }
+  }
+
+  &Icon {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 6px;
+    }
+  }
+}
+
 .Posts {
   flex-grow: 1;
 }
@@ -173,6 +220,7 @@
 .Grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-gap: 28px;
 }
 
 .UploadPhotoForm {

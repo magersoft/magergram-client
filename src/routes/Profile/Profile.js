@@ -8,15 +8,19 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import { FOLLOW, SEE_USER, UNFOLLOW, UPDATE_AVATAR } from './ProfileQuery';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
-import { DELETE_FILE, UPLOAD_FILE } from '../../apollo/GlobalQueries';
+import { DELETE_FILE, LOG_USER_OUT, UPLOAD_FILE } from '../../apollo/GlobalQueries';
 import { MY_PROFILE } from '../../components/Header/HeaderQueries';
 import PostCard from '../../components/PostCard';
+import { FavoriteIcon, PortretIcon, PostsIcon } from '../../components/Icon';
 
 export default ({ history, location }) => {
   const { t } = useTranslation();
   const [profile, setProfile] = useState(null);
   const [itsMe, setItsMe] = useState(false);
   const [dialogChangePhoto, setDialogChangePhoto] = useState({
+    show: false
+  });
+  const [dialogSettings, setDialogSettings] = useState({
     show: false
   });
 
@@ -38,6 +42,7 @@ export default ({ history, location }) => {
   const [updateAvatar, { loading: updateAvatarLoading }] = useMutation(UPDATE_AVATAR);
   const [follow, { loading: followLoading }] = useMutation(FOLLOW);
   const [unFollow, { loading: unFollowLoading }] = useMutation(UNFOLLOW);
+  const [logOut] = useMutation(LOG_USER_OUT);
 
   useEffect(() => {
     if (data) {
@@ -158,6 +163,14 @@ export default ({ history, location }) => {
     })
   };
 
+  const handleSettingsClick = () => {
+    setDialogSettings({ show: true });
+  };
+
+  const handleLogoutClick = () => {
+    logOut();
+  };
+
   return (
     <React.Fragment>
       <div className="container">
@@ -186,7 +199,7 @@ export default ({ history, location }) => {
                         className={style.ProfileEdit}
                         onClick={() => history.push('/edit-profile')}
                       />
-                      <button className={style.ProfileSettingIcon}>
+                      <button className={style.ProfileSettingIcon} onClick={handleSettingsClick}>
                         <SettingIcon width="24" height="24" color="var(--blackColor)" />
                       </button>
                     </React.Fragment>
@@ -209,19 +222,19 @@ export default ({ history, location }) => {
                   <li className={style.ProfileInfoStat}>
                     <span>
                       <span>{ profile.postsCount }</span>
-                      &nbsp;{ t('publications') }
+                      &nbsp;{ t('Publications') }
                     </span>
                   </li>
                   <li className={style.ProfileInfoStat}>
                     <span>
                       <span>{ profile.followersCount }</span>
-                      &nbsp;{ t('followers') }
+                      &nbsp;{ t('Followers') }
                     </span>
                   </li>
                   <li className={style.ProfileInfoStat}>
                     <span>
                       <span>{ profile.followingCount }</span>
-                      &nbsp;{ t('following') }
+                      &nbsp;{ t('Following') }
                     </span>
                   </li>
                 </ul>
@@ -232,17 +245,41 @@ export default ({ history, location }) => {
                 </div>
               </section>
             </header>
-            <div className="stories">
+            <div className="stories" style={{marginBottom: 40}}>
               {/*{ todo: Stories }*/}
             </div>
             <div className={style.Navigation}>
-
+              <div className={style.NavigationItem + ' ' + style.active}>
+                <span className={style.NavigationIcon}>
+                  <PostsIcon width={12} height={12} />
+                  <span>{ t('Publication') }</span>
+                </span>
+              </div>
+              <div className={style.NavigationItem}>
+                <span className={style.NavigationIcon}>
+                  <FavoriteIcon width={12} height={12} />
+                  <span>{ t('Saved') }</span>
+                </span>
+              </div>
+              <div className={style.NavigationItem}>
+                <span className={style.NavigationIcon}>
+                  <PortretIcon width={12} height={12} />
+                  <span>{ t('Mark') }</span>
+                </span>
+              </div>
             </div>
             <article className={style.Posts}>
               <div className={style.Grid}>
                 { profile.posts.map(post => {
-                  const { id, caption, files } = post;
-                  return <PostCard id={id} caption={caption} files={files} key={id} />
+                  const { id, caption, likeCount, commentCount, files } = post;
+                  return <PostCard
+                    id={id}
+                    caption={caption}
+                    files={files}
+                    likeCount={likeCount}
+                    commentCount={commentCount}
+                    key={id}
+                  />
                 }) }
               </div>
             </article>
@@ -274,6 +311,19 @@ export default ({ history, location }) => {
           <form method="POST" encType="multipart/form-data" className={style.UploadPhotoForm}>
             <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" onChange={handleInputFileChange} />
           </form>
+        </Dialog>
+      }
+      {
+        itsMe && dialogSettings.show &&
+        <Dialog>
+          <DialogButton
+            text={t('Logout')}
+            onClick={handleLogoutClick}
+          />
+          <DialogButton
+            text={t('Cancel')}
+            onClick={() => setDialogSettings({ ...dialogSettings, show: false })}
+          />
         </Dialog>
       }
     </React.Fragment>
