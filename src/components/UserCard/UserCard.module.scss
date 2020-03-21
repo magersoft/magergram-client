@@ -4,6 +4,23 @@
   flex-direction: row;
   padding: var(--spacing-xs) var(--spacing-m);
   flex: 0 0 auto;
+
+  &.small {
+    padding-left: 0;
+    padding-right: 0;
+
+    .Avatar a {
+      width: 32px;
+      height: 32px;
+    }
+
+    .UserInfo {
+      span {
+        font-size: var(--small-font);
+        line-height: 14px;
+      }
+    }
+  }
 }
 
 .Avatar {
@@ -34,7 +51,7 @@
 
   a {
     font-weight: 600;
-    color: var(--blackColor);
+    color: var(--blackColor)!important;
   }
 
   span {

@@ -24,7 +24,7 @@ export default () => {
           </ul>
         </nav>
         <span className={style.Info}>{t('This is not a real application. This is a clone for fun')}</span>
-        <span className={style.Info}>© Magergram от Magersoft, { new Date().getFullYear() }</span>
+        <span className={style.Info}>© Magergram {t('from')} Magersoft, { new Date().getFullYear() }</span>
       </div>
     </footer>
   )

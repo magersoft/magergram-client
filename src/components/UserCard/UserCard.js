@@ -8,7 +8,7 @@ import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { useMutation } from '@apollo/react-hooks';
 import { FOLLOW, UNFOLLOW } from '../../routes/Profile/ProfileQuery';
 
-const UserCard = ({ id, avatar, username, fullName, isFollowing }) => {
+const UserCard = ({ id, avatar, username, fullName, isFollowing, small }) => {
   const { t } = useTranslation();
   const [following, setFollowing] = useState(isFollowing);
   const [follow, { loading: followLoading }] = useMutation(FOLLOW);
@@ -43,7 +43,7 @@ const UserCard = ({ id, avatar, username, fullName, isFollowing }) => {
   };
 
   return (
-    <div className={style.Container}>
+    <div className={`${style.Container} ${small && style.small}`}>
       <div className={style.Avatar}>
         <Link to={`/${username}`}>
           <Image src={avatar || NoAvatarImg} alt={`Avatar ${username}`} />
@@ -66,12 +66,14 @@ const UserCard = ({ id, avatar, username, fullName, isFollowing }) => {
             type="secondary"
             disabled={unfollowLoading}
             onClick={handleUnFollowClick}
+            small={small}
           />
           :
           <Button
             label={t('Follow')}
             disabled={followLoading}
             onClick={handleFollowClick}
+            small={small}
           />
         }
       </div>
@@ -84,7 +86,8 @@ UserCard.propTypes = {
   avatar: PropTypes.string,
   fullName: PropTypes.string,
   username: PropTypes.string.isRequired,
-  isFollowing: PropTypes.bool
+  isFollowing: PropTypes.bool,
+  small: PropTypes.bool
 };
 
 export default UserCard;

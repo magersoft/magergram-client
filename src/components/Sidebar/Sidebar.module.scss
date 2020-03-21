@@ -1,3 +1,5 @@
+@import '../../theme/mixins';
+
 .Sidebar {
   position: fixed;
   top: 88px;
@@ -74,4 +76,63 @@
     white-space: nowrap;
     color: var(--darkGrayColor)
   }
+}
+
+.RecommendedBlock {
+  margin: 12px 0;
+  padding: 4px 16px;
+  @include whiteBox();
+
+  h4 {
+    font-weight: 600;
+    color: var(--darkGrayColor)
+  }
+
+  &Wrapper {
+    padding: 8px 0;
+  }
+}
+
+.NoRecommend {
+  color: var(--darkGrayColor);
+  font-weight: 400;
+  font-size: var(--small-font);
+  text-align: center;
+  margin: 16px 0;
+}
+
+.About {
+  font-size: calc(var(--small-font) - 1px);
+  color: var(--greyColor);
+
+  .Nav {
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      li {
+        a {
+          color: var(--greyColor)
+        }
+
+        &:after {
+          content: '\00B7';
+          margin: 0 .25em;
+        }
+
+        &:nth-last-child(1) {
+          &:after {
+            content: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.Copyright {
+  padding: 38px 0;
+  text-transform: uppercase;
 }

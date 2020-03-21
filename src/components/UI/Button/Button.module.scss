@@ -41,6 +41,13 @@
       pointer-events: none;
     }
   }
+
+  &.small {
+    font-size: var(--small-font);
+    background: transparent;
+    border: none;
+    color: var(--blueColor);
+  }
 }
 
 .Text {

@@ -3,6 +3,7 @@
   "Password": "Пароль",
   "Login": "Войти",
   "or": "или",
+  "from": "от",
   "Login with Facebook": "Войти через Facebook",
   "Forgot password": "Забыли пароль",
   "Sign Up": "Зарегистрироваться",
@@ -38,5 +39,6 @@
   "Mark": "Отметки",
   "Dark theme": "Темная тема",
   "Light theme": "Светлая тема",
-  "Recommendation for You": "Рекомендации для вас"
+  "Recommendation for You": "Рекомендации для вас",
+  "No recommendation": "Рекомендации отсутствуют"
 }
