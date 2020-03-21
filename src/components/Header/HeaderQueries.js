@@ -6,6 +6,7 @@ export const MY_PROFILE = gql`
      id
      avatar
      username
+     fullName
    }
  }
 `;

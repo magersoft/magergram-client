@@ -10,6 +10,10 @@
     max-width: 935px;
     flex-flow: row nowrap;
   }
+
+  &.extend {
+    max-width: 600px;
+  }
 }
 
 .Feed {

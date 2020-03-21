@@ -30,6 +30,7 @@
   .AvatarImg {
     width: 32px;
     height: 32px;
+
     &:after {
       content: '';
       background-color: var(--headerColorBorder);
@@ -55,17 +56,7 @@
   .Content {
     height: 614px;
     width: 100%;
-    background: linear-gradient(-90deg, var(--whiteColor) 0%, var(--headerColorBorder) 50%, var(--whiteColor) 100%);
-    background-size: 400% 400%;
-    animation: pulse 1.2s ease-in-out infinite;
-    @keyframes pulse {
-      0% {
-        background-position: 0% 0%;
-      }
-      100% {
-        background-position: -135% 0%;
-      }
-    }
+    @include SkeletonAnimation();
   }
 }
 

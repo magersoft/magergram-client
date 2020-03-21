@@ -1,0 +1,59 @@
+@import '../../theme/mixins';
+
+.Container {
+  flex-direction: row;
+  padding: var(--spacing-xs) var(--spacing-m);
+  flex: 0 0 auto;
+}
+
+.Avatar {
+  margin-right: 12px;
+  flex: 0 0 auto;
+  justify-content: flex-start;
+
+  a {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+}
+
+.UserInfo {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+
+  a {
+    font-weight: 600;
+    color: var(--blackColor);
+  }
+
+  span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 400;
+    line-height: 18px;
+    color: var(--darkGrayColor);
+  }
+}
+
+.Button {
+  align-items: center;
+  justify-content: center;
+}
+
+
+.SkeletonAvatar {
+  margin-right: 12px;
+}

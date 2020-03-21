@@ -1,0 +1,30 @@
+.EmptyPost {
+  justify-content: center;
+  align-items: center;
+  margin: 60px 44px;
+  flex: 0 0 auto;
+}
+
+.Icon {
+  display: inline-flex;
+  width: 62px;
+  height: 62px;
+  border: 2px solid var(--blackColor);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+
+  &Photo {
+    background-position: -153px -272px;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.Text {
+  margin-top: 32px;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 300;
+}
