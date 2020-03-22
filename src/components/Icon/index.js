@@ -8,6 +8,7 @@ import FavoriteIcon from './FavoriteIcon';
 import ToolsIcon from './ToolsIcon';
 import PostsIcon from './PostsIcon';
 import PortretIcon from './PortretIcon';
+import CloseIcon from './CloseIcon';
 
 export {
   HomeIcon,
@@ -19,5 +20,6 @@ export {
   FavoriteIcon,
   ToolsIcon,
   PostsIcon,
-  PortretIcon
+  PortretIcon,
+  CloseIcon
 };

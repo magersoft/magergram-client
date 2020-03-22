@@ -135,6 +135,11 @@
       margin-left: 0;
       font-size: var(--medium-font);
       margin-right: 40px;
+      cursor: pointer;
+
+      &:first-child {
+        cursor: default;
+      }
 
       > span {
         color: inherit;

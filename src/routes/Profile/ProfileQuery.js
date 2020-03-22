@@ -23,6 +23,20 @@ export const SEE_USER = gql`
           url
         }
       }
+      followers {
+        id
+        username
+        avatar
+        fullName
+        isFollowing
+      }
+      following {
+        id
+        username
+        avatar
+        fullName
+        isFollowing
+      }
     }
   }
 `;

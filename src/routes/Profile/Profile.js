@@ -16,17 +16,17 @@ import EmptyPosts from '../../components/EmptyPosts';
 import SkeletonAvatar from '../../components/Skeleton/SkeletonAvatar';
 import SkeletonString from '../../components/Skeleton/SkeletonString';
 import ButtonSkeleton from '../../components/UI/Button/ButtonSkeleton';
+import UserCard from '../../components/UserCard';
 
 export default ({ history, location }) => {
+  const username = location.pathname.replace('/', '');
   const { t } = useTranslation();
   const [profile, setProfile] = useState(null);
   const [itsMe, setItsMe] = useState(false);
-  const [dialogChangePhoto, setDialogChangePhoto] = useState({
-    show: false
-  });
-  const [dialogSettings, setDialogSettings] = useState({
-    show: false
-  });
+  const [dialogChangePhoto, setDialogChangePhoto] = useState(false);
+  const [dialogSettings, setDialogSettings] = useState(false);
+  const [dialogFollowers, setDialogFollowers] = useState(false);
+  const [dialogFollowing, setDialogFollowing] = useState(false);
 
   useEffect(() => {
     const { pathname } = location;
@@ -35,12 +35,15 @@ export default ({ history, location }) => {
     }
   }, [location, history]);
 
+  const fileInputRef = useRef();
+
   const { data, client } = useQuery(SEE_USER, {
     variables: {
-      username: location.pathname.replace('/', '')
+      username
     },
     fetchPolicy: 'network-only'
   });
+
   const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
   const [deleteFile, { loading: deleteFileLoading }] = useMutation(DELETE_FILE);
   const [updateAvatar, { loading: updateAvatarLoading }] = useMutation(UPDATE_AVATAR);
@@ -83,7 +86,7 @@ export default ({ history, location }) => {
             console.log(e);
           }
           setProfile({ ...profile, avatar: editUser.avatar });
-          setDialogChangePhoto({ ...dialogChangePhoto, show: false });
+          setDialogChangePhoto(false);
         }
       }
     })
@@ -91,9 +94,8 @@ export default ({ history, location }) => {
 
   const handleClickAvatar = () => {
     if (!itsMe) return;
-    setDialogChangePhoto({ ...dialogChangePhoto, show: true });
+    setDialogChangePhoto(true);
   };
-  const fileInputRef = useRef();
 
   const handleClickUploadPhotoButton = () => {
     fileInputRef.current.click();
@@ -168,7 +170,7 @@ export default ({ history, location }) => {
   };
 
   const handleSettingsClick = () => {
-    setDialogSettings({ show: true });
+    setDialogSettings(true);
   };
 
   const handleLogoutClick = () => {
@@ -236,7 +238,7 @@ export default ({ history, location }) => {
                   </span> : <SkeletonString height={16} width={100} />
                 }
               </li>
-              <li className={style.ProfileInfoStat}>
+              <li className={style.ProfileInfoStat} onClick={() => setDialogFollowers(true)}>
                 { profile ?
                   <span>
                     <span>{ profile.followersCount }</span>
@@ -244,7 +246,7 @@ export default ({ history, location }) => {
                   </span> : <SkeletonString height={16} width={100} />
                 }
               </li>
-              <li className={style.ProfileInfoStat}>
+              <li className={style.ProfileInfoStat} onClick={() => setDialogFollowing(true)}>
                 { profile ?
                   <span>
                     <span>{ profile.followingCount }</span>
@@ -308,7 +310,8 @@ export default ({ history, location }) => {
         }
       </div>
       { itsMe &&
-        <Dialog show={dialogChangePhoto.show} title={t('Change profile photo')}>
+        <React.Fragment>
+          <Dialog show={dialogChangePhoto} title={t('Change profile photo')}>
           <DialogButton
             text={t('Upload photo')}
             type="info"
@@ -327,28 +330,63 @@ export default ({ history, location }) => {
           }
           <DialogButton
             text={t('Cancel')}
-            onClick={() => setDialogChangePhoto({ ...dialogChangePhoto, show: false })}
+            onClick={() => setDialogChangePhoto(false)}
           />
           <form method="POST" encType="multipart/form-data" className={style.UploadPhotoForm}>
             <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" onChange={handleInputFileChange} />
           </form>
         </Dialog>
+          <Dialog show={dialogSettings}>
+            <DialogButton
+              text={t('Logout')}
+              onClick={handleLogoutClick}
+            />
+            <DialogButton
+              text={t('Dark theme')}
+            />
+            <DialogButton
+              text={t('Cancel')}
+              onClick={() => setDialogSettings(false)}
+            />
+          </Dialog>
+        </React.Fragment>
       }
-      { itsMe &&
-        <Dialog show={dialogSettings.show}>
-          <DialogButton
-            text={t('Logout')}
-            onClick={handleLogoutClick}
+      <Dialog
+        show={dialogFollowers}
+        title={t('Followers_many')}
+        withScrollingData
+        onClose={() => setDialogFollowers(false)}
+      >
+        { profile && profile.followers.map(follower => {
+          const { username, avatar, fullName, isFollowing, id } = follower;
+          return <UserCard
+            username={username}
+            id={id}
+            fullName={fullName}
+            avatar={avatar}
+            isFollowing={isFollowing}
+            key={id}
           />
-          <DialogButton
-            text={t('Dark theme')}
+        }) }
+      </Dialog>
+      <Dialog
+        show={dialogFollowing}
+        title={t('Following')}
+        withScrollingData
+        onClose={() => setDialogFollowing(false)}
+      >
+        { profile && profile.following.map(following => {
+          const { username, avatar, fullName, isFollowing, id } = following;
+          return <UserCard
+            username={username}
+            id={id}
+            fullName={fullName}
+            avatar={avatar}
+            isFollowing={isFollowing}
+            key={id}
           />
-          <DialogButton
-            text={t('Cancel')}
-            onClick={() => setDialogSettings({ ...dialogSettings, show: false })}
-          />
-        </Dialog>
-      }
+        }) }
+      </Dialog>
     </React.Fragment>
   )
 };

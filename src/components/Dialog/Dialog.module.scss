@@ -32,14 +32,35 @@
 }
 
 .Title {
-  margin: 16px 32px;
+  margin: var(--spacing-m) calc(var(--spacing-m) * 2);
   text-align: center;
 
   h3 {
     font-weight: 600;
-    font-size: 18px;
+    font-size: var(--large-font);
     line-height: 54px;
     margin: -4px 0 -6px;
+  }
+
+  &.withScrollingData {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: 0;
+    border-bottom: 1px solid var(--borderColor);
+
+    h3 {
+      font-size: var(--medium-font);
+    }
+
+    .CloseIcon {
+      position: absolute;
+      right: 0;
+      padding: 8px;
+      cursor: pointer;
+    }
   }
 }
 
@@ -81,6 +102,11 @@
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
   }
+}
+
+.FixedSize {
+  max-height: 400px;
+  overflow: auto;
 }
 
 @keyframes IGCoreModalShow {
