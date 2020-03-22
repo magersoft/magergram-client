@@ -307,8 +307,8 @@ export default ({ history, location }) => {
         </article>
         }
       </div>
-      { itsMe && dialogChangePhoto.show &&
-        <Dialog title={t('Change profile photo')}>
+      { itsMe &&
+        <Dialog show={dialogChangePhoto.show} title={t('Change profile photo')}>
           <DialogButton
             text={t('Upload photo')}
             type="info"
@@ -334,9 +334,8 @@ export default ({ history, location }) => {
           </form>
         </Dialog>
       }
-      {
-        itsMe && dialogSettings.show &&
-        <Dialog>
+      { itsMe &&
+        <Dialog show={dialogSettings.show}>
           <DialogButton
             text={t('Logout')}
             onClick={handleLogoutClick}

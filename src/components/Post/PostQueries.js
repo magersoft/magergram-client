@@ -14,6 +14,7 @@ export const ADD_COMMENT = gql`
       user {
         id
         username
+        avatar
       }
       createdAt
     }

@@ -80,7 +80,7 @@
 
 .RecommendedBlock {
   margin: 12px 0;
-  padding: 4px 16px;
+  padding: 12px var(--spacing-m);
   @include whiteBox();
 
   h4 {

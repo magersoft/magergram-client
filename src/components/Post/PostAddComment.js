@@ -31,6 +31,12 @@ const PostAddComment = ({ postId, comments, commentCount, userAnswer, setCountCo
     })
   };
 
+  const handleKeydown = event => {
+    if (event.key === 'Enter') {
+      handleAddComment(event);
+    }
+  };
+
   useEffect(() => {
     setComment(userAnswer);
   }, [userAnswer]);
@@ -47,6 +53,7 @@ const PostAddComment = ({ postId, comments, commentCount, userAnswer, setCountCo
             className={style.Textarea}
             value={comment}
             onChange={event => setComment(event.target.value)}
+            onKeyPress={handleKeydown}
           />
           <button type="submit" disabled={!comment || loadingAddComment} className={style.SubmitComment}>
             { t('Publish') }

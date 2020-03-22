@@ -50,7 +50,7 @@ export default ({ match, history }) => {
     }
   }, [data]);
 
-  const [removeComment] = useMutation(REMOVE_COMMENT);
+  const [removeComment, { loading: removingCommentLoading }] = useMutation(REMOVE_COMMENT);
 
   const handleLike = like => {
     const count = like ? post.likeCount - 1 : post.likeCount + 1;
@@ -141,14 +141,12 @@ export default ({ match, history }) => {
           }
         </div>
       </div>
-      { dialog.show &&
-        <Dialog>
-          { dialog.commentUserId === dialog.userId &&
-            <DialogButton text={t('Delete')} type="danger" onClick={handleDeleteComment} />
-          }
-          <DialogButton text={t('Cancel')} onClick={() => setDialog({ ...dialog, show: false })} />
-        </Dialog>
-      }
+      <Dialog show={dialog.show}>
+        { dialog.commentUserId === dialog.userId &&
+          <DialogButton text={t('Delete')} type="danger" loading={removingCommentLoading} onClick={handleDeleteComment} />
+        }
+        <DialogButton text={t('Cancel')} onClick={() => setDialog({ ...dialog, show: false })} />
+      </Dialog>
     </React.Fragment>
   )
 };
