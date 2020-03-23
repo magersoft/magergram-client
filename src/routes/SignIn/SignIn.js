@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { Button, Input, AppButtons, Separator } from '../../components/UI';
 import { useMutation } from '@apollo/react-hooks';
 import { SIGN_IN } from './SignInQueries';
-import style from './SignIn.module.scss';
 import { LOG_USER_IN } from '../../apollo/GlobalQueries';
 import { isValidPhone } from '../../utils/phoneRegExp';
+import style from './SignIn.module.scss';
+import Logo from '../../assets/logoLogin.png'
+import LogoX2 from '../../assets/logoLogin-x2.png'
 
 export default ({ history }) => {
   const [state, setState] = useState({
@@ -65,7 +67,9 @@ export default ({ history }) => {
         <title>Sign In | Magergram</title>
       </Helmet>
       <div className={style.Box}>
-        <h1 className={`${style.Title} sprite`}>Magergram</h1>
+        <div className={style.Logo}>
+          <img src={Logo} srcSet={LogoX2} alt="Magergram" />
+        </div>
         <div className={style.Controls}>
           <form className={style.Form} method="post" onSubmit={onSubmit}>
             <div className={style.SpacingL} />

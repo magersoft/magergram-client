@@ -81,6 +81,7 @@ const Post = ({
           comments={comments}
           commentCount={countComment}
           setCountComment={setCountComment}
+          className={style.PostAddComment}
         />
       </div>
       <PostTools />

@@ -6,6 +6,14 @@
   margin-left: -1px;
   margin-right: -1px;
   @include whiteBox();
+
+  @media screen and (max-width: 735px) {
+    margin-bottom: 15px;
+  }
+
+  @media screen and (max-width: 450px) {
+    margin-bottom: 0;
+  }
 }
 
 .Header {
@@ -14,6 +22,7 @@
   height: var(--headerHeight);
   padding: var(--spacing-m);
   border-bottom: 1px solid var(--headerColorBorder);
+  background-color: var(--whiteColor);
 }
 
 .Avatar {
@@ -120,6 +129,7 @@
 
 .Additional {
   padding: 0;
+  background-color: var(--whiteColor);
 }
 
 .Actions {
@@ -179,7 +189,7 @@
   margin-bottom: var(--spacing-xs);
   flex-direction: row;
   justify-content: flex-end;
-  height: 18px;
+  height: max-content;
 
   &Row {
     flex-direction: row;
@@ -255,6 +265,7 @@
   padding-left: var(--spacing-m);
   margin-bottom: var(--spacing-xxs);
   display: block;
+  font-size: 10px;
 
   time {
     color: var(--darkGrayColor);
@@ -288,6 +299,7 @@
 .Textarea {
   display: flex;
   color: var(--blackColor);
+  background: transparent;
   flex-grow: 1;
   max-height: 80px;
   height: 18px;
@@ -300,6 +312,7 @@
 .SubmitComment {
   display: inline;
   color: var(--blueColor);
+  background: transparent;
   padding: 0;
   border: 0;
   position: relative;
@@ -324,6 +337,12 @@
   opacity: .3;
   align-items: center;
   justify-content: center;
+}
+
+.PostAddComment {
+  @media screen and (max-width: 735px) {
+    display: none;
+  }
 }
 
 @keyframes like-button-animation {

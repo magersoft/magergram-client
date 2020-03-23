@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NoAvatarImg from '../../../assets/noAvatar.jpg';
 import style from './Image.module.scss';
 
-const STATIC_SERVER = process.env.STATIC_SERVER || 'http://localhost:4000';
+const STATIC_SERVER = process.env.REACT_APP_STATIC_SERVER || 'http://localhost:4000';
 
 const Image = ({ src, alt, className = '' }) => {
   const source = src !== NoAvatarImg ? STATIC_SERVER + src : NoAvatarImg;

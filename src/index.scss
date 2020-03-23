@@ -57,6 +57,10 @@ button {
   margin: 0 auto;
   max-width: 975px;
   margin-bottom: var(--spacing-m);
+
+  @media screen and (max-width: 735px) {
+    padding: 0;
+  }
 }
 
 .sprite {

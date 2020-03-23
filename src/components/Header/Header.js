@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import LogoImg from '../../assets/logo.png';
+import LogoImgX2 from '../../assets/logo-x2.png';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { Image, Search } from '../UI';
 import { HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
@@ -47,7 +48,7 @@ export default () => {
               <Link to="/">
                 <div className={style.LogoContainer}>
                   <div className={style.LogoImg}>
-                    <img src={LogoImg} alt="Magergram" />
+                    <img src={LogoImg} srcSet={LogoImgX2} alt="Magergram" />
                   </div>
                 </div>
               </Link>

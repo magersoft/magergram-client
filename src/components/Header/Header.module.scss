@@ -48,6 +48,8 @@
   &Img {
     margin-top: 7px;
     transition: opacity .1s ease-out;
+    width: 103px;
+    height: 30px;
 
     img {
       min-height: 100%;
@@ -62,6 +64,10 @@
   flex: 0 1 auto;
   min-width: 125px;
   width: 215px;
+
+  @media screen and (max-width: 650px) {
+    display: none;
+  }
 }
 
 .Navigation {

@@ -9,7 +9,7 @@ import { localState, resolvers } from './LocalState';
 import { toast } from 'react-toastify';
 
 const isDev = process.env.NODE_ENV === 'development';
-const API_URL = process.env.API_URL || 'http://localhost:4000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
 const getToken = () => {
   const token = localStorage.getItem('token');
@@ -21,7 +21,7 @@ const getToken = () => {
 };
 
 const httpLink = createUploadLink({
-  uri: isDev ? 'http://localhost:4000' : API_URL
+  uri: API_URL
 });
 
 const cache = new InMemoryCache();

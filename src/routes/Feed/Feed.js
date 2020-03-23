@@ -104,7 +104,6 @@ export default () => {
             {  (!afterQuery || !!feed.length ) && showSidebar && <Sidebar leftFixedPosition={leftFixedPosition} isFeedGetted={feed.length} /> }
           </section>
         }
-      }
     </React.Fragment>
   )
 };

@@ -20,6 +20,10 @@ $additionalWidth: 335px;
   width: $additionalWidth;
   position: absolute;
   right: 0;
+
+  @media screen and (max-width: 830px) {
+    display: none;
+  }
 }
 
 .Content {
@@ -27,6 +31,11 @@ $additionalWidth: 335px;
   margin-right: $additionalWidth;
   min-height: 450px;
   background-color: var(--bgColor);
+
+  @media screen and (max-width: 830px) {
+    margin-right: 0;
+    min-height: 0;
+  }
 }
 
 .Additional {
@@ -35,7 +44,21 @@ $additionalWidth: 335px;
   bottom: 0;
   top: $headerHeight;
   width: $additionalWidth;
-  border-left: 1px solid var(--headerColorBorder)
+  border-left: 1px solid var(--headerColorBorder);
+  background-color: var(--whiteColor);
+
+  @media screen and (max-width: 830px) {
+    position: relative;
+    width: 100%;
+    top: 0;
+    border: 1px solid var(--headerColorBorder);
+  }
+}
+
+.Comments {
+  @media screen and (max-width: 830px) {
+    min-height: 200px;
+  }
 }
 
 .Actions {

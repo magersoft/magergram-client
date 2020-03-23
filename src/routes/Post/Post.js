@@ -115,6 +115,7 @@ export default ({ match, history }) => {
                   comments={post.comments}
                   answerClick={handleAnswerClick}
                   showDialog={handleShowDialog}
+                  className={style.Comments}
                 />
                 <PostButtons
                   postId={post.id}

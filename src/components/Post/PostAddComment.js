@@ -6,7 +6,7 @@ import { ADD_COMMENT } from './PostQueries';
 import { useTranslation } from 'react-i18next';
 import style from './styles/Post.module.scss';
 
-const PostAddComment = ({ postId, comments, commentCount, userAnswer, setCountComment }) => {
+const PostAddComment = ({ postId, comments, commentCount, userAnswer, setCountComment, className }) => {
   const { t } = useTranslation();
   const [comment, setComment] = useState('');
   const [addComment, { loading: loadingAddComment }] = useMutation(ADD_COMMENT);
@@ -42,7 +42,7 @@ const PostAddComment = ({ postId, comments, commentCount, userAnswer, setCountCo
   }, [userAnswer]);
 
   return (
-    <section className={style.AddComment}>
+    <section className={`${style.AddComment} ${className}`}>
       <div>
         <form className={style.CommentForm} method="post" onSubmit={handleAddComment}>
           <textarea
@@ -74,7 +74,8 @@ PostAddComment.propTypes = {
   comments: PropTypes.array.isRequired,
   commentCount: PropTypes.number.isRequired,
   userAnswer: PropTypes.string,
-  setCountComment: PropTypes.func
+  setCountComment: PropTypes.func,
+  className: PropTypes.string
 };
 
 export default PostAddComment;

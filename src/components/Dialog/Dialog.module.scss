@@ -22,7 +22,7 @@
   max-height: calc(100% - 40px);
   overflow: hidden;
 
-  @media (min-width: 736px) {
+  @media (min-width: 735px) {
     width: 400px;
   }
 }
@@ -72,6 +72,7 @@
   border-left: 0;
   border-right: 0;
   border-top: 1px solid var(--borderColor);
+  background: transparent;
   color: inherit;
   cursor: pointer;
   line-height: 1.5;

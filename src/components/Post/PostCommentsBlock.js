@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { PostComment } from './index';
 import { Image } from '../UI';
 
-const PostCommentsBlock = ({ user, caption, comments, answerClick, showDialog }) => {
+const PostCommentsBlock = ({ user, caption, comments, answerClick, showDialog, className }) => {
   return (
-    <div className={style.Comments}>
+    <div className={`${style.Comments} ${className}`}>
       <ul className={style.CommentsList}>
         <div role="button" className={style.CaptionBlock}>
           <li role="menuitem" className={style.Caption}>
@@ -54,7 +54,8 @@ PostCommentsBlock.propTypes = {
   caption: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
   answerClick: PropTypes.func,
-  showDialog: PropTypes.func
+  showDialog: PropTypes.func,
+  className: PropTypes.string
 };
 
 export default PostCommentsBlock;
