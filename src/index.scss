@@ -58,7 +58,7 @@ button {
   max-width: 975px;
   margin-bottom: var(--spacing-m);
 
-  @media screen and (max-width: 735px) {
+  @media (max-width: 735px) {
     padding: 0;
   }
 }

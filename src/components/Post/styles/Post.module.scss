@@ -7,11 +7,11 @@
   margin-right: -1px;
   @include whiteBox();
 
-  @media screen and (max-width: 735px) {
+  @media (max-width: 735px) {
     margin-bottom: 15px;
   }
 
-  @media screen and (max-width: 450px) {
+  @media (max-width: 450px) {
     margin-bottom: 0;
   }
 }
@@ -264,8 +264,6 @@
 .TimeAgo {
   padding-left: var(--spacing-m);
   margin-bottom: var(--spacing-xxs);
-  display: block;
-  font-size: 10px;
 
   time {
     color: var(--darkGrayColor);
@@ -340,7 +338,7 @@
 }
 
 .PostAddComment {
-  @media screen and (max-width: 735px) {
+  @media (max-width: 735px) {
     display: none;
   }
 }

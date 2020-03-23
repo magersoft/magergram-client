@@ -12,6 +12,10 @@
     border-bottom: none;
     margin-bottom: 24px;
     padding-bottom: 0;
+
+    .ProfileBio, .ProfileInfo {
+      display: none;
+    }
   }
 }
 
@@ -94,6 +98,8 @@
 
     @media (max-width: 735px) {
       margin-bottom: 12px;
+      align-items: flex-start;
+      height: 80px;
     }
 
     h1 {
@@ -112,6 +118,13 @@
     margin-left: 20px;
     flex-shrink: 0;
     display: block;
+
+    @media (max-width: 735px) {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      margin-left: 0;
+    }
   }
 
   &SettingIcon {
@@ -124,6 +137,10 @@
     outline: 0;
     cursor: pointer;
     margin-left: 5px;
+
+    @media (max-width: 735px) {
+      margin-top: -8px;
+    }
   }
 
   &Info {
@@ -150,6 +167,22 @@
         }
       }
     }
+
+    &.ProfileInfoMobile {
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid var(--borderColor);
+      padding: 12px 0;
+      margin-bottom: 0;
+
+      .ProfileInfoStat {
+        margin-right: 0;
+      }
+
+      @media (min-width: 736px) {
+        display: none;
+      }
+    }
   }
 
   &Bio {
@@ -168,6 +201,15 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    &.ProfileBioMobile {
+      padding: 0 var(--spacing-m);
+      font-size: var(--base-font);
+
+      @media (min-width: 736px) {
+        display: none;
+      }
     }
   }
 }
@@ -206,6 +248,12 @@
         fill: var(--blackColor);
       }
     }
+
+    @media (max-width: 735px) {
+      font-size: 0;
+      margin: 0 var(--spacing-m);
+      width: 32px;
+    }
   }
 
   &Icon {
@@ -214,6 +262,10 @@
 
     span {
       margin-left: 6px;
+
+      @media (max-width: 735px) {
+        display: none;
+      }
     }
   }
 }
@@ -226,6 +278,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 28px;
+
+  @media (max-width: 735px) {
+    grid-gap: 0;
+  }
 }
 
 .UploadPhotoForm {

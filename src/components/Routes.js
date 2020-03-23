@@ -10,9 +10,11 @@ import Profile from '../routes/Profile/Profile';
 import EditProfile from '../routes/EditProfile/EditProfile';
 import Explore from '../routes/Explore/Explore';
 import SignUp from '../routes/SignUp/SignUp';
+import ScrollToTop from '../utils/ScrollToTop';
 
 const AppRouter = ({ isLoggedIn }) =>
   <BrowserRouter>
+    <ScrollToTop />
     { isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes /> }
   </BrowserRouter>;
 

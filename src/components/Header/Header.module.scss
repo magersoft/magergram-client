@@ -65,7 +65,7 @@
   min-width: 125px;
   width: 215px;
 
-  @media screen and (max-width: 650px) {
+  @media (max-width: 650px) {
     display: none;
   }
 }

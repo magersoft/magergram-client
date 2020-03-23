@@ -135,6 +135,7 @@ export default ({ match, history }) => {
                   postId={post.id}
                   userAnswer={answer}
                   setCountComment={setCountComment}
+                  isSinglePost
                 />
               </div>
               <PostTools />

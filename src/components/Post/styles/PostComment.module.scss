@@ -97,7 +97,7 @@
   background-color: var(--whiteColor);
   opacity: 0;
 
-  @media screen and (max-width: 830px) {
+  @media (max-width: 830px) {
     opacity: 1;
   }
 }

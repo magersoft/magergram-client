@@ -267,9 +267,45 @@ export default ({ history, location }) => {
             </div>
           </section>
         </header>
+        <div className={`${style.ProfileBio} ${style.ProfileBioMobile}`}>
+          { profile ?
+            <React.Fragment>
+              <h2>{ profile.fullName }</h2>
+              { profile.bio && <span>{ profile.bio }</span> }
+              { profile.website && <a href={profile.website} target="_blank" rel="noopener noreferrer">{ profile.website }</a> }
+            </React.Fragment>
+            : <SkeletonString height={16} width={300} />
+          }
+        </div>
         <div className="stories" style={{marginBottom: 40}}>
           {/*{ todo: Stories }*/}
         </div>
+        <ul className={`${style.ProfileInfo} ${style.ProfileInfoMobile}`}>
+          <li className={style.ProfileInfoStat}>
+            { profile ?
+              <span>
+                    <span>{ profile.postsCount }</span>
+                &nbsp;{ t('Publications') }
+                  </span> : <SkeletonString height={16} width={100} />
+            }
+          </li>
+          <li className={style.ProfileInfoStat} onClick={() => setDialogFollowers(true)}>
+            { profile ?
+              <span>
+                    <span>{ profile.followersCount }</span>
+                &nbsp;{ t('Followers') }
+                  </span> : <SkeletonString height={16} width={100} />
+            }
+          </li>
+          <li className={style.ProfileInfoStat} onClick={() => setDialogFollowing(true)}>
+            { profile ?
+              <span>
+                    <span>{ profile.followingCount }</span>
+                &nbsp;{ t('Following') }
+                  </span> : <SkeletonString height={16} width={100} />
+            }
+          </li>
+        </ul>
         <div className={style.Navigation}>
           <div className={style.NavigationItem + ' ' + style.active}>
             <span className={style.NavigationIcon}>

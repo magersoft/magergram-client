@@ -42,6 +42,32 @@ const PostButtons = ({ postId, isLiked, className = '', onLike }) => {
     });
   };
 
+  const handleCommentClick = () => {
+    history.push(`/post/${postId}`);
+    const goToCommentForm = () => {
+      const form = document.getElementById('add-comment');
+      if (form) {
+        const top = form.getBoundingClientRect().top;
+        const textarea = form.querySelector('textarea');
+        window.scrollTo(0, top);
+        if (textarea) {
+          textarea.focus();
+        }
+        return true;
+      }
+      return false;
+    };
+    if (goToCommentForm()) {
+      return true;
+    }
+
+    const interval = setInterval(() => {
+        if (goToCommentForm()) {
+          clearInterval(interval);
+        }
+    }, 500);
+  };
+
   return (
     <section className={`${style.Actions} ${className}`}>
       <span className={`${style.LikeButton} ${ like ? style.LikeButtonAnimationLike : style.LikeButtonAnimationUnLike }`}>
@@ -53,7 +79,7 @@ const PostButtons = ({ postId, isLiked, className = '', onLike }) => {
             </button>
           </span>
       <span className={style.CommentButton}>
-        <button type="button" className={style.ButtonIcon} onClick={() => history.push(`/post/${postId}`)}>
+        <button type="button" className={style.ButtonIcon} onClick={handleCommentClick}>
           <CommentIcon width="24" height="24" color="var(--blackColor)" />
         </button>
       </span>
