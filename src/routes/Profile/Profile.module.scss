@@ -223,6 +223,10 @@
   letter-spacing: 1px;
   border-top: 1px solid var(--borderColor);
 
+  @media (max-width: 735px) {
+    justify-content: space-between;
+  }
+
   &Item {
     color: var(--darkGrayColor);
     flex-direction: row;
@@ -251,8 +255,21 @@
 
     @media (max-width: 735px) {
       font-size: 0;
-      margin: 0 var(--spacing-m);
+      margin: 0 var(--spacing-xl);
       width: 32px;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      &.active {
+        border-top: none;
+
+        svg {
+          fill: var(--blueColor);
+        }
+      }
     }
   }
 

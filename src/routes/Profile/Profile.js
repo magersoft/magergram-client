@@ -33,6 +33,10 @@ export default ({ history, location }) => {
     if (!pathname) {
       history.push('/')
     }
+    setDialogFollowers(false);
+    setDialogFollowing(false);
+    setDialogChangePhoto(false);
+    setDialogSettings(false);
   }, [location, history]);
 
   const fileInputRef = useRef();
