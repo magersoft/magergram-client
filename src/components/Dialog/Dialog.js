@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import style from './Dialog.module.scss';
 import { CloseIcon } from '../Icon';
 
-const Dialog = ({ title, children, show, withScrollingData, onClose }) => {
+const Dialog = ({ title, children, show, withScrollingData, fullScreen, onClose }) => {
 
   useEffect(() => {
     document.body.style.overflow = show ? 'hidden' : null;
@@ -11,7 +11,7 @@ const Dialog = ({ title, children, show, withScrollingData, onClose }) => {
 
   return (
     show ?
-      <div className={style.Overlay} role="presentation">
+      <div className={`${style.Overlay} ${fullScreen ? style.fullScreen : null}`} role="presentation">
         <div className={style.Dialog} role="dialog" aria-haspopup="true">
           <div className={style.Container}>
             { title &&
@@ -36,6 +36,7 @@ Dialog.propTypes = {
   title: PropTypes.string,
   show: PropTypes.bool.isRequired,
   withScrollingData: PropTypes.bool,
+  fullscreen: PropTypes.bool,
   onClose: PropTypes.func
 };
 

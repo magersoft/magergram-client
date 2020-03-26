@@ -1,0 +1,51 @@
+@import '../../theme/mixins';
+
+.AddPost {
+  flex-direction: row;
+
+  @include whiteBox();
+
+  @media (max-width: 735px) {
+    flex-direction: column;
+
+    .ImageBlock {
+      max-width: 100%;
+    }
+  }
+}
+
+.ImageBlock {
+  justify-content: center;
+  align-items: center;
+  background-color: var(--greyColor);
+  height: 50vh;
+  width: 100%;
+  max-width: 450px;
+  cursor: pointer;
+
+  .Image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    object-fit: cover;
+  }
+}
+
+.AdditionalBlock {
+  flex-shrink: 1;
+  width: 100%;
+}
+
+.AddIcon {
+  background-position: -190px -223px;
+  background-repeat: no-repeat;
+  width: 65px;
+  height: 65px;
+}
+
+.UploadPhotoForm {
+  input {
+    display: none!important;
+  }
+}

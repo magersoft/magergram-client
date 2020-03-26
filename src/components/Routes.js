@@ -11,6 +11,8 @@ import EditProfile from '../routes/EditProfile/EditProfile';
 import Explore from '../routes/Explore/Explore';
 import SignUp from '../routes/SignUp/SignUp';
 import ScrollToTop from '../utils/ScrollToTop';
+import AddPost from '../routes/AddPost/AddPost';
+import GenerateFilterPreview from '../routes/Admin/GenerateFilterPreview';
 
 const AppRouter = ({ isLoggedIn }) =>
   <BrowserRouter>
@@ -22,8 +24,10 @@ const LoggedInRoutes = () =>
   <LayoutMain>
     <Switch>
       <Route path="/" exact={true} component={Feed} />
+      <Route path="/add-post" component={AddPost} />
       <Route path="/explore" component={Explore} />
       <Route path="/edit-profile" component={EditProfile} />
+      <Route path="/generate-filter-preview" component={GenerateFilterPreview} />
       <Route path="/post/:postId" component={Post} />
       <Route path="/:username" component={Profile} />
       <Redirect from={'*'} to={'/'} />

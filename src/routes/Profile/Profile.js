@@ -17,6 +17,7 @@ import SkeletonAvatar from '../../components/Skeleton/SkeletonAvatar';
 import SkeletonString from '../../components/Skeleton/SkeletonString';
 import ButtonSkeleton from '../../components/UI/Button/ButtonSkeleton';
 import UserCard from '../../components/UserCard';
+import { ProfileBio, ProfileStats } from '../../components/ProfileModules';
 
 export default ({ history, location }) => {
   const username = location.pathname.replace('/', '');
@@ -41,7 +42,7 @@ export default ({ history, location }) => {
 
   const fileInputRef = useRef();
 
-  const { data, client } = useQuery(SEE_USER, {
+  const { data, client, loading } = useQuery(SEE_USER, {
     variables: {
       username
     },
@@ -143,7 +144,7 @@ export default ({ history, location }) => {
 
   const handleInputFileChange = event => {
     const { validity, files: [file] } = event.target;
-    if (validity.valid) {
+    if (validity.valid && file) {
       singleUpload({
         variables: {
           file
@@ -189,7 +190,7 @@ export default ({ history, location }) => {
             <div className={style.ProfilePhotoContainer}>
               <div className={style.ProfilePhotoBlock}>
                 <button className={style.ProfilePhotoChange} title={t('Change profile photo')} onClick={handleClickAvatar}>
-                  { profile ?
+                  { profile && !loading ?
                     <Image src={profile.avatar || NoAvatarImg} alt={t('Change profile photo')} />
                     :
                     <SkeletonAvatar height={150} width={150} />
@@ -200,8 +201,8 @@ export default ({ history, location }) => {
           </div>
           <section className={style.Profile}>
             <div className={style.ProfileSettings}>
-              { profile ? <h1>{ profile.username }</h1> : <SkeletonString height={25} width={150} /> }
-              { profile ?
+              { profile && !loading ? <h1>{ profile.username }</h1> : <SkeletonString height={25} width={150} /> }
+              { profile && !loading ?
                 <React.Fragment>
                   { itsMe ?
                     <React.Fragment>
@@ -233,83 +234,26 @@ export default ({ history, location }) => {
                 : <ButtonSkeleton width={200} className={style.SkeletonButton} />
               }
             </div>
-            <ul className={style.ProfileInfo}>
-              <li className={style.ProfileInfoStat}>
-                { profile ?
-                  <span>
-                    <span>{ profile.postsCount }</span>
-                    &nbsp;{ t('Publications') }
-                  </span> : <SkeletonString height={16} width={100} />
-                }
-              </li>
-              <li className={style.ProfileInfoStat} onClick={() => setDialogFollowers(true)}>
-                { profile ?
-                  <span>
-                    <span>{ profile.followersCount }</span>
-                    &nbsp;{ t('Followers') }
-                  </span> : <SkeletonString height={16} width={100} />
-                }
-              </li>
-              <li className={style.ProfileInfoStat} onClick={() => setDialogFollowing(true)}>
-                { profile ?
-                  <span>
-                    <span>{ profile.followingCount }</span>
-                    &nbsp;{ t('Following') }
-                  </span> : <SkeletonString height={16} width={100} />
-                }
-              </li>
-            </ul>
-            <div className={style.ProfileBio}>
-              { profile ?
-                <React.Fragment>
-                  <h2>{ profile.fullName }</h2>
-                  { profile.bio && <span>{ profile.bio }</span> }
-                  { profile.website && <a href={profile.website} target="_blank" rel="noopener noreferrer">{ profile.website }</a> }
-                </React.Fragment>
-                : <SkeletonString height={16} width={300} />
-              }
-            </div>
+            <ProfileStats
+              profile={profile}
+              loading={loading}
+              onDialogFollowing={() => setDialogFollowing(true)}
+              onDialogFollowers={() => setDialogFollowers(true)}
+            />
+            <ProfileBio profile={profile} loading={loading} />
           </section>
         </header>
-        <div className={`${style.ProfileBio} ${style.ProfileBioMobile}`}>
-          { profile ?
-            <React.Fragment>
-              <h2>{ profile.fullName }</h2>
-              { profile.bio && <span>{ profile.bio }</span> }
-              { profile.website && <a href={profile.website} target="_blank" rel="noopener noreferrer">{ profile.website }</a> }
-            </React.Fragment>
-            : <SkeletonString height={16} width={300} />
-          }
-        </div>
+        <ProfileBio profile={profile} isMobile loading={loading} />
         <div className="stories" style={{marginBottom: 40}}>
           {/*{ todo: Stories }*/}
         </div>
-        <ul className={`${style.ProfileInfo} ${style.ProfileInfoMobile}`}>
-          <li className={style.ProfileInfoStat}>
-            { profile ?
-              <span>
-                    <span>{ profile.postsCount }</span>
-                &nbsp;{ t('Publications') }
-                  </span> : <SkeletonString height={16} width={100} />
-            }
-          </li>
-          <li className={style.ProfileInfoStat} onClick={() => setDialogFollowers(true)}>
-            { profile ?
-              <span>
-                    <span>{ profile.followersCount }</span>
-                &nbsp;{ t('Followers') }
-                  </span> : <SkeletonString height={16} width={100} />
-            }
-          </li>
-          <li className={style.ProfileInfoStat} onClick={() => setDialogFollowing(true)}>
-            { profile ?
-              <span>
-                    <span>{ profile.followingCount }</span>
-                &nbsp;{ t('Following') }
-                  </span> : <SkeletonString height={16} width={100} />
-            }
-          </li>
-        </ul>
+        <ProfileStats
+          profile={profile}
+          isMobile
+          loading={loading}
+          onDialogFollowing={() => setDialogFollowing(true)}
+          onDialogFollowers={() => setDialogFollowers(true)}
+        />
         <div className={style.Navigation}>
           <div className={style.NavigationItem + ' ' + style.active}>
             <span className={style.NavigationIcon}>
@@ -330,7 +274,7 @@ export default ({ history, location }) => {
             </span>
           </div>
         </div>
-        { profile &&
+        { profile && !loading &&
           <article className={style.Posts}>
           <div className={style.Grid}>
             { profile.posts.map(post => {
@@ -395,6 +339,7 @@ export default ({ history, location }) => {
         show={dialogFollowers}
         title={t('Followers_many')}
         withScrollingData
+        fullScreen
         onClose={() => setDialogFollowers(false)}
       >
         { profile && profile.followers.map(follower => {
@@ -404,6 +349,7 @@ export default ({ history, location }) => {
             id={id}
             fullName={fullName}
             avatar={avatar}
+            itsMe={itsMe}
             isFollowing={isFollowing}
             key={id}
           />
@@ -413,6 +359,7 @@ export default ({ history, location }) => {
         show={dialogFollowing}
         title={t('Following')}
         withScrollingData
+        fullScreen
         onClose={() => setDialogFollowing(false)}
       >
         { profile && profile.following.map(following => {
@@ -422,6 +369,7 @@ export default ({ history, location }) => {
             id={id}
             fullName={fullName}
             avatar={avatar}
+            itsMe={itsMe}
             isFollowing={isFollowing}
             key={id}
           />

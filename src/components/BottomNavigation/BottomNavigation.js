@@ -1,13 +1,16 @@
 import React from 'react';
-import style from './BottomNavigation.module.scss';
+import { Link } from 'react-router-dom';
 import { Button } from '../UI';
+import style from './BottomNavigation.module.scss';
 
 export default () => {
 
   return (
-    <nav className={style.Navigation}>
+    <nav className={`${style.Navigation} bottom-navigation`}>
       <div className={style.Container}>
-        <Button label="Add Post" small />
+        <Link to="/add-post">
+          <Button label="Add Post" small />
+        </Link>
       </div>
     </nav>
   )
