@@ -30,5 +30,14 @@
 .Posts {
   flex-direction: column;
   padding-top: 0;
-  padding-bottom: 100%;
+  padding-bottom: 20%;
+}
+
+.MoreLoading {
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 735px) {
+    margin-top: var(--spacing-xxl);
+  }
 }

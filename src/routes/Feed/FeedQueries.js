@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const FEED_QUERY = gql`
-  query seeFeed {
-    seeFeed {
+  query seeFeed($perPage: Int!, $page: Int!) {
+    seeFeed(perPage: $perPage, page: $page) {
       id
       location
       caption

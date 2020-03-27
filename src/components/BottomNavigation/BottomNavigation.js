@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '../UI';
 import style from './BottomNavigation.module.scss';
 import { useTranslation } from 'react-i18next';
 

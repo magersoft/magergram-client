@@ -7,10 +7,12 @@ import { FEED_QUERY } from './FeedQueries';
 import { Post, PostSkeleton } from '../../components/Post';
 import style from './Feed.module.scss';
 import RecommendForYou from '../../components/RecommendForYou';
-import { MY_PROFILE } from '../../components/Header/HeaderQueries';
+import Spinner from '../../components/Loader/Spinner';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const RESIZE_BREAKPOINT = 1000;
 const RIGHT_POSITION = 28;
+const PER_PAGE_POST = 3;
 
 export default () => {
   const [feed, setFeed] = useState([]);
@@ -18,9 +20,16 @@ export default () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [showContainer, setShowContainer] = useState(true);
   const [leftFixedPosition, setLeftFixedPosition] = useState(null);
+  const [noMoreFeed, setNoMoreFeed] = useState(false);
   const feedRef = useRef();
 
-  const { data, loading } = useQuery(FEED_QUERY, { fetchPolicy: 'network-only' });
+  const { data, loading, fetchMore } = useQuery(FEED_QUERY, {
+    variables: {
+      perPage: 3,
+      page: 0
+    },
+    fetchPolicy: 'network-only'
+  });
 
   useEffect(() => {
     if (data) {
@@ -55,12 +64,46 @@ export default () => {
     return function cleanup() {
       if (feedContainer) {
         window.removeEventListener('resize', handleResizeWindow);
+        window.removeEventListener('scroll', handleScrollWindow);
       }
     }
   }, [leftFixedPosition]);
 
   const handleChangeContainer = () => {
     setShowContainer(false);
+  };
+
+  const handleFetchMore = page => {
+    console.log(page);
+    fetchMore({
+      variables: {
+        perPage: PER_PAGE_POST,
+        page
+      },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          return prevResult;
+        }
+        if (!fetchMoreResult.seeFeed.length) {
+          setNoMoreFeed(true);
+        }
+        return {
+          ...prevResult,
+          seeFeed: [ ...prevResult.seeFeed, ...fetchMoreResult.seeFeed ]
+        };
+      }
+    })
+  };
+
+  const handleScrollWindow = () => {
+    const lastArticle = document.querySelector(`.${style.Posts}`).lastElementChild;
+    if (lastArticle) {
+      if (lastArticle.getBoundingClientRect().top < 200) {
+        console.log('fetch');
+        handleFetchMore();
+        // window.removeEventListener('scroll', handleScrollWindow);
+      }
+    }
   };
 
   return (
@@ -80,27 +123,43 @@ export default () => {
                     <PostSkeleton />
                   </React.Fragment>
                   :
-                  feed.map(post => {
-                    const { id, location, caption, likeCount, isLiked, commentCount, files, user, lastComments, createdAt } = post;
-                    return (
-                      !!files.length &&
-                      <Post
-                        key={id}
-                        postId={id}
-                        user={user}
-                        location={location}
-                        caption={caption}
-                        files={files}
-                        comments={lastComments}
-                        commentCount={commentCount}
-                        likeCount={likeCount}
-                        isLiked={isLiked}
-                        createdAt={createdAt}
-                      />
-                    )
-                  })
+                  <InfiniteScroll
+                    pageStart={0}
+                    loadMore={handleFetchMore}
+                    hasMore={!noMoreFeed}
+                    loader={
+                      <div key={0} className={style.MoreLoading}>
+                        <Spinner width={50} height={50} />
+                      </div>
+                    }
+                  >
+                    { feed.map(post => {
+                      const { id, location, caption, likeCount, isLiked, commentCount, files, user, lastComments, createdAt } = post;
+                      return (
+                        !!files.length &&
+                        <Post
+                          key={id}
+                          postId={id}
+                          user={user}
+                          location={location}
+                          caption={caption}
+                          files={files}
+                          comments={lastComments}
+                          commentCount={commentCount}
+                          likeCount={likeCount}
+                          isLiked={isLiked}
+                          createdAt={createdAt}
+                        />
+                      )
+                    }) }
+                  </InfiniteScroll>
                 }
               </div>
+              { loading &&
+                <div className={style.MoreLoading}>
+                  <Spinner width={50} height={50} />
+                </div>
+              }
             </div>
             {  (!afterQuery || !!feed.length ) && showSidebar && <Sidebar leftFixedPosition={leftFixedPosition} isFeedGetted={feed.length} /> }
           </section>

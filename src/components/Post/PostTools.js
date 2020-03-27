@@ -7,7 +7,6 @@ import Dialog from '../Dialog/Dialog';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/react-hooks';
 import { REMOVE_POST } from './PostQueries';
-import { useLocation } from 'react-router-dom';
 
 const PostTools = ({ postId, itsMe }) => {
   const { t } = useTranslation();
