@@ -64,7 +64,6 @@ export default () => {
     return function cleanup() {
       if (feedContainer) {
         window.removeEventListener('resize', handleResizeWindow);
-        window.removeEventListener('scroll', handleScrollWindow);
       }
     }
   }, [leftFixedPosition]);
@@ -93,17 +92,6 @@ export default () => {
         };
       }
     })
-  };
-
-  const handleScrollWindow = () => {
-    const lastArticle = document.querySelector(`.${style.Posts}`).lastElementChild;
-    if (lastArticle) {
-      if (lastArticle.getBoundingClientRect().top < 200) {
-        console.log('fetch');
-        handleFetchMore();
-        // window.removeEventListener('scroll', handleScrollWindow);
-      }
-    }
   };
 
   return (
