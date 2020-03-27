@@ -72,26 +72,27 @@ export default () => {
     setShowContainer(false);
   };
 
-  const handleFetchMore = page => {
-    console.log(page);
-    fetchMore({
-      variables: {
-        perPage: PER_PAGE_POST,
-        page
-      },
-      updateQuery: (prevResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) {
-          return prevResult;
+  const handleFetchMore = async page => {
+    try {
+      await fetchMore({
+        variables: {
+          perPage: PER_PAGE_POST,
+          page
+        },
+        updateQuery: (prevResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) {
+            return prevResult;
+          }
+          if (!fetchMoreResult.seeFeed.length) {
+            setNoMoreFeed(true);
+          }
+          return {
+            ...prevResult,
+            seeFeed: [ ...prevResult.seeFeed, ...fetchMoreResult.seeFeed ]
+          };
         }
-        if (!fetchMoreResult.seeFeed.length) {
-          setNoMoreFeed(true);
-        }
-        return {
-          ...prevResult,
-          seeFeed: [ ...prevResult.seeFeed, ...fetchMoreResult.seeFeed ]
-        };
-      }
-    })
+      })
+    } catch {}
   };
 
   return (
