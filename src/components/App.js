@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import Router from './Routes';
-import Loader from './Loader';
+import { Loader } from './Loader';
 
 const IS_LOGGED_IN = gql`
   {

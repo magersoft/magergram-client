@@ -1,15 +1,28 @@
 @import '../../theme/mixins';
 
 .AddPost {
-  flex-direction: row;
-
   @include whiteBox();
+  margin-bottom: var(--spacing-xxl);
+}
+
+.Post {
+  flex-direction: row;
+  border-bottom: 1px solid var(--headerColorBorder);
 
   @media (max-width: 735px) {
     flex-direction: column;
+    border: 0;
+    height: 558px;
+
+    &Info {
+      position: absolute;
+      width: 100%;
+      bottom: -95px;
+    }
 
     .ImageBlock {
       max-width: 100%;
+      margin-top: var(--headerHeight);
     }
   }
 }
@@ -30,11 +43,19 @@
     z-index: 1;
     object-fit: cover;
   }
+
+  @media (max-width: 735px) {
+    height: 60%;
+  }
 }
 
 .AdditionalBlock {
   flex-shrink: 1;
   width: 100%;
+
+  @media (max-width: 735px) {
+    position: static;
+  }
 }
 
 .AddIcon {
@@ -42,6 +63,57 @@
   background-repeat: no-repeat;
   width: 65px;
   height: 65px;
+}
+
+.Actions {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--headerHeight);
+  padding: var(--spacing-m);
+  border-bottom: 1px solid var(--headerColorBorder);
+  background-color: var(--whiteColor);
+
+  .ShareButton {
+    font-size: var(--base-font);
+  }
+
+  @media (max-width: 735px) {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+  }
+}
+
+.IconRotate {
+  width: 32px;
+  height: 32px;
+  background-position: 296px -287px;
+  cursor: pointer;
+}
+
+.Caption {
+  display: flex;
+  color: var(--blackColor);
+  background: var(--whiteColor);
+  flex-grow: 1;
+  max-height: 80px;
+  height: 60px;
+  outline: 0;
+  border: 0;
+  padding: var(--spacing-xs) var(--spacing-m);
+  border-bottom: 1px solid var(--headerColorBorder);
+  resize: none;
+}
+
+.Place {
+  margin: 0;
+  border: 0;
+  outline: 0;
+  color: var(--blackColor);
+  padding: var(--spacing-xs) var(--spacing-m);
+  border-bottom: 1px solid var(--headerColorBorder);
 }
 
 .UploadPhotoForm {

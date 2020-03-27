@@ -47,6 +47,12 @@
     background: transparent;
     border: none;
     color: var(--blueColor);
+
+    &:disabled {
+      background: transparent;
+      opacity: .3;
+      pointer-events: none;
+    }
   }
 }
 

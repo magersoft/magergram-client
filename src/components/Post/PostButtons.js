@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { CommentIcon, FavoriteIcon, LikeIcon, SharedIcon, UnlikeIcon } from '../Icon';
@@ -7,7 +7,7 @@ import { TOGGLE_LIKE } from './PostQueries';
 import { FEED_QUERY } from '../../routes/Feed/FeedQueries';
 import style from './styles/Post.module.scss';
 
-const PostButtons = ({ postId, isLiked, className = '', onLike }) => {
+const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref) => {
   const [like, setLiked] = useState(isLiked);
   const [toggleLike] = useMutation(TOGGLE_LIKE);
   const history = useHistory();
@@ -68,6 +68,12 @@ const PostButtons = ({ postId, isLiked, className = '', onLike }) => {
     }, 500);
   };
 
+  useImperativeHandle(ref, () => ({
+    toggleLike() {
+      handleToggleLike();
+    }
+  }));
+
   return (
     <section className={`${style.Actions} ${className}`}>
       <span className={`${style.LikeButton} ${ like ? style.LikeButtonAnimationLike : style.LikeButtonAnimationUnLike }`}>
@@ -93,7 +99,7 @@ const PostButtons = ({ postId, isLiked, className = '', onLike }) => {
       </span>
     </section>
   )
-};
+});
 
 PostButtons.propTypes = {
   postId: PropTypes.string.isRequired,

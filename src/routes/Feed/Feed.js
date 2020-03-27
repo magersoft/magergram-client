@@ -7,6 +7,7 @@ import { FEED_QUERY } from './FeedQueries';
 import { Post, PostSkeleton } from '../../components/Post';
 import style from './Feed.module.scss';
 import RecommendForYou from '../../components/RecommendForYou';
+import { MY_PROFILE } from '../../components/Header/HeaderQueries';
 
 const RESIZE_BREAKPOINT = 1000;
 const RIGHT_POSITION = 28;

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PostAddComment, PostButtons, PostContent, PostHeader, PostLikes, PostTimeAgo, PostTools } from './index';
 import style from './styles/Post.module.scss';
+import { MY_PROFILE } from '../Header/HeaderQueries';
+import { useApolloClient } from '@apollo/react-hooks';
 
 const Post = ({
   postId,
@@ -18,13 +20,24 @@ const Post = ({
   createdAt
 }) => {
   const { t } = useTranslation();
+  const client = useApolloClient();
   const [countComment, setCountComment] = useState(commentCount);
   const [countLike, setCountLike] = useState(likeCount);
+  const [itsMe, setItsMe] = useState(false);
+
+  const postButtonsRef = useRef();
 
   const handleLike = like => {
     const count = like ? countLike - 1 : countLike + 1;
     setCountLike(count);
   };
+
+  useEffect(() => {
+    if (user) {
+      const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
+      setItsMe(user.id === myProfile.id);
+    }
+  }, [user, client]);
 
   return (
     <article className={style.Post}>
@@ -36,9 +49,12 @@ const Post = ({
       <PostContent
         files={files}
         caption={caption}
+        isLiked={isLiked}
+        postButtonsRef={postButtonsRef}
       />
       <div className={style.Additional}>
         <PostButtons
+          ref={postButtonsRef}
           postId={postId}
           isLiked={isLiked}
           onLike={handleLike}
@@ -84,7 +100,10 @@ const Post = ({
           className={style.PostAddComment}
         />
       </div>
-      <PostTools />
+      <PostTools
+        postId={postId}
+        itsMe={itsMe}
+      />
     </article>
   )
 };

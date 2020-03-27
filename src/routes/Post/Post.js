@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   PostAddComment,
   PostButtons,
@@ -16,6 +16,7 @@ import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { useTranslation } from 'react-i18next';
 import { REMOVE_COMMENT } from '../../components/Post/PostQueries';
+import { MY_PROFILE } from '../../components/Header/HeaderQueries';
 
 export default ({ match, history }) => {
   const { t } = useTranslation();
@@ -27,8 +28,11 @@ export default ({ match, history }) => {
     userId: null,
     commentUserId: null
   });
+  const [itsMe, setItsMe] = useState(false);
 
-  const { data } = useQuery(POST, {
+  const postButtonsRef = useRef();
+
+  const { data, client } = useQuery(POST, {
     variables: {
       id: match.params.postId
     },
@@ -49,6 +53,13 @@ export default ({ match, history }) => {
       }
     }
   }, [data]);
+
+  useEffect(() => {
+    if (post) {
+      const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
+      setItsMe(post.user.id === myProfile.id);
+    }
+  }, [post, client]);
 
   const [removeComment, { loading: removingCommentLoading }] = useMutation(REMOVE_COMMENT);
 
@@ -106,6 +117,7 @@ export default ({ match, history }) => {
               <div className={style.Content}>
                 <PostContent
                   files={post.files}
+                  postButtonsRef={postButtonsRef}
                 />
               </div>
               <div className={style.Additional}>
@@ -118,6 +130,7 @@ export default ({ match, history }) => {
                   className={style.Comments}
                 />
                 <PostButtons
+                  ref={postButtonsRef}
                   postId={post.id}
                   isLiked={post.isLiked}
                   className={style.Actions}
@@ -138,7 +151,7 @@ export default ({ match, history }) => {
                   isSinglePost
                 />
               </div>
-              <PostTools />
+              <PostTools postId={post.id} itsMe={itsMe} />
             </article>
           }
         </div>

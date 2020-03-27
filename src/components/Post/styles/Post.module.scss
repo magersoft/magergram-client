@@ -127,6 +127,31 @@
   width: 100%;
 }
 
+.LikeShow {
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.LikeIcon {
+  background-repeat: no-repeat;
+  background-size: 411px 396px;
+  background-position: 0 -100px;
+  width: 90px;
+  height: 80px;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  opacity: 0;
+  transform: scale(0);
+
+  &AnimationLike {
+    animation-name: like-heart-animation;
+  }
+}
+
 .Additional {
   padding: 0;
   background-color: var(--whiteColor);
@@ -178,9 +203,11 @@
   position: absolute;
   justify-content: center;
   height: var(--headerHeight);
+  padding: var(--spacing-xs);
   top: 0;
   bottom: 0;
   right: 4px;
+  cursor: pointer;
 }
 
 .Likes {
@@ -374,5 +401,31 @@
   50% {
     -webkit-transform: scale(.95);
     transform: scale(.95)
+  }
+}
+
+
+@keyframes like-heart-animation {
+  0%,to {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0)
+  }
+
+  15% {
+    opacity: .9;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2)
+  }
+
+  30% {
+    -webkit-transform: scale(.95);
+    transform: scale(.95)
+  }
+
+  45%,80% {
+    opacity: .9;
+    -webkit-transform: scale(1);
+    transform: scale(1)
   }
 }

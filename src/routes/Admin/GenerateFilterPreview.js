@@ -34,7 +34,7 @@ export default ({ history }) => {
         history.push('/');
       }
     }
-  }, [user]);
+  }, [user, history]);
 
   const parseFilters = () => {
     const filters = filtersJson.map(filter => {
@@ -73,10 +73,6 @@ export default ({ history }) => {
     })
   };
 
-  useEffect(() => {
-    parseFilters();
-  }, []);
-
   const [uploadFile] = useMutation(UPLOAD_GENERATED_FILTERS);
 
   const generatePreview = () => {
@@ -107,7 +103,10 @@ export default ({ history }) => {
             )
           }) }
         </div>
-        <Button label="Generate Preview" onClick={generatePreview} />
+        <div className={style.Buttons}>
+          <Button label="Generate Image" onClick={parseFilters} />
+          <Button label="Save Preview" onClick={generatePreview} />
+        </div>
       </div>
     </div>
   )

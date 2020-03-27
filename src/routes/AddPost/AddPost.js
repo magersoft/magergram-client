@@ -2,16 +2,25 @@ import React, { useEffect, useRef, useState } from 'react';
 import style from './AddPost.module.scss';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { UPLOAD_FILE } from '../../apollo/GlobalQueries';
-import { PostHeader, PostSkeleton } from '../../components/Post';
+import { PostSkeleton } from '../../components/Post';
 import { MY_PROFILE } from '../../components/Header/HeaderQueries';
 import ImageFilters from '../../components/ImageFilters';
 import canvasToBlob from '../../utils/canvasToBlob';
+import { useTranslation } from 'react-i18next';
+import { Button } from '../../components/UI';
+import Spinner from '../../components/Loader/Spinner';
+import { ADD_POST } from './AddPostQueries';
 
 const STATIC_SERVER = process.env.REACT_APP_STATIC_SERVER || 'http://localhost:4000';
 
-export default () => {
+export default ({ history }) => {
+  const { t } = useTranslation();
   const [state, setState] = useState({
-    image: null
+    image: null,
+    caption: '',
+    location: '',
+    imageUploaded: false,
+    filter: null
   });
   const [caman, setCaman] = useState(null);
   const [user, setUser] = useState(null);
@@ -26,9 +35,10 @@ export default () => {
     }
   }, [data]);
 
-  const [singleUpload] = useMutation(UPLOAD_FILE);
+  const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
+  const [addPost, { loading: addPostLoading }] = useMutation(ADD_POST);
 
-  const uploadFile = (file) => {
+  const uploadFile = (file, share) => {
     singleUpload({
       variables: {
         file
@@ -36,12 +46,34 @@ export default () => {
       update: (_, result) => {
         const { data: { singleUpload } } = result;
         if (singleUpload) {
-          setState({ ...state, image: singleUpload.path });
-          renderImage(singleUpload.path);
-          initCaman();
+          const file = singleUpload.path;
+          if (share) {
+            addPost({
+              variables: {
+                caption: state.caption,
+                location: state.location,
+                files: [file]
+              },
+              update: (_, result) => {
+                const { data: { addPost } } = result;
+                if (addPost) {
+                  console.log(addPost);
+                  history.push('/');
+                }
+              }
+            })
+          } else {
+            setState({ ...state, imageUploaded: true });
+            renderImage(file);
+            initCaman();
+          }
         }
       }
     })
+  };
+
+  const handleChange = prop => event => {
+    setState({ ...state, [prop]: event.target.value })
   };
 
   const handleClickUploadPhoto = async () => {
@@ -75,21 +107,21 @@ export default () => {
 
   const upload = () => {
     const canvas = document.querySelector('canvas');
-    uploadFile(canvasToBlob(canvas, user.username));
+    uploadFile(canvasToBlob(canvas, user.username), true);
   };
 
   const handleSelectFilter = filter => {
     caman.revert(true);
     caman[filter]();
     caman.render();
+    setState({ ...state, filter });
   };
 
-  const rotate = right => {
-    if (right) {
-      caman.rotate(-90);
-      caman.render();
-    } else {
-      caman.rotate(90);
+  const rotate = () => {
+    caman.rotate(90);
+    caman.render();
+    if (state.filter) {
+      caman[state.filter]();
       caman.render();
     }
   };
@@ -98,23 +130,49 @@ export default () => {
     <div className="container">
       { user ?
         <div className={style.AddPost}>
-          <div ref={uploadedImageRef} className={style.ImageBlock} onClick={handleClickUploadPhoto}>
-            <div className={`${style.AddIcon} sprite`} />
-            <form method="POST" encType="multipart/form-data" className={style.UploadPhotoForm}>
-              <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" onChange={handleInputFileChange} />
-            </form>
+          <div className={style.Post}>
+            <div ref={uploadedImageRef} className={style.ImageBlock} onClick={handleClickUploadPhoto}>
+              { singleUploadLoading ? <Spinner width={60} height={60} /> : <div className={`${style.AddIcon} sprite`} /> }
+              <form method="POST" encType="multipart/form-data" className={style.UploadPhotoForm}>
+                <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" onChange={handleInputFileChange} />
+              </form>
+            </div>
+            <div className={style.AdditionalBlock}>
+              <div className={style.Actions}>
+                <div className={`${style.IconRotate} sprite`} onClick={rotate} />
+                { !addPostLoading ?
+                  <Button
+                    onClick={upload}
+                    label={t('Share')}
+                    className={style.ShareButton}
+                    small
+                    disabled={!state.imageUploaded}
+                  /> : <Spinner fill="var(--blueColor)" />
+                }
+              </div>
+              <div className={style.PostInfo}>
+                <textarea
+                  className={style.Caption}
+                  placeholder={`${t('Add caption')} ...`}
+                  aria-label={`${t('Add caption')} ...`}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  value={state.caption}
+                  onChange={handleChange('caption')}
+                />
+                <input
+                  className={style.Place}
+                  type="text"
+                  placeholder={t('Indicate place')}
+                  value={state.location}
+                  onChange={handleChange('location')}
+                />
+              </div>
+            </div>
           </div>
-          <div className={style.AdditionalBlock}>
-            <PostHeader username={user.username} avatar={user.avatar} />
-          </div>
+          <ImageFilters imageUploaded={state.imageUploaded} onSelectFilter={handleSelectFilter} />
         </div> : <PostSkeleton />
       }
-      <div>
-        <button onClick={upload}>Upload</button>
-        <button onClick={() => rotate()}>Rotate left</button>
-        <button onClick={() => rotate(true)}>Rotate right</button>
-      </div>
-      <ImageFilters onSelectFilter={handleSelectFilter} />
     </div>
   )
 };

@@ -1,2 +1,2 @@
-import Loader from './Loader';
-export default Loader;
+import { LoaderJSX, Loader } from './Loader';
+export { LoaderJSX, Loader };
