@@ -25,7 +25,7 @@ export default () => {
 
   const { data, loading, fetchMore } = useQuery(FEED_QUERY, {
     variables: {
-      perPage: 3,
+      perPage: PER_PAGE_POST,
       page: 0
     },
     fetchPolicy: 'network-only'

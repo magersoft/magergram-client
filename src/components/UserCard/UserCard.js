@@ -43,7 +43,7 @@ const UserCard = ({ id, avatar, username, fullName, isFollowing, itsMe, small })
   };
 
   return (
-    <div className={`${style.Container} ${small && style.small}`}>
+    <div className={`${style.Container} ${small ? style.small : null}`}>
       <div className={style.Avatar}>
         <Link to={`/${username}`}>
           <Image src={avatar || NoAvatarImg} alt={`Avatar ${username}`} />

@@ -13,16 +13,6 @@ export const SEE_USER = gql`
       followersCount
       postsCount
       isFollowing
-      posts {
-        id
-        caption
-        likeCount
-        commentCount
-        files {
-          id
-          url
-        }
-      }
       followers {
         id
         username
@@ -36,6 +26,21 @@ export const SEE_USER = gql`
         avatar
         fullName
         isFollowing
+      }
+    }
+  }
+`;
+
+export const SEE_USER_POSTS = gql`
+  query seeUserPosts($username: String!, $perPage: Int!, $page: Int!) {
+    seeUserPosts(username: $username, perPage: $perPage, page: $page) {
+      id
+      caption
+      likeCount
+      commentCount
+      files {
+        id
+        url
       }
     }
   }

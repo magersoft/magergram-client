@@ -5,7 +5,7 @@ import SkeletonAvatar from '../Skeleton/SkeletonAvatar';
 import style from './UserCard.module.scss'
 
 export default ({ small }) => (
-  <div className={`${style.Skeleton} ${style.Container} ${small && style.small}`}>
+  <div className={`${style.Skeleton} ${style.Container} ${small ? style.small : null}`}>
     <SkeletonAvatar width={44} height={44} className={style.SkeletonAvatar} />
     <div className={style.UserInfo}>
       <SkeletonString width={130} height={14} />

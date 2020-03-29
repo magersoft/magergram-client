@@ -78,11 +78,7 @@ export default ({ leftFixedPosition, isFeedGetted }) => {
           }) }
           { loading &&
           <React.Fragment>
-            <UserCardSkeleton small />
-            <UserCardSkeleton small />
-            <UserCardSkeleton small />
-            <UserCardSkeleton small />
-            <UserCardSkeleton small />
+            { [...Array(6).keys()].map(idx => <UserCardSkeleton small key={idx} />) }
           </React.Fragment>
           }
           { !loading && !users.length && <span className={style.NoRecommend}>{ t('No recommendation') }</span> }

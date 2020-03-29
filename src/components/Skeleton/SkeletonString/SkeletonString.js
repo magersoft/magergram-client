@@ -15,4 +15,8 @@ SkeletonString.propTypes = {
   className: PropTypes.string
 };
 
+SkeletonString.defaultProps = {
+  className: ''
+};
+
 export default SkeletonString;

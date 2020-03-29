@@ -90,6 +90,8 @@
 
   &Wrapper {
     padding: 8px 0;
+    max-height: 380px;
+    overflow-y: auto;
   }
 }
 

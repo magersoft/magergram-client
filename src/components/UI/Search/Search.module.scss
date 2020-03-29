@@ -77,7 +77,43 @@
 }
 
 .Dropdown {
-  display: none;
+  &Arrow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4px;
+    background-color: var(--whiteColor);
+    border: solid 1px var(--borderColor);
+    box-shadow: 0 0 5px 1px rgba(0,0,0,.0975);
+    content: ' ';
+    height: 14px;
+    width: 14px;
+    margin: auto;
+    transform: rotate(45deg);
+  }
+
+  &Block {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    right: -12px;
+    width: 243px;
+    background-color: var(--whiteColor);
+    border-radius: 3px;
+    border: 1px solid var(--borderColor);
+    border-top: 0;
+    margin-left: -121px;
+    box-shadow: 0 0 5px rgba(0,0,0,.0975);
+    z-index: 9;
+  }
+
+  &Container {
+    max-height: 362px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+  }
 }
 
 .Clear {
@@ -89,4 +125,10 @@
   width: 20px;
   height: 20px;
   z-index: 3;
+}
+
+.Loading {
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xs) 0;
 }

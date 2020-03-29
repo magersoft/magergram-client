@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LogoImg from '../../assets/logo.png';
 import LogoImgX2 from '../../assets/logo-x2.png';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
@@ -15,6 +15,7 @@ export default () => {
     username: '',
     avatar: null
   });
+  const { pathname } = useLocation();
 
   const [setGlobalLoading] = useMutation(SET_LOADING);
   const [removeGlobalLoading] = useMutation(REMOVE_LOADING);
@@ -60,17 +61,32 @@ export default () => {
               <div className={style.NavigationContainer}>
                 <div className={style.NavigationIcon}>
                   <Link to="/">
-                    <HomeIcon color="var(--blackColor)" width="22" height="22" />
+                    <HomeIcon
+                      color="var(--blackColor)"
+                      width="22"
+                      height="22"
+                      active={pathname === '/'}
+                    />
                   </Link>
                 </div>
                 <div className={style.NavigationIcon}>
                   <Link to="/explore">
-                    <SearchPeopleIcon color="var(--blackColor)" width="22" height="22" />
+                    <SearchPeopleIcon
+                      color="var(--blackColor)"
+                      width="22"
+                      height="22"
+                      active={pathname === '/explore'}
+                    />
                   </Link>
                 </div>
                 <div className={style.NavigationIcon}>
                   <Link to="/">
-                    <LikeIcon color="var(--blackColor)" width="22" height="22" />
+                    <LikeIcon
+                      color="var(--blackColor)"
+                      width="22"
+                      height="22"
+                      active={pathname === '/likes'}
+                    />
                   </Link>
                 </div>
                 <div className={style.NavigationIcon}>

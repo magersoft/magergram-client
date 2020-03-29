@@ -117,6 +117,7 @@ export default ({ match, history }) => {
               <div className={style.Content}>
                 <PostContent
                   files={post.files}
+                  isLiked={post.isLiked}
                   postButtonsRef={postButtonsRef}
                 />
               </div>

@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import InfiniteScroll from 'react-infinite-scroller';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 import style from './Profile.module.scss';
 import { Button, Image } from '../../components/UI';
 import SettingIcon from '../../components/Icon/SettingIcon';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { FOLLOW, SEE_USER, UNFOLLOW, UPDATE_AVATAR } from './ProfileQuery';
+import { FOLLOW, SEE_USER, SEE_USER_POSTS, UNFOLLOW, UPDATE_AVATAR } from './ProfileQuery';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { DELETE_FILE, LOG_USER_OUT, UPLOAD_FILE } from '../../apollo/GlobalQueries';
@@ -18,11 +19,16 @@ import SkeletonString from '../../components/Skeleton/SkeletonString';
 import ButtonSkeleton from '../../components/UI/Button/ButtonSkeleton';
 import UserCard from '../../components/UserCard';
 import { ProfileBio, ProfileStats } from '../../components/ProfileModules';
+import Spinner from '../../components/Loader/Spinner';
+
+const PER_PAGE_POST = 8;
 
 export default ({ history, location }) => {
   const username = location.pathname.replace('/', '');
   const { t } = useTranslation();
   const [profile, setProfile] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [noMorePosts, setNoMorePosts] = useState(false);
   const [itsMe, setItsMe] = useState(false);
   const [dialogChangePhoto, setDialogChangePhoto] = useState(false);
   const [dialogSettings, setDialogSettings] = useState(false);
@@ -48,14 +54,6 @@ export default ({ history, location }) => {
     },
     fetchPolicy: 'network-only'
   });
-
-  const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
-  const [deleteFile, { loading: deleteFileLoading }] = useMutation(DELETE_FILE);
-  const [updateAvatar, { loading: updateAvatarLoading }] = useMutation(UPDATE_AVATAR);
-  const [follow, { loading: followLoading }] = useMutation(FOLLOW);
-  const [unFollow, { loading: unFollowLoading }] = useMutation(UNFOLLOW);
-  const [logOut] = useMutation(LOG_USER_OUT);
-
   useEffect(() => {
     if (data) {
       const { seeUser } = data;
@@ -65,6 +63,29 @@ export default ({ history, location }) => {
     }
   }, [data]);
 
+  const { data: dataPosts, loading: loadingPosts, fetchMore } = useQuery(SEE_USER_POSTS, {
+    variables: {
+      username,
+      perPage: PER_PAGE_POST,
+      page: 0
+    }
+  });
+  useEffect(() => {
+    if (dataPosts) {
+      const { seeUserPosts } = dataPosts;
+      if (seeUserPosts) {
+        setPosts(seeUserPosts);
+      }
+    }
+  }, [dataPosts]);
+
+  const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
+  const [deleteFile, { loading: deleteFileLoading }] = useMutation(DELETE_FILE);
+  const [updateAvatar, { loading: updateAvatarLoading }] = useMutation(UPDATE_AVATAR);
+  const [follow, { loading: followLoading }] = useMutation(FOLLOW);
+  const [unFollow, { loading: unFollowLoading }] = useMutation(UNFOLLOW);
+  const [logOut] = useMutation(LOG_USER_OUT);
+
   useEffect(() => {
     if (profile) {
       const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
@@ -72,6 +93,28 @@ export default ({ history, location }) => {
     }
   }, [profile, client]);
 
+  const handleFetchMore = async page => {
+    try {
+      await fetchMore({
+        variables: {
+          perPage: PER_PAGE_POST,
+          page
+        },
+        updateQuery: (prevResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) {
+            return prevResult;
+          }
+          if (!fetchMoreResult.seeUserPosts.length) {
+            setNoMorePosts(true);
+          }
+          return {
+            ...prevResult,
+            seeUserPosts: [ ...prevResult.seeUserPosts, ...fetchMoreResult.seeUserPosts ]
+          };
+        }
+      })
+    } catch {}
+  };
 
   const updateAvatarHelper = avatar => {
     updateAvatar({
@@ -193,7 +236,7 @@ export default ({ history, location }) => {
                   { profile && !loading ?
                     <Image src={profile.avatar || NoAvatarImg} alt={t('Change profile photo')} />
                     :
-                    <SkeletonAvatar height={150} width={150} />
+                    <SkeletonAvatar maxHeight={150} maxWidth={150} />
                   }
                 </button>
               </div>
@@ -274,22 +317,39 @@ export default ({ history, location }) => {
             </span>
           </div>
         </div>
-        { profile && !loading &&
+        { posts && !loadingPosts ?
           <article className={style.Posts}>
-          <div className={style.Grid}>
-            { profile.posts.map(post => {
-              const { id, caption, likeCount, commentCount, files } = post;
-              return <PostCard
-                id={id}
-                caption={caption}
-                files={files}
-                likeCount={likeCount}
-                commentCount={commentCount}
-                key={id}
-              />
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={handleFetchMore}
+              hasMore={!noMorePosts}
+              className={style.Grid}
+              loader={
+                <div key={0} className={style.MoreLoading}>
+                  <Spinner width={50} height={50} />
+                </div>
+              }
+            >
+              { posts.map(post => {
+                const { id, caption, likeCount, commentCount, files } = post;
+                return <PostCard
+                  id={id}
+                  caption={caption}
+                  files={files}
+                  likeCount={likeCount}
+                  commentCount={commentCount}
+                  key={id}
+                />
             }) }
+            </InfiniteScroll>
+          { !posts.length && <EmptyPosts /> }
+        </article> :
+        <article className={style.Posts}>
+          <div className={style.Grid}>
+            <div key={0} className={style.MoreLoading}>
+              <Spinner width={50} height={50} />
+            </div>
           </div>
-          { !profile.posts.length && <EmptyPosts /> }
         </article>
         }
       </div>
