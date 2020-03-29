@@ -1,0 +1,27 @@
+.Posts {
+  flex-grow: 1;
+}
+
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 28px;
+  padding-bottom: 100px;
+
+  @media (max-width: 735px) {
+    grid-gap: 0;
+  }
+}
+
+.Title {
+  color: var(--darkGrayColor);
+  font-weight: 600;
+  margin-bottom: var(--spacing-m);
+  text-align: left;
+  line-height: 18px;
+
+  @media (max-width: 735px) {
+    margin-top: var(--spacing-m);
+    padding: 0 var(--spacing-m);
+  }
+}

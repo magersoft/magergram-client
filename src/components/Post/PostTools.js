@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/react-hooks';
 import { REMOVE_POST } from './PostQueries';
 
-const PostTools = ({ postId, itsMe }) => {
+const PostTools = ({ postId, itsMe, className }) => {
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
 
@@ -30,7 +30,7 @@ const PostTools = ({ postId, itsMe }) => {
 
   return (
     <React.Fragment>
-      <div className={style.Tools} onClick={() => setShow(true)}>
+      <div className={`${style.Tools} ${className}`} onClick={() => setShow(true)}>
         <ToolsIcon width={16} height={16} color="var(--blackColor)" />
       </div>
       <Dialog show={show}>
@@ -54,7 +54,12 @@ const PostTools = ({ postId, itsMe }) => {
 
 PostTools.propTypes = {
   postId: PropTypes.string.isRequired,
-  itsMe: PropTypes.bool
+  itsMe: PropTypes.bool,
+  className: PropTypes.string
+};
+
+PostTools.defaultProps = {
+  className: ''
 };
 
 export default PostTools;

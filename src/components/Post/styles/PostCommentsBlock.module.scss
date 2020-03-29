@@ -36,6 +36,19 @@
     flex-direction: row;
     align-items: flex-start;
     width: 100%;
+
+    .MobileTools {
+      display: none;
+    }
+
+    @media (max-width: 830px) {
+      .MobileTools {
+        display: block;
+        right: -15px;
+        top: -8px;
+        height: 100%;
+      }
+    }
   }
 
   &User {

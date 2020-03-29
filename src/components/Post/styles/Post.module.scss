@@ -208,6 +208,10 @@
   bottom: 0;
   right: 4px;
   cursor: pointer;
+
+  @media (max-width: 830px) {
+    display: none;
+  }
 }
 
 .Likes {

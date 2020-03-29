@@ -7,6 +7,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { getMainDefinition } from 'apollo-utilities';
 import { localState, resolvers } from './LocalState';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const isDev = process.env.NODE_ENV === 'development';
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';

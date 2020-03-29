@@ -123,6 +123,8 @@ export default ({ match, history }) => {
               </div>
               <div className={style.Additional}>
                 <PostCommentsBlock
+                  postId={post.id}
+                  itsMe={itsMe}
                   user={post.user}
                   caption={post.caption}
                   comments={post.comments}
