@@ -9,8 +9,7 @@ import { localState, resolvers } from './LocalState';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const isDev = process.env.NODE_ENV === 'development';
-const API_URL = process.env.REACT_APP_API_URL || 'http://192.168.2.171:4000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
 const getToken = () => {
   const token = localStorage.getItem('token');
@@ -43,7 +42,7 @@ const wsLink = new WebSocketLink({
     },
     reconnect: true
   },
-  uri: isDev ? 'ws://192.168.2.171:4000' : process.env.REACT_APP_WS_URL
+  uri: process.env.REACT_APP_WS_URL || 'ws://localhost:4000'
 });
 
 const combinedLinks = split(({ query }) => {

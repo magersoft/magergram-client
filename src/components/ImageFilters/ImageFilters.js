@@ -5,7 +5,7 @@ import { startCase } from 'lodash';
 import style from './ImageFilters.module.scss';
 import '@brainhubeu/react-carousel/lib/style.css';
 
-const STATIC_SERVER = process.env.REACT_APP_STATIC_SERVER || 'http://192.168.2.171:4000';
+const STATIC_SERVER = process.env.REACT_APP_STATIC_SERVER || 'http://localhost:4000';
 
 export default ({ imageUploaded, onSelectFilter }) => {
   const [filters, setFilters] = useState([]);
