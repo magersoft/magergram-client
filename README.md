@@ -1,5 +1,7 @@
 # Magergram - Instagram clone for practice React, GraphQL, Apollo 
 
+[Go to Magergram API repository](https://github.com/magersoft/magergram-api).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
