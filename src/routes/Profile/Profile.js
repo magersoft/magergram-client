@@ -190,7 +190,9 @@ export default ({ history, location }) => {
     if (validity.valid && file) {
       singleUpload({
         variables: {
-          file
+          file,
+          toGoogleStorage: true,
+          optimized: [300, 300]
         },
         update: (_, result) => {
           const { data: { singleUpload } } = result;
@@ -203,10 +205,10 @@ export default ({ history, location }) => {
   };
 
   const handleClickRemovePhotoButton = () => {
-    const filename = profile.avatar.replace('/static/', '');
+    const src = profile.avatar;
     deleteFile({
       variables: {
-        filename
+        src
       },
       update: (_, result) => {
         const { data: { fileDelete } } = result;

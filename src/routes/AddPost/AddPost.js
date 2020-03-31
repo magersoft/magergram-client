@@ -11,8 +11,6 @@ import { Button } from '../../components/UI';
 import Spinner from '../../components/Loader/Spinner';
 import { ADD_POST } from './AddPostQueries';
 
-const STATIC_SERVER = process.env.REACT_APP_STATIC_SERVER || 'http://localhost:4000';
-
 export default ({ history }) => {
   const { t } = useTranslation();
   const [state, setState] = useState({
@@ -41,7 +39,8 @@ export default ({ history }) => {
   const uploadFile = (file, share) => {
     singleUpload({
       variables: {
-        file
+        file,
+        toGoogleStorage: !!share
       },
       update: (_, result) => {
         const { data: { singleUpload } } = result;
@@ -57,7 +56,6 @@ export default ({ history }) => {
               update: (_, result) => {
                 const { data: { addPost } } = result;
                 if (addPost) {
-                  console.log(addPost);
                   history.push('/');
                 }
               }
@@ -93,7 +91,7 @@ export default ({ history }) => {
     if (existImage) existImage.remove();
     const image = new Image();
     image.crossOrigin = 'anonymous';
-    image.src = STATIC_SERVER + src;
+    image.src = src;
     image.classList.add(style.Image);
     image.id = 'image';
     uploadedImageEl.append(image);

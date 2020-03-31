@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const isDev = process.env.NODE_ENV === 'development';
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://192.168.2.171:4000';
 
 const getToken = () => {
   const token = localStorage.getItem('token');

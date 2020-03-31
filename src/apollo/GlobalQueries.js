@@ -25,15 +25,15 @@ export const REMOVE_LOADING = gql`
 `;
 
 export const UPLOAD_FILE = gql`
-  mutation singleUpload($file: Upload!) {
-    singleUpload(file: $file) {
+  mutation singleUpload($file: Upload!, $optimized: [Int], $toGoogleStorage: Boolean) {
+    singleUpload(file: $file, optimized: $optimized, toGoogleStorage: $toGoogleStorage) {
       path
     }
   }
 `;
 
 export const DELETE_FILE = gql`
-  mutation fileDelete($filename: String!) {
-    fileDelete(filename: $filename)
+  mutation fileDelete($src: String!) {
+    fileDelete(src: $src)
   }
 `;
