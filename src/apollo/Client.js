@@ -43,7 +43,7 @@ const wsLink = new WebSocketLink({
     },
     reconnect: true
   },
-  uri: isDev ? 'ws://localhost:4000' : ''
+  uri: isDev ? 'ws://192.168.2.171:4000' : process.env.REACT_APP_WS_URL
 });
 
 const combinedLinks = split(({ query }) => {
