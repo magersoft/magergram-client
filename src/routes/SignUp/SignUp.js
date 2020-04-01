@@ -34,7 +34,7 @@ export default ({ history }) => {
     let phone;
     let email;
     if (state.phoneOrEmail.match(isValidPhone)) {
-      phone = state.phoneOrEmail;
+      phone = state.phoneOrEmail.replace('+', '').replace('8', '7');
       setConfirmText(t('An sms with a secret code has been sent to your phone number'))
     } else {
       email = state.phoneOrEmail;
@@ -67,7 +67,7 @@ export default ({ history }) => {
     let phone;
     let email;
     if (state.phoneOrEmail.match(isValidPhone)) {
-      phone = state.phoneOrEmail;
+      phone = state.phoneOrEmail.replace('+', '').replace('8', '7');
     } else {
       email = state.phoneOrEmail;
     }
