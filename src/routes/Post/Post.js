@@ -213,10 +213,10 @@ export default ({ match, history }) => {
         { morePosts && !loadingMorePosts ?
           <article className={style.Posts}>
             <div className={style.MorePosts}>
-              { post &&
+              { post && morePosts.length ?
               <span>Еще публикации от
-              <Link to={`/${post.user.username}`}>{ post.user.username }</Link>
-            </span>
+                <Link to={`/${post.user.username}`}>{ post.user.username }</Link>
+              </span> : null
               }
             </div>
             <InfiniteScroll
