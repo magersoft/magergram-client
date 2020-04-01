@@ -20,6 +20,7 @@ import ButtonSkeleton from '../../components/UI/Button/ButtonSkeleton';
 import UserCard from '../../components/UserCard';
 import { ProfileBio, ProfileStats } from '../../components/ProfileModules';
 import Spinner from '../../components/Loader/Spinner';
+import SkeletonBlock from '../../components/Skeleton/SkeletonBlock/SkeletonBlock';
 
 const PER_PAGE_POST = 8;
 
@@ -68,7 +69,8 @@ export default ({ history, location }) => {
       username,
       perPage: PER_PAGE_POST,
       page: 0
-    }
+    },
+    fetchPolicy: 'network-only'
   });
   useEffect(() => {
     if (dataPosts) {
@@ -319,34 +321,38 @@ export default ({ history, location }) => {
             </span>
           </div>
         </div>
-        { posts && !loadingPosts &&
           <article className={style.Posts}>
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={handleFetchMore}
-              hasMore={!noMorePosts}
-              className={posts.length ? style.Grid : null}
-              loader={
-                <div key={0} className={style.MoreLoading}>
-                  { posts.length ? <Spinner width={50} height={50} /> : null }
-                </div>
-              }
-            >
-              { posts.map(post => {
-                const { id, caption, likeCount, commentCount, files } = post;
-                return <PostCard
-                  id={id}
-                  caption={caption}
-                  files={files}
-                  likeCount={likeCount}
-                  commentCount={commentCount}
-                  key={id}
-                />
-            }) }
-            </InfiniteScroll>
-          { !posts.length && <EmptyPosts /> }
+            { posts && !loadingPosts ?
+              <InfiniteScroll
+                pageStart={0}
+                loadMore={handleFetchMore}
+                hasMore={!noMorePosts}
+                initialLoad={false}
+                className={posts.length ? style.Grid : null}
+                loader={
+                  <div key={0} className={style.MoreLoading}>
+                    { posts.length ? <Spinner width={50} height={50}/> : null }
+                  </div>
+                }
+              >
+                {posts.map(post => {
+                  const {id, caption, likeCount, commentCount, files} = post;
+                  return <PostCard
+                    id={id}
+                    caption={caption}
+                    files={files}
+                    likeCount={likeCount}
+                    commentCount={commentCount}
+                    key={id}
+                  />
+                })}
+              </InfiniteScroll> :
+              <div className={style.Grid}>
+                { [...Array(9).keys()].map(idx => <SkeletonBlock maxHeight={293} maxWidth={293} key={idx} />) }
+              </div>
+            }
+            { !posts.length && !loadingPosts && <EmptyPosts /> }
           </article>
-        }
       </div>
       { itsMe &&
         <React.Fragment>

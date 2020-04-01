@@ -116,6 +116,7 @@ export default () => {
                     pageStart={0}
                     loadMore={handleFetchMore}
                     hasMore={!noMoreFeed}
+                    initialLoad={false}
                     loader={
                       <div key={0} className={style.MoreLoading}>
                         { feed.length ? <Spinner width={50} height={50} /> : null }

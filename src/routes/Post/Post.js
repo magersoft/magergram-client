@@ -223,6 +223,7 @@ export default ({ match, history }) => {
               pageStart={0}
               loadMore={handleFetchMore}
               hasMore={!noMorePosts}
+              initialLoad={false}
               className={style.Grid}
               loader={
                 <div key={0} className={style.MoreLoading}>
