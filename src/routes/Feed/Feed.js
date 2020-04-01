@@ -118,7 +118,7 @@ export default () => {
                     hasMore={!noMoreFeed}
                     loader={
                       <div key={0} className={style.MoreLoading}>
-                        <Spinner width={50} height={50} />
+                        { feed.length ? <Spinner width={50} height={50} /> : null }
                       </div>
                     }
                   >

@@ -319,16 +319,16 @@ export default ({ history, location }) => {
             </span>
           </div>
         </div>
-        { posts && !loadingPosts ?
+        { posts && !loadingPosts &&
           <article className={style.Posts}>
             <InfiniteScroll
               pageStart={0}
               loadMore={handleFetchMore}
               hasMore={!noMorePosts}
-              className={style.Grid}
+              className={posts.length ? style.Grid : null}
               loader={
                 <div key={0} className={style.MoreLoading}>
-                  <Spinner width={50} height={50} />
+                  { posts.length ? <Spinner width={50} height={50} /> : null }
                 </div>
               }
             >
@@ -345,14 +345,7 @@ export default ({ history, location }) => {
             }) }
             </InfiniteScroll>
           { !posts.length && <EmptyPosts /> }
-        </article> :
-          <article className={style.Posts}>
-          <div className={style.Grid}>
-            <div key={0} className={style.MoreLoading}>
-              <Spinner width={50} height={50} />
-            </div>
-          </div>
-        </article>
+          </article>
         }
       </div>
       { itsMe &&

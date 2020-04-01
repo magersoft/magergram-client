@@ -210,7 +210,7 @@ export default ({ match, history }) => {
             </article>
           }
         </div>
-        { morePosts && !loadingMorePosts ?
+        { morePosts && !loadingMorePosts &&
           <article className={style.Posts}>
             <div className={style.MorePosts}>
               { post && morePosts.length ?
@@ -242,13 +242,6 @@ export default ({ match, history }) => {
                 />
               }) }
             </InfiniteScroll>
-          </article> :
-          <article className={style.Posts}>
-            <div className={style.Grid}>
-              <div key={0} className={style.MoreLoading}>
-                <Spinner width={50} height={50} />
-              </div>
-            </div>
           </article>
         }
       </div>
