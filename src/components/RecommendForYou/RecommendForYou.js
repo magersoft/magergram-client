@@ -5,6 +5,7 @@ import UserCard from '../UserCard';
 import { useQuery } from '@apollo/react-hooks';
 import { RECOMMEND_USERS } from './RecommendForYouQueries';
 import UserCardSkeleton from '../UserCard/UserCardSkeleton';
+import EmptyPosts from '../EmptyPosts';
 
 export default ({ isExistPosts, onLoading }) => {
   const { t } = useTranslation();
@@ -48,6 +49,7 @@ export default ({ isExistPosts, onLoading }) => {
                 <UserCardSkeleton />
               </React.Fragment>
               }
+              { !loading && !users.length && <EmptyPosts /> }
             </div>
           </div>
         </section>

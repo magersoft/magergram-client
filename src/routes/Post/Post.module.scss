@@ -64,3 +64,39 @@ $additionalWidth: 335px;
 .Actions {
   border-top: 1px solid var(--headerColorBorder);
 }
+
+.Posts {
+  flex-grow: 1;
+  padding-top: 6vh;
+}
+
+.Grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 28px;
+  padding-bottom: 100px;
+
+  @media (max-width: 735px) {
+    grid-gap: 0;
+  }
+}
+
+.MoreLoading {
+  position: absolute;
+  bottom: 0;
+  margin: 0 auto;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.MorePosts {
+  font-weight: 600;
+  color: var(--darkGrayColor);
+  margin-bottom: 20px;
+
+  a {
+    margin-left: var(--spacing-xxs);
+    color: var(--blackColor);
+  }
+}

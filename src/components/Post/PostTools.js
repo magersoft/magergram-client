@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation, useHistory } from 'react-router-dom';
 import style from './styles/Post.module.scss';
 import { ToolsIcon } from '../Icon';
 import DialogButton from '../Dialog/DialogButton';
@@ -11,6 +12,8 @@ import { REMOVE_POST } from './PostQueries';
 const PostTools = ({ postId, itsMe, className }) => {
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
+  const { pathname } = useLocation();
+  const history = useHistory();
 
   const [removePost, { loading: removePostLoading }] = useMutation(REMOVE_POST);
 
@@ -22,6 +25,9 @@ const PostTools = ({ postId, itsMe, className }) => {
       update: (_, result) => {
         const { data: { removePost } } = result;
         if (removePost) {
+          if (pathname !== '/') {
+            history.push('/')
+          }
           window.location.reload();
         }
       }

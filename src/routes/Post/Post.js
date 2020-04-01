@@ -10,17 +10,26 @@ import {
   PostCommentsBlock, PostSkeleton
 } from '../../components/Post';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { POST } from './PostQuery';
+import { POST, POSTS_USER_MORE } from './PostQuery';
 import style from './Post.module.scss';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { useTranslation } from 'react-i18next';
 import { REMOVE_COMMENT } from '../../components/Post/PostQueries';
 import { MY_PROFILE } from '../../components/Header/HeaderQueries';
+import InfiniteScroll from 'react-infinite-scroller';
+import Spinner from '../../components/Loader/Spinner';
+import PostCard from '../../components/PostCard';
+import EmptyPosts from '../../components/EmptyPosts';
+import { Link } from 'react-router-dom';
+
+const PER_PAGE_POSTS = 3;
 
 export default ({ match, history }) => {
   const { t } = useTranslation();
   const [post, setPost] = useState(null);
+  const [morePosts, setMorePosts] = useState(null);
+  const [noMorePosts, setNoMorePosts] = useState(false);
   const [answer, setAnswer] = useState('');
   const [dialog, setDialog] = useState({
     show: false,
@@ -62,6 +71,49 @@ export default ({ match, history }) => {
   }, [post, client]);
 
   const [removeComment, { loading: removingCommentLoading }] = useMutation(REMOVE_COMMENT);
+
+  const { data: dataMorePosts, loading: loadingMorePosts, fetchMore } = useQuery(POSTS_USER_MORE, {
+    skip: !post,
+    variables: {
+      id: post ? post.id : null,
+      username: post ? post.user.username : null,
+      perPage: PER_PAGE_POSTS,
+      page: 0
+    }
+  });
+
+  useEffect(() => {
+    if (dataMorePosts) {
+      const { seePostsUserMore } = dataMorePosts;
+      if (seePostsUserMore) {
+        setMorePosts(seePostsUserMore);
+      }
+    }
+  }, [dataMorePosts]);
+
+  const handleFetchMore = async page => {
+    fetchMore({
+      skip: post,
+      variables: {
+        id: post.id,
+        username: post.user.username,
+        perPage: PER_PAGE_POSTS,
+        page
+      },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          return prevResult;
+        }
+        if (!fetchMoreResult.seePostsUserMore.length) {
+          setNoMorePosts(true);
+        }
+        return {
+          ...prevResult,
+          seePostsUserMore: [ ...prevResult.seePostsUserMore, ...fetchMoreResult.seePostsUserMore ]
+        }
+      }
+    })
+  };
 
   const handleLike = like => {
     const count = like ? post.likeCount - 1 : post.likeCount + 1;
@@ -158,6 +210,47 @@ export default ({ match, history }) => {
             </article>
           }
         </div>
+        { morePosts && !loadingMorePosts ?
+          <article className={style.Posts}>
+            <div className={style.MorePosts}>
+              { post &&
+              <span>Еще публикации от
+              <Link to={`/${post.user.username}`}>{ post.user.username }</Link>
+            </span>
+              }
+            </div>
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={handleFetchMore}
+              hasMore={!noMorePosts}
+              className={style.Grid}
+              loader={
+                <div key={0} className={style.MoreLoading}>
+                  <Spinner width={50} height={50} />
+                </div>
+              }
+            >
+              { morePosts.map(post => {
+                const { id, caption, likeCount, commentCount, files } = post;
+                return <PostCard
+                  id={id}
+                  caption={caption}
+                  files={files}
+                  likeCount={likeCount}
+                  commentCount={commentCount}
+                  key={id}
+                />
+              }) }
+            </InfiniteScroll>
+          </article> :
+          <article className={style.Posts}>
+            <div className={style.Grid}>
+              <div key={0} className={style.MoreLoading}>
+                <Spinner width={50} height={50} />
+              </div>
+            </div>
+          </article>
+        }
       </div>
       <Dialog show={dialog.show}>
         { dialog.commentUserId === dialog.userId &&

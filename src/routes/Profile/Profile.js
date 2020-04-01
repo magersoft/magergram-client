@@ -346,7 +346,7 @@ export default ({ history, location }) => {
             </InfiniteScroll>
           { !posts.length && <EmptyPosts /> }
         </article> :
-        <article className={style.Posts}>
+          <article className={style.Posts}>
           <div className={style.Grid}>
             <div key={0} className={style.MoreLoading}>
               <Spinner width={50} height={50} />

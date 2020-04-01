@@ -68,6 +68,14 @@ const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref
     }, 500);
   };
 
+  const handleSharedClick = () => {
+    alert('Coming soon...')
+  };
+
+  const handleFavoriteClick = () => {
+    alert('Coming soon ...')
+  };
+
   useImperativeHandle(ref, () => ({
     toggleLike() {
       handleToggleLike();
@@ -89,11 +97,11 @@ const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref
           <CommentIcon width="24" height="24" color="var(--blackColor)" />
         </button>
       </span>
-      <button type="button" className={style.ButtonIcon}>
+      <button type="button" className={style.ButtonIcon} onClick={handleSharedClick}>
         <SharedIcon width="24" height="24" color="var(--blackColor)" />
       </button>
       <span className={style.FavoriteButton}>
-        <button type="button" className={style.ButtonIcon}>
+        <button type="button" className={style.ButtonIcon} onClick={handleFavoriteClick}>
           <FavoriteIcon width="24" height="24" color="var(--blackColor)" />
         </button>
       </span>
