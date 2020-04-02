@@ -32,3 +32,15 @@ export const REMOVE_POST = gql`
     removePost(id: $id)
   }
 `;
+
+export const SEE_LIKES = gql`
+  query seeLikesPost($postId: String!) {
+    seeLikesPost(postId: $postId) {
+      id
+      username
+      avatar
+      fullName
+      isFollowing
+    }
+  }
+`;

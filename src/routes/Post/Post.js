@@ -20,7 +20,6 @@ import { MY_PROFILE } from '../../components/Header/HeaderQueries';
 import InfiniteScroll from 'react-infinite-scroller';
 import Spinner from '../../components/Loader/Spinner';
 import PostCard from '../../components/PostCard';
-import EmptyPosts from '../../components/EmptyPosts';
 import { Link } from 'react-router-dom';
 
 const PER_PAGE_POSTS = 3;
@@ -192,6 +191,8 @@ export default ({ match, history }) => {
                   onLike={handleLike}
                 />
                 <PostLikes
+                  itsMe={itsMe}
+                  postId={post.id}
                   likeCount={post.likeCount}
                 />
                 <PostTimeAgo

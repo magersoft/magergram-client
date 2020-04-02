@@ -60,6 +60,8 @@ const Post = ({
           onLike={handleLike}
         />
         <PostLikes
+          itsMe={itsMe}
+          postId={postId}
           likeCount={countLike}
         />
         <div className={style.Caption}>
