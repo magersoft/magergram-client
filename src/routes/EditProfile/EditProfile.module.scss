@@ -1,0 +1,182 @@
+@import '../../theme/mixins';
+
+.EditProfile {
+  overflow: hidden;
+  max-width: 935px;
+  width: 100%;
+  flex-direction: row;
+  @include whiteBox();
+}
+
+.Menu {
+  border-right: 1px solid var(--borderColor);
+  flex-basis: 280px;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  li > a {
+    display: block;
+    border-left: 1px solid transparent;
+    color: var(--blackColor);
+    font-size: var(--medium-font);
+    height: 100%;
+    line-height: 20px;
+    padding:
+            var(--spacing-m)
+            var(--spacing-m)
+            var(--spacing-m)
+            var(--spacing-xl);
+    width: calc(100% - 48px);
+
+    &:global(.active) {
+      border-left-color: var(--blackColor);
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 840px) {
+    display: none;
+  }
+}
+
+.Content {
+  flex: 1 1 400px;
+  min-width: 50px;
+
+  @media (max-width: 600px) {
+    flex: 1;
+    padding: 0 var(--spacing-m);
+  }
+}
+
+.ChangeAvatar {
+  flex-direction: row;
+  margin: 32px 0 0;
+  justify-content: flex-start;
+
+  .AvatarWrapper {
+    margin: 2px 32px 0 124px;
+    width: 38px;
+    height: 38px;
+
+    @media (max-width: 600px) {
+      margin-left: 0;
+    }
+  }
+
+  .AvatarChange {
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .Avatar {
+    background-color: var(--whiteColor);
+    border-radius: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.Username {
+  flex: 0 1 auto;
+  margin-right: 20px;
+  overflow-x: hidden;
+
+  h1 {
+    font-size: 20px;
+    line-height: 22px;
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 400;
+  }
+
+  button {
+    text-align: left;
+    color: var(--blueColor);
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  margin: var(--spacing-m) 0;
+  align-items: stretch;
+
+  .Control {
+    margin-bottom: var(--spacing-m);
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .Label {
+    padding-left: 32px;
+    padding-right: 32px;
+    text-align: right;
+    flex: 0 0 194px;
+    font-size: var(--medium-font);
+    font-weight: 600;
+    line-height: 18px;
+    margin-top: 6px;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  .Input {
+    flex-basis: 355px;
+    flex-direction: row;
+    padding-right: 60px;
+    font-size: var(--medium-font);
+    justify-content: flex-start;
+
+    @media (max-width: 600px) {
+      flex-basis: auto;
+      width: 100%;
+      padding-right: 0;
+      justify-content: center;
+    }
+  }
+
+  .Buttons {
+    margin-top: var(--spacing-m);
+    justify-content: space-between;
+  }
+
+  .Submit {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      margin-left: var(--spacing-xs);
+    }
+  }
+}
+
+.UpdatedMessage {
+  text-align: center;
+  color: var(--blueColor);
+}

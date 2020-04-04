@@ -24,6 +24,8 @@
 
     &:disabled {
       background-color: var(--buttonColorDisabled);
+      pointer-events: none;
+      cursor: not-allowed;
     }
   }
 
@@ -39,6 +41,7 @@
     &:disabled {
       opacity: .3;
       pointer-events: none;
+      cursor: not-allowed;
     }
   }
 

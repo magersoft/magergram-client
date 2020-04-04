@@ -1,0 +1,23 @@
+.Toast {
+  position: fixed;
+  left: 0;
+  bottom: -100px;
+  z-index: 12;
+  width: 100%;
+  background-color: var(--blackColor);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: var(--spacing-m);
+  transition: bottom .5s ease-in-out;
+
+  &.show {
+    bottom: 0;
+  }
+}
+
+.Message {
+  color: var(--whiteColor);
+}

@@ -6,10 +6,10 @@ import style from './Profile.module.scss';
 import { Button, Image } from '../../components/UI';
 import SettingIcon from '../../components/Icon/SettingIcon';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { FOLLOW, SEE_USER, SEE_USER_POSTS, UNFOLLOW, UPDATE_AVATAR } from './ProfileQuery';
+import { FOLLOW, SEE_USER, SEE_USER_POSTS, UNFOLLOW } from './ProfileQuery';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
-import { DELETE_FILE, LOG_USER_OUT, UPLOAD_FILE } from '../../apollo/GlobalQueries';
+import { LOG_USER_OUT } from '../../apollo/GlobalQueries';
 import { MY_PROFILE } from '../../components/Header/HeaderQueries';
 import PostCard from '../../components/PostCard';
 import { FavoriteIcon, PortretIcon, PostsIcon } from '../../components/Icon';
@@ -21,6 +21,7 @@ import UserCard from '../../components/UserCard';
 import { ProfileBio, ProfileStats } from '../../components/ProfileModules';
 import Spinner from '../../components/Loader/Spinner';
 import SkeletonBlock from '../../components/Skeleton/SkeletonBlock/SkeletonBlock';
+import UploadAvatar from '../../components/UploadAvatar';
 
 const PER_PAGE_POST = 8;
 
@@ -46,8 +47,6 @@ export default ({ history, location }) => {
     setDialogChangePhoto(false);
     setDialogSettings(false);
   }, [location, history]);
-
-  const fileInputRef = useRef();
 
   const { data, client, loading } = useQuery(SEE_USER, {
     variables: {
@@ -81,9 +80,6 @@ export default ({ history, location }) => {
     }
   }, [dataPosts]);
 
-  const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
-  const [deleteFile, { loading: deleteFileLoading }] = useMutation(DELETE_FILE);
-  const [updateAvatar, { loading: updateAvatarLoading }] = useMutation(UPDATE_AVATAR);
   const [follow, { loading: followLoading }] = useMutation(FOLLOW);
   const [unFollow, { loading: unFollowLoading }] = useMutation(UNFOLLOW);
   const [logOut] = useMutation(LOG_USER_OUT);
@@ -118,37 +114,9 @@ export default ({ history, location }) => {
     } catch {}
   };
 
-  const updateAvatarHelper = avatar => {
-    updateAvatar({
-      variables: {
-        avatar
-      },
-      update: (cache, result) => {
-        const { data: { editUser } } = result;
-        if (editUser) {
-          try {
-            const { myProfile } = cache.readQuery({ query: MY_PROFILE });
-            if (myProfile) {
-              const updated = { ...myProfile, avatar: editUser.avatar };
-              cache.writeQuery({ query: MY_PROFILE, data: { myProfile: updated } });
-            }
-          } catch (e) {
-            console.log(e);
-          }
-          setProfile({ ...profile, avatar: editUser.avatar });
-          setDialogChangePhoto(false);
-        }
-      }
-    })
-  };
-
   const handleClickAvatar = () => {
     if (!itsMe) return;
     setDialogChangePhoto(true);
-  };
-
-  const handleClickUploadPhotoButton = () => {
-    fileInputRef.current.click();
   };
 
   const handleFollowClick = () => {
@@ -182,40 +150,6 @@ export default ({ history, location }) => {
             isFollowing: false,
             followersCount: profile.followersCount - 1
           })
-        }
-      }
-    })
-  };
-
-  const handleInputFileChange = event => {
-    const { validity, files: [file] } = event.target;
-    if (validity.valid && file) {
-      singleUpload({
-        variables: {
-          file,
-          toGoogleStorage: true,
-          optimized: [300, 300]
-        },
-        update: (_, result) => {
-          const { data: { singleUpload } } = result;
-          if (singleUpload) {
-            updateAvatarHelper(singleUpload.path)
-          }
-        }
-      })
-    }
-  };
-
-  const handleClickRemovePhotoButton = () => {
-    const src = profile.avatar;
-    deleteFile({
-      variables: {
-        src
-      },
-      update: (_, result) => {
-        const { data: { fileDelete } } = result;
-        if (fileDelete) {
-          updateAvatarHelper('')
         }
       }
     })
@@ -356,31 +290,12 @@ export default ({ history, location }) => {
       </div>
       { itsMe &&
         <React.Fragment>
-          <Dialog show={dialogChangePhoto} title={t('Change profile photo')}>
-          <DialogButton
-            text={t('Upload photo')}
-            type="info"
-            loading={singleUploadLoading || updateAvatarLoading}
-            disabled={singleUploadLoading || updateAvatarLoading}
-            onClick={handleClickUploadPhotoButton}
+          <UploadAvatar
+            avatar={profile.avatar}
+            dialogShow={dialogChangePhoto}
+            dialogClose={() => setDialogChangePhoto(false)}
+            avatarUpdated={avatar => setProfile({ ...profile, avatar })}
           />
-          { profile.avatar &&
-            <DialogButton
-              text={t('Remove current photo')}
-              type="danger"
-              loading={deleteFileLoading || updateAvatarLoading}
-              disabled={deleteFileLoading || updateAvatarLoading}
-              onClick={handleClickRemovePhotoButton}
-            />
-          }
-          <DialogButton
-            text={t('Cancel')}
-            onClick={() => setDialogChangePhoto(false)}
-          />
-          <form method="POST" encType="multipart/form-data" className={style.UploadPhotoForm}>
-            <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" onChange={handleInputFileChange} />
-          </form>
-        </Dialog>
           <Dialog show={dialogSettings}>
             <DialogButton
               text={t('Logout')}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './Button.module.scss';
 
-const Button = ({ type = 'primary', label, disabled, small, className = '', onClick }) => {
+const Button = ({ type, label, disabled, small, className, onClick }) => {
 
   const classes = [style.Button, className];
   if (type === 'secondary') {
@@ -33,6 +33,11 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   onClick: PropTypes.func
+};
+
+Button.defaultProps = {
+  className: '',
+  type: 'primary'
 };
 
 export default Button;

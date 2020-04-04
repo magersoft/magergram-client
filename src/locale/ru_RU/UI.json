@@ -26,6 +26,9 @@
   "Delete": "Удалить",
   "Change profile photo": "Сменить фото профиля",
   "Edit profile": "Редактировать профиль",
+  "Change password": "Сменить пароль",
+  "Push-notification": "Push-уведомления",
+  "Confidential and security": "Конфиденциальность и безопасность",
   "Upload photo": "Загрузить фото",
   "Remove current photo": "Удалить текущее фото",
   "Publications": "Публикаций",
@@ -50,5 +53,13 @@
   "Go to publication": "Перейти в публикацию",
   "Report on publication": "Пожаловаться на публикацию",
   "Add Post": "Добавить публикацию",
-  "Interesting": "Интересное"
+  "Interesting": "Интересное",
+  "First Name": "Имя",
+  "Last Name": "Фамилия",
+  "Website": "Веб-сайт",
+  "Bio": "О себе",
+  "Send": "Отправить",
+  "Your profile has been updated": "Ваш профиль был обновлен",
+  "Phone": "Телефон",
+  "Disable account": "Заблокировать аккаунт"
 }

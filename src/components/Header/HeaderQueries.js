@@ -7,6 +7,12 @@ export const MY_PROFILE = gql`
      avatar
      username
      fullName
+     firstName
+     lastName
+     email
+     phone
+     website
+     bio
    }
  }
 `;

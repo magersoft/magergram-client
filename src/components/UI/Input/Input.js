@@ -31,7 +31,7 @@ const Input = ({
           maxLength="75"
           name={name}
           required={required}
-          className={style.Input}
+          className={`${style.Input} ${type === 'textarea' ? style.TextArea : null}`}
           onChange={onChange}
           onBlur={onBlur}
           onFocus={onFocus}
