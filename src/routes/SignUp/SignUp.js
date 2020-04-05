@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import style from './SignUp.module.scss';
 import { useTranslation } from 'react-i18next';
+import { gql } from 'apollo-boost';
 import { AppButtons, Button, Input, Separator } from '../../components/UI';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { CONFIRM_SECRET, EXIST_USER, SIGN_UP } from './SignUpQueries';
 import { LOG_USER_IN } from '../../apollo/GlobalQueries';
 import { isValidPhone } from '../../utils/phoneRegExp';
 import Helmet from 'react-helmet';
 import Logo from '../../assets/logoLogin.png';
 import LogoX2 from '../../assets/logoLogin-x2.png';
+import DarkLogoImg from '../../assets/dark-logoLogin.png';
+import DarkLogoImgX2 from '../../assets/dark-logoLogin-x2.png';
+
+const DARK_MODE = gql`
+  {
+    darkMode @client
+  }
+`;
 
 export default ({ history }) => {
   const [state, setState] = useState({
@@ -124,6 +133,8 @@ export default ({ history }) => {
     }
   };
 
+  const { data: { darkMode } } = useQuery(DARK_MODE);
+
   return (
     <div className={style.Content}>
       <Helmet>
@@ -131,7 +142,7 @@ export default ({ history }) => {
       </Helmet>
       <div className={style.Box}>
         <div className={style.Logo}>
-          <img src={Logo} srcSet={LogoX2} alt="Magergram" />
+          <img src={darkMode ? DarkLogoImg : Logo} srcSet={darkMode ? DarkLogoImgX2 : LogoX2} alt="Magergram" />
         </div>
         { !confirm ?
           <form className={style.Form} method="post" onSubmit={onSubmit}>
@@ -213,7 +224,7 @@ export default ({ history }) => {
           </p>
         </div>
       </div>
-      <AppButtons />
+      {/*<AppButtons />*/}
     </div>
   )
 };

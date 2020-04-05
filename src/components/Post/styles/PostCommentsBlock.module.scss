@@ -14,7 +14,7 @@
     padding: 16px 12px;
     position: absolute;
     width: calc(100% - var(--spacing-xs));
-    background-color: var(--whiteColor);
+    background-color: var(--color-light);
   }
 }
 
@@ -68,7 +68,7 @@
     overflow: hidden;
     position: relative;
     border-radius: 50%;
-    background-color: var(--bgColor);
+    background-color: var(--color-bg);
 
     img {
       width: 100%;
@@ -95,7 +95,7 @@
     align-content: stretch;
 
     a {
-      color: var(--blackColor)!important;
+      color: var(--color-main)!important;
       font-weight: 600;
     }
   }

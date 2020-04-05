@@ -21,8 +21,8 @@
   align-items: center;
   height: var(--headerHeight);
   padding: var(--spacing-m);
-  border-bottom: 1px solid var(--headerColorBorder);
-  background-color: var(--whiteColor);
+  border-bottom: 1px solid var(--color-border-02);
+  background-color: var(--color-light);
 }
 
 .Avatar {
@@ -75,7 +75,7 @@
   }
 
   .UsernameLink {
-    color: var(--blackColor);
+    color: var(--color-main);
     display: inline;
     padding: 0;
     position: relative;
@@ -96,7 +96,7 @@
   white-space: nowrap;
 
   .LocationLink {
-    color: var(--blackColor);
+    color: var(--color-main);
     max-width: 100%;
     line-height: 15px;
     font-size: var(--small-font);
@@ -154,7 +154,7 @@
 
 .Additional {
   padding: 0;
-  background-color: var(--whiteColor);
+  background-color: var(--color-light);
 }
 
 .Actions {
@@ -233,7 +233,7 @@
     button {
       display: inline;
       position: relative;
-      color: var(--blackColor);
+      color: var(--color-main);
       border: 0;
       padding: 0;
       background-color: transparent;
@@ -264,7 +264,7 @@
     margin-bottom: var(--spacing-xxs);
 
     a {
-      color: var(--darkGrayColor) !important;
+      color: var(--color-neutral-02) !important;
     }
   }
 }
@@ -282,7 +282,7 @@
     min-width: 0;
 
     a {
-      color: var(--blackColor)!important;
+      color: var(--color-main)!important;
       font-weight: 600;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -298,7 +298,7 @@
   margin-bottom: var(--spacing-xxs);
 
   time {
-    color: var(--darkGrayColor);
+    color: var(--color-neutral-02);
     margin-bottom: 5px;
     text-transform: uppercase;
     font-size: 10px;
@@ -310,11 +310,11 @@
   padding-left: var(--spacing-m);
   padding-right: var(--spacing-m);
   margin-top: var(--spacing-xxs);
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   flex-shrink: 0;
   min-height: 56px;
   justify-content: center;
-  border-top: 1px solid var(--headerColorBorder);
+  border-top: 1px solid var(--color-border-02);
 }
 
 .CommentForm {
@@ -328,7 +328,7 @@
 
 .Textarea {
   display: flex;
-  color: var(--blackColor);
+  color: var(--color-main);
   background: transparent;
   flex-grow: 1;
   max-height: 80px;
@@ -341,7 +341,7 @@
 
 .SubmitComment {
   display: inline;
-  color: var(--blueColor);
+  color: var(--color-accent);
   background: transparent;
   padding: 0;
   border: 0;
@@ -363,7 +363,7 @@
   position: absolute;
   width: 100%;
   height: 56px;
-  background-color: var(--whiteColor);
+  background-color: var(--color-light);
   opacity: .3;
   align-items: center;
   justify-content: center;

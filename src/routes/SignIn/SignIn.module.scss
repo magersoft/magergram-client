@@ -47,7 +47,7 @@
 
 .FacebookButton {
   border: 0;
-  color: var(--blueColor);
+  color: var(--color-accent);
   display: inline;
   padding: 0;
   position: relative;
@@ -81,7 +81,7 @@
 
 .SingUp {
   display: block;
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   font-weight: 300;
   margin: -3px 0 -4px;
 }
@@ -98,7 +98,7 @@
 }
 
 .Error {
-  color: var(--redColor);
+  color: var(--color-danger);
   margin: 10px 40px;
   text-align: center;
 }

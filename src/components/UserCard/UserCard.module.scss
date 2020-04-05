@@ -51,7 +51,7 @@
 
   a {
     font-weight: 600;
-    color: var(--blackColor)!important;
+    color: var(--color-main)!important;
   }
 
   span {
@@ -61,7 +61,7 @@
     white-space: nowrap;
     font-weight: 400;
     line-height: 18px;
-    color: var(--darkGrayColor);
+    color: var(--color-neutral-02);
   }
 }
 

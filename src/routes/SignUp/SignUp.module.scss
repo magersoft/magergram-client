@@ -19,7 +19,7 @@
   line-height: 20px;
   margin: 0 40px 10px;
   font-weight: 600;
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   text-align: center;
 }
 
@@ -45,7 +45,7 @@
 
 .SingUp {
   display: block;
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   font-weight: 300;
   margin: -3px 0 -4px;
 }
@@ -63,7 +63,7 @@
 
 .ConfirmText {
   margin: 10px 60px;
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   text-align: center;
 
   span {
@@ -72,7 +72,7 @@
 }
 
 .Error {
-  color: var(--redColor);
+  color: var(--color-danger);
   margin: 10px 40px;
   text-align: center;
 }

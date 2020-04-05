@@ -3,7 +3,7 @@
 .ImageFilter {
   display: block;
   padding: var(--spacing-m) 0;
-  background: var(--whiteColor);
+  background: var(--color-light);
 
   :global(.BrainhubCarousel) {
     flex-direction: row;
@@ -18,7 +18,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    border-bottom: 1px solid var(--headerColorBorder);
+    border-bottom: 1px solid var(--color-border-02);
   }
 }
 

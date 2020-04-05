@@ -1,6 +1,6 @@
 .Header {
   order: 0;
-  background-color: var(--bgColor);
+  background-color: var(--color-bg);
   padding: 0;
 }
 
@@ -11,8 +11,8 @@
 .Inner {}
 
 .Container {
-  background-color: var(--whiteColor);
-  border-bottom: 1px solid var(--borderColor);
+  background-color: var(--color-light);
+  border-bottom: 1px solid var(--color-border);
   align-items: center;
   height: 54px;
   position: fixed;
@@ -92,7 +92,7 @@
 .UserProfile {
   width: 22px;
   height: 22px;
-  background-color: var(--bgColor);
+  background-color: var(--color-bg);
   border-radius: 50%;
   flex: 0 0 auto;
   overflow: hidden;

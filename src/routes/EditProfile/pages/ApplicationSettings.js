@@ -4,7 +4,7 @@ import style from '../EditProfile.module.scss';
 import { Checkbox, RadioButton } from '../../../components/UI';
 import { useMutation } from '@apollo/react-hooks';
 import { CHANGE_LANGUAGE, TOGGLE_DARK_MODE } from '../EditProfileQueries';
-import { SET_LANGUAGE } from '../../../apollo/GlobalQueries';
+import { SET_LANGUAGE, TOGGLE_DARK_MODE_CLIENT } from '../../../apollo/GlobalQueries';
 import { MY_PROFILE } from '../../../components/Header/HeaderQueries';
 import Spinner from '../../../components/Loader/Spinner';
 
@@ -30,6 +30,7 @@ export default ({ user }) => {
   const [toggleDarkMode, { loading: loadingDarkMode }] = useMutation(TOGGLE_DARK_MODE);
   const [changeLanguage, { loading: loadingChangeLanguage }] = useMutation(CHANGE_LANGUAGE);
   const [setClientLanguage] = useMutation(SET_LANGUAGE);
+  const [toggleDarkModeClient] = useMutation(TOGGLE_DARK_MODE_CLIENT);
 
   const handleToggleDarkMode = event => {
     const { target: { checked } } = event;
@@ -40,7 +41,13 @@ export default ({ user }) => {
       },
       update: (_, result) => {
         const { data: { darkMode } } = result;
-        console.log(darkMode);
+        if (darkMode) {
+          toggleDarkModeClient({
+            variables: {
+              checked
+            }
+          })
+        }
       },
       refetchQueries: [{ query: MY_PROFILE }]
     })
@@ -85,7 +92,7 @@ export default ({ user }) => {
         </div>
         { loadingDarkMode &&
         <div className={style.SectionLoadingSpinner}>
-          <Spinner fill="var(--blueColor)" />
+          <Spinner fill="var(--color-accent)" />
         </div>
         }
       </section>
@@ -101,7 +108,7 @@ export default ({ user }) => {
         </div>
         { loadingChangeLanguage &&
         <div className={style.SectionLoadingSpinner}>
-          <Spinner fill="var(--blueColor)" />
+          <Spinner fill="var(--color-accent)" />
         </div>
         }
       </section>

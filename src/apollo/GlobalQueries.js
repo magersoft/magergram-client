@@ -30,6 +30,12 @@ export const SET_LANGUAGE = gql`
   }
 `;
 
+export const TOGGLE_DARK_MODE_CLIENT = gql`
+  mutation toggleDarkMode($darkMode: Boolean!) {
+    toggleDarkMode(darkMode: $darkMode) @client
+  }
+`;
+
 export const UPLOAD_FILE = gql`
   mutation singleUpload($file: Upload!, $optimized: [Int], $toGoogleStorage: Boolean) {
     singleUpload(file: $file, optimized: $optimized, toGoogleStorage: $toGoogleStorage) {

@@ -4,7 +4,7 @@
   cursor: pointer;
   position: relative;
   font-size: var(--base-font);
-  color: var(--blackColor);
+  color: var(--color-main);
   font-weight: 600;
   line-height: 18px;
   margin: -3px 0 -4px;
@@ -23,8 +23,8 @@
 
 .Input {
   appearance: none;
-  border: 2px solid var(--borderColor);
-  background-color: var(--whiteColor);
+  border: 2px solid var(--color-border);
+  background-color: var(--color-light);
   border-radius: 50%;
   height: 18px;
   width: 18px;
@@ -34,6 +34,6 @@
   transition: .15s all linear;
 
   &:checked {
-    border: 5px solid var(--blueColor);
+    border: 5px solid var(--color-accent);
   }
 }

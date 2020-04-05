@@ -34,7 +34,7 @@
 
 .Dialog {
   width: 400px;
-  background-color: var(--whiteColor);
+  background-color: var(--color-light);
   animation: IGCoreModalShow .1s ease-out;
   border-radius: 12px;
   flex-shrink: 1;
@@ -65,7 +65,7 @@
     align-items: center;
     position: relative;
     margin: 0;
-    border-bottom: 1px solid var(--borderColor);
+    border-bottom: 1px solid var(--color-border);
 
     h3 {
       font-size: var(--medium-font);
@@ -87,7 +87,7 @@
   border-bottom: 0;
   border-left: 0;
   border-right: 0;
-  border-top: 1px solid var(--borderColor);
+  border-top: 1px solid var(--color-border);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -100,12 +100,12 @@
   user-select: none;
 
   &.danger {
-    color: var(--redColor);
+    color: var(--color-danger);
     font-weight: 700;
   }
 
   &.info {
-    color: var(--blueColor);
+    color: var(--color-accent);
     font-weight: 700;
   }
 

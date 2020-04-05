@@ -37,7 +37,7 @@ const PostTools = ({ postId, itsMe, className }) => {
   return (
     <React.Fragment>
       <div className={`${style.Tools} ${className}`} onClick={() => setShow(true)}>
-        <ToolsIcon width={16} height={16} color="var(--blackColor)" />
+        <ToolsIcon width={16} height={16} color="var(--color-main)" />
       </div>
       <Dialog show={show}>
         { itsMe ?

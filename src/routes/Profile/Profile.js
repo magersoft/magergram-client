@@ -194,7 +194,7 @@ export default ({ history, location }) => {
                         onClick={() => history.push('/edit-profile')}
                       />
                       <button className={style.ProfileSettingIcon} onClick={handleSettingsClick}>
-                        <SettingIcon width="24" height="24" color="var(--blackColor)" />
+                        <SettingIcon width="24" height="24" color="var(--color-main)" />
                       </button>
                     </React.Fragment>
                     : profile.isFollowing ?
@@ -302,7 +302,12 @@ export default ({ history, location }) => {
               onClick={handleLogoutClick}
             />
             <DialogButton
-              text={t('Dark theme')}
+              text={t('Change password')}
+              onClick={() => history.push('/edit-profile/password')}
+            />
+            <DialogButton
+              text={t('Application settings')}
+              onClick={() => history.push('/edit-profile/settings')}
             />
             <DialogButton
               text={t('Cancel')}

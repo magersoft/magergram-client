@@ -7,7 +7,7 @@
 
 .Post {
   flex-direction: row;
-  border-bottom: 1px solid var(--headerColorBorder);
+  border-bottom: 1px solid var(--color-border-02);
 
   @media (max-width: 735px) {
     flex-direction: column;
@@ -30,7 +30,7 @@
 .ImageBlock {
   justify-content: center;
   align-items: center;
-  background-color: var(--greyColor);
+  background-color: var(--color-neutral-01);
   height: 50vh;
   width: 100%;
   max-width: 450px;
@@ -71,8 +71,8 @@
   justify-content: space-between;
   height: var(--headerHeight);
   padding: var(--spacing-m);
-  border-bottom: 1px solid var(--headerColorBorder);
-  background-color: var(--whiteColor);
+  border-bottom: 1px solid var(--color-border-02);
+  background-color: var(--color-light);
 
   .ShareButton {
     font-size: var(--base-font);
@@ -95,15 +95,15 @@
 
 .Caption {
   display: flex;
-  color: var(--blackColor);
-  background: var(--whiteColor);
+  color: var(--color-main);
+  background: var(--color-light);
   flex-grow: 1;
   max-height: 80px;
   height: 60px;
   outline: 0;
   border: 0;
   padding: var(--spacing-xs) var(--spacing-m);
-  border-bottom: 1px solid var(--headerColorBorder);
+  border-bottom: 1px solid var(--color-border-02);
   resize: none;
 }
 
@@ -111,9 +111,10 @@
   margin: 0;
   border: 0;
   outline: 0;
-  color: var(--blackColor);
+  background-color: var(--color-light);
+  color: var(--color-main);
   padding: var(--spacing-xs) var(--spacing-m);
-  border-bottom: 1px solid var(--headerColorBorder);
+  border-bottom: 1px solid var(--color-border-02);
 }
 
 .UploadPhotoForm {

@@ -2,10 +2,14 @@
 
 .Main {
   padding: 32px 48px;
+
+  @media (max-width: 730px) {
+    padding: 64px var(--spacing-m);
+  }
 }
 
 .Section {
-  border-bottom: 1px solid var(--borderColor);
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: 22px;
   padding-bottom: 22px;
 }
@@ -24,11 +28,11 @@
   font-weight: 400;
   line-height: 27px;
   margin-bottom: 26px;
-  color: var(--blackColor);
+  color: var(--color-main);
 }
 
 .Menu {
-  border-right: 1px solid var(--borderColor);
+  border-right: 1px solid var(--color-border);
   flex-basis: 280px;
   flex-grow: 0;
   flex-shrink: 0;
@@ -36,7 +40,7 @@
   li > a {
     display: block;
     border-left: 1px solid transparent;
-    color: var(--blackColor);
+    color: var(--color-main);
     font-size: var(--medium-font);
     height: 100%;
     line-height: 20px;
@@ -48,7 +52,7 @@
     width: calc(100% - 48px);
 
     &:global(.active) {
-      border-left-color: var(--blackColor);
+      border-left-color: var(--color-main);
       font-weight: 600;
     }
   }
@@ -63,7 +67,7 @@
   @media (max-width: 840px) {
     position: fixed;
     left: -500px;
-    background-color: var(--whiteColor);
+    background-color: var(--color-light);
     z-index: 10;
     height: 100%;
     transition: left .3s ease-in-out;
@@ -88,7 +92,7 @@
   z-index: 1;
 
   .MenuLabel {
-    color: var(--blackColor);
+    color: var(--color-main);
     font-weight: 400;
     margin-top: -4px;
     font-size: var(--medium-font);
@@ -104,7 +108,7 @@
       display: block;
       width: 18px;
       height: 2px;
-      background-color: var(--blackColor);
+      background-color: var(--color-main);
       margin-bottom: 3px;
       border-radius: 3px;
     }
@@ -176,7 +180,7 @@
   }
 
   .Avatar {
-    background-color: var(--whiteColor);
+    background-color: var(--color-light);
     border-radius: 50%;
     margin: 0 auto;
     overflow: hidden;
@@ -203,7 +207,7 @@
 
   button {
     text-align: left;
-    color: var(--blueColor);
+    color: var(--color-accent);
     background-color: transparent;
     border: 0;
     outline: 0;
@@ -283,7 +287,7 @@
 
   .Error {
     text-align: center;
-    color: var(--redColor);
+    color: var(--color-danger);
   }
 
   &.FormPassword {
@@ -295,12 +299,12 @@
 
 .UpdatedMessage {
   text-align: center;
-  color: var(--blueColor);
+  color: var(--color-accent);
 }
 
 .HelperText {
   margin-top: var(--spacing-xs);
-  color: var(--tertiaryTextColor);
+  color: var(--color-neutral-03);
   font-size: var(--base-font);
   font-weight: 400;
   line-height: 20px;

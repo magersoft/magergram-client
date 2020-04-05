@@ -51,7 +51,7 @@ export default () => {
       <div className={style.EditProfile}>
         <ul className={`${style.Menu} ${isOpenMenu ? style.open : ''}`}>
           <div className={style.CloseIcon} onClick={handleCloseMenu}>
-            <CloseIcon width={25} height={25} />
+            <CloseIcon width={25} height={25} color="var(--color-main)" />
           </div>
           { menu.map(item => <li key={item.link}><NavLink exact to={item.link} onClick={handleCloseMenu}>{ item.name }</NavLink></li>) }
         </ul>

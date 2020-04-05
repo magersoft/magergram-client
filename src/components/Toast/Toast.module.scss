@@ -4,7 +4,7 @@
   bottom: -100px;
   z-index: 12;
   width: 100%;
-  background-color: var(--blackColor);
+  background-color: var(--color-main);
   height: 44px;
   display: flex;
   align-items: center;
@@ -19,5 +19,5 @@
 }
 
 .Message {
-  color: var(--whiteColor);
+  color: var(--color-light);
 }

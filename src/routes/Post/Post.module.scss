@@ -10,7 +10,7 @@ $additionalWidth: 335px;
 }
 
 .Article {
-  background: var(--whiteColor);
+  background: var(--color-light);
   width: 100%;
   @include whiteBox();
 }
@@ -30,7 +30,7 @@ $additionalWidth: 335px;
   justify-content: center;
   margin-right: $additionalWidth;
   min-height: 450px;
-  background-color: var(--bgColor);
+  background-color: var(--color-bg);
 
   @media (max-width: 830px) {
     margin-right: 0;
@@ -44,14 +44,14 @@ $additionalWidth: 335px;
   bottom: 0;
   top: $headerHeight;
   width: $additionalWidth;
-  border-left: 1px solid var(--headerColorBorder);
-  background-color: var(--whiteColor);
+  border-left: 1px solid var(--color-border-02);
+  background-color: var(--color-light);
 
   @media (max-width: 830px) {
     position: relative;
     width: 100%;
     top: 0;
-    border: 1px solid var(--headerColorBorder);
+    border: 1px solid var(--color-border-02);
   }
 }
 
@@ -62,7 +62,7 @@ $additionalWidth: 335px;
 }
 
 .Actions {
-  border-top: 1px solid var(--headerColorBorder);
+  border-top: 1px solid var(--color-border-02);
 }
 
 .Posts {
@@ -92,11 +92,11 @@ $additionalWidth: 335px;
 
 .MorePosts {
   font-weight: 600;
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   margin-bottom: 20px;
 
   a {
     margin-left: var(--spacing-xxs);
-    color: var(--blackColor);
+    color: var(--color-main);
   }
 }

@@ -6,14 +6,14 @@
 .Separator {
   flex-grow: 1;
   flex-shrink: 1;
-  background-color: var(--borderColor);
+  background-color: var(--color-border);
   height: 1px;
   position: relative;
   top: .45rem;
 }
 
 .Or {
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   flex-grow: 0;
   flex-shrink: 0;
   font-size: 13px;

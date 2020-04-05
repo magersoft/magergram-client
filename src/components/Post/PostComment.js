@@ -58,7 +58,7 @@ const PostComment = ({ id, user, text, createdAt, answerClick, showDialog }) => 
           </div>
           <div className={style.Actions}>
             <button className={style.MoreButton} onClick={() => handleShowDialog(id)}>
-              <ToolsIcon width="16" height="16" color="var(--darkGrayColor)" />
+              <ToolsIcon width="16" height="16" color="var(--color-neutral-02)" />
             </button>
           </div>
         </li>

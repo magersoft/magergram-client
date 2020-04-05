@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Spinner = ({ width = 40, height = 40, fill = '#000' }) => (
+const Spinner = ({ width = 40, height = 40, fill = 'var(--color-main)' }) => (
   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
        width={width} height={height} viewBox="0 0 40 40" enableBackground="new 0 0 40 40">
   <path opacity="0.2" fill={fill} d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946

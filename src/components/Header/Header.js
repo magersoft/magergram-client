@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { gql } from 'apollo-boost';
 import LogoImg from '../../assets/logo.png';
 import LogoImgX2 from '../../assets/logo-x2.png';
+import DarkLogoImg from '../../assets/dark-logo.png'
+import DarkLogoImgX2 from '../../assets/dark-logo-x2.png'
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { Image, Search } from '../UI';
 import { HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { MY_PROFILE } from './HeaderQueries';
+import { REMOVE_LOADING, SET_LANGUAGE, SET_LOADING, TOGGLE_DARK_MODE_CLIENT } from '../../apollo/GlobalQueries';
 import style from './Header.module.scss';
-import { REMOVE_LOADING, SET_LOADING } from '../../apollo/GlobalQueries';
+
+const DARK_MODE = gql`
+  {
+    darkMode @client
+  }
+`;
 
 export default () => {
   const [state, setState] = useState({
@@ -19,14 +28,20 @@ export default () => {
 
   const [setGlobalLoading] = useMutation(SET_LOADING);
   const [removeGlobalLoading] = useMutation(REMOVE_LOADING);
+  const [setDarkMode] = useMutation(TOGGLE_DARK_MODE_CLIENT);
+  const [setLanguage] = useMutation(SET_LANGUAGE);
 
   const { loading, data } = useQuery(MY_PROFILE);
 
   useEffect(() => {
     if (data) {
       const { myProfile } = data;
-      const { username, avatar } = myProfile;
-      setState({ username, avatar })
+      if (myProfile) {
+        const { username, avatar, darkMode, language } = myProfile;
+        setState({ username, avatar });
+        setDarkMode({ variables: { darkMode } });
+        setLanguage({ variables: { lang: language } });
+      }
     }
   }, [data]);
 
@@ -39,6 +54,8 @@ export default () => {
     }
   }, [loading, data, setGlobalLoading, removeGlobalLoading]);
 
+  const { data: { darkMode } } = useQuery(DARK_MODE);
+
   return (
     <nav className={style.Header}>
       <div className={style.Wrapper} />
@@ -49,7 +66,7 @@ export default () => {
               <Link to="/">
                 <div className={style.LogoContainer}>
                   <div className={style.LogoImg}>
-                    <img src={LogoImg} srcSet={LogoImgX2} alt="Magergram" />
+                    <img src={darkMode ? DarkLogoImg : LogoImg} srcSet={darkMode ? DarkLogoImgX2 : LogoImgX2} alt="Magergram" />
                   </div>
                 </div>
               </Link>
@@ -62,7 +79,7 @@ export default () => {
                 <div className={style.NavigationIcon}>
                   <Link to="/">
                     <HomeIcon
-                      color="var(--blackColor)"
+                      color="var(--color-main)"
                       width="22"
                       height="22"
                       active={pathname === '/'}
@@ -72,7 +89,7 @@ export default () => {
                 <div className={style.NavigationIcon}>
                   <Link to="/explore">
                     <SearchPeopleIcon
-                      color="var(--blackColor)"
+                      color="var(--color-main)"
                       width="22"
                       height="22"
                       active={pathname === '/explore'}
@@ -82,7 +99,7 @@ export default () => {
                 <div className={style.NavigationIcon}>
                   <Link to="/">
                     <LikeIcon
-                      color="var(--blackColor)"
+                      color="var(--color-main)"
                       width="22"
                       height="22"
                       active={pathname === '/likes'}

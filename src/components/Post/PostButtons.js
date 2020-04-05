@@ -87,22 +87,22 @@ const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref
       <span className={`${style.LikeButton} ${ like ? style.LikeButtonAnimationLike : style.LikeButtonAnimationUnLike }`}>
             <button type="button" className={style.ButtonIcon} onClick={handleToggleLike}>
               { like ?
-                <UnlikeIcon width="24" height="24" color="var(--redColor)" /> :
-                <LikeIcon width="24" height="24" color="var(--blackColor)" />
+                <UnlikeIcon width="24" height="24" color="var(--color-danger)" /> :
+                <LikeIcon width="24" height="24" color="var(--color-main)" />
               }
             </button>
           </span>
       <span className={style.CommentButton}>
         <button type="button" className={style.ButtonIcon} onClick={handleCommentClick}>
-          <CommentIcon width="24" height="24" color="var(--blackColor)" />
+          <CommentIcon width="24" height="24" color="var(--color-main)" />
         </button>
       </span>
       <button type="button" className={style.ButtonIcon} onClick={handleSharedClick}>
-        <SharedIcon width="24" height="24" color="var(--blackColor)" />
+        <SharedIcon width="24" height="24" color="var(--color-main)" />
       </button>
       <span className={style.FavoriteButton}>
         <button type="button" className={style.ButtonIcon} onClick={handleFavoriteClick}>
-          <FavoriteIcon width="24" height="24" color="var(--blackColor)" />
+          <FavoriteIcon width="24" height="24" color="var(--color-main)" />
         </button>
       </span>
     </section>

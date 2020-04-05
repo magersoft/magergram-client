@@ -1,7 +1,8 @@
 export const localState = {
   isLoggedIn: Boolean(localStorage.getItem('token')),
   loading: false,
-  lang: 'ru'
+  lang: 'ru',
+  darkMode: eval(localStorage.getItem('darkMode'))
 };
 
 export const resolvers = {
@@ -43,6 +44,14 @@ export const resolvers = {
       cache.writeData({
         data: {
           lang
+        }
+      })
+    },
+    toggleDarkMode: (_, { darkMode }, { cache }) => {
+      localStorage.setItem('darkMode', darkMode);
+      cache.writeData({
+        data: {
+          darkMode
         }
       })
     }

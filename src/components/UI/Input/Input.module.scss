@@ -6,10 +6,10 @@
   align-items: center;
   width: 100%;
   height: 38px;
-  background: var(--bgColor);
-  border: 1px solid var(--borderColor);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: 3px;
-  color: var(--blackColor);
+  color: var(--color-main);
   position: relative;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .Placeholder {
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   font-size: var(--small-font);
   height: var(--inputHeight);
   line-height: var(--inputHeight);
@@ -52,7 +52,7 @@
 }
 
 .Input {
-  background: var(--bgColor);
+  background: var(--color-bg);
   font-size: var(--medium-font);
   border: 0;
   flex: 1 0 auto;

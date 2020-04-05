@@ -35,7 +35,7 @@
     overflow: hidden;
     position: relative;
     border-radius: 50%;
-    background-color: var(--bgColor);
+    background-color: var(--color-bg);
 
     img {
       width: 100%;
@@ -52,7 +52,7 @@
   align-content: stretch;
 
   a {
-    color: var(--blackColor)!important;
+    color: var(--color-main)!important;
     font-weight: 600;
   }
 }
@@ -68,12 +68,12 @@
 .AnswerBlock {
   flex-direction: row;
   align-items: center;
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   font-size: var(--small-font);
 }
 
 .AnswerButton {
-  color: var(--darkGrayColor);
+  color: var(--color-neutral-02);
   border: 0;
   cursor: pointer;
   display: inline;
@@ -94,7 +94,7 @@
   right: 0;
   top: 16px;
   z-index: 1;
-  background-color: var(--whiteColor);
+  background-color: var(--color-light);
   opacity: 0;
 
   @media (max-width: 830px) {
@@ -110,5 +110,5 @@
   cursor: pointer;
   justify-content: center;
   align-items: center;
-  background-color: var(--whiteColor);
+  background-color: var(--color-light);
 }

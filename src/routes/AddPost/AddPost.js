@@ -145,7 +145,7 @@ export default ({ history }) => {
                     className={style.ShareButton}
                     small
                     disabled={!state.imageUploaded}
-                  /> : <Spinner fill="var(--blueColor)" />
+                  /> : <Spinner fill="var(--color-accent)" />
                 }
               </div>
               <div className={style.PostInfo}>

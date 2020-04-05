@@ -13,7 +13,7 @@
     align-items: center;
     height: var(--headerHeight);
     padding: var(--spacing-m);
-    border-bottom: 1px solid var(--headerColorBorder);
+    border-bottom: 1px solid var(--color-border-02);
   }
 
   .Avatar {
@@ -33,7 +33,7 @@
 
     &:after {
       content: '';
-      background-color: var(--headerColorBorder);
+      background-color: var(--color-border-02);
       position: absolute;
       top: 0;
       bottom: 0;
