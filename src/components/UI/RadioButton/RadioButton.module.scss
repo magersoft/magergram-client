@@ -1,0 +1,39 @@
+.Label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  font-size: var(--base-font);
+  color: var(--blackColor);
+  font-weight: 600;
+  line-height: 18px;
+  margin: -3px 0 -4px;
+  margin-top: var(--spacing-xxs);
+}
+
+.Control {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: center;
+}
+
+.Input {
+  appearance: none;
+  border: 2px solid var(--borderColor);
+  background-color: var(--whiteColor);
+  border-radius: 50%;
+  height: 18px;
+  width: 18px;
+  min-width: 18px;
+  margin-right: var(--spacing-xs);
+  outline: 0;
+  transition: .15s all linear;
+
+  &:checked {
+    border: 5px solid var(--blueColor);
+  }
+}
