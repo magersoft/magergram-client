@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from './SignUp.module.scss';
 import { useTranslation } from 'react-i18next';
 import { gql } from 'apollo-boost';
-import { AppButtons, Button, Input, Separator } from '../../components/UI';
+import { Button, Input, Separator } from '../../components/UI';
 import { Link } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { CONFIRM_SECRET, EXIST_USER, SIGN_UP } from './SignUpQueries';

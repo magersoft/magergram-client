@@ -47,9 +47,7 @@ const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref
     const goToCommentForm = () => {
       const form = document.getElementById('add-comment');
       if (form) {
-        const top = form.getBoundingClientRect().top;
         const textarea = form.querySelector('textarea');
-        window.scrollTo(0, top);
         if (textarea) {
           textarea.focus();
         }

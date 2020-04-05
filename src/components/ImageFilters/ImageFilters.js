@@ -14,7 +14,7 @@ export default ({ imageUploaded, onSelectFilter }) => {
     const filters = filtersJson.map(filter => {
       return {
         name: filter,
-        image: STATIC_SERVER + '/static/filters/' + `${filter}.jpg`
+        image: `${STATIC_SERVER}/static/filters/${filter}.jpg`
       }
     });
     setFilters(filters);

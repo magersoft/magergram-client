@@ -57,17 +57,39 @@ $additionalWidth: 335px;
 
 .Comments {
   @media (max-width: 830px) {
-    min-height: 200px;
+    min-height: 180px;
+    order: 4;
   }
 }
 
 .Actions {
   border-top: 1px solid var(--color-border-02);
+
+  @media (max-width: 830px) {
+    border: 0;
+    order: 1;
+  }
 }
 
 .Posts {
   flex-grow: 1;
   padding-top: 6vh;
+}
+
+.Likes {
+  @media (max-width: 830px) {
+    order: 2;
+  }
+}
+
+.TimeAgo {
+  @media (max-width: 830px) {
+    order: 3;
+  }
+}
+
+.AddComment {
+  order: 5;
 }
 
 .Grid {

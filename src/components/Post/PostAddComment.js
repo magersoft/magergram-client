@@ -79,4 +79,8 @@ PostAddComment.propTypes = {
   className: PropTypes.string
 };
 
+PostAddComment.defaultProps = {
+  className: ''
+};
+
 export default PostAddComment;

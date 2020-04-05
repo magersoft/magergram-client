@@ -22,9 +22,9 @@ export default () => {
     if (dataUsers) {
       const {searchUsers} = dataUsers;
       if (searchUsers.length) {
-        setState({...state, users: searchUsers})
+        setState(state => ({...state, users: searchUsers}))
       } else {
-        setState({...state, users: []});
+        setState(state => ({...state, users: []}));
       }
     }
   }, [dataUsers]);

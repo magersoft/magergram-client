@@ -43,7 +43,7 @@ export default () => {
         setLanguage({ variables: { lang: language } });
       }
     }
-  }, [data]);
+  }, [data, setDarkMode, setLanguage]);
 
   useEffect(() => {
     if (loading) {

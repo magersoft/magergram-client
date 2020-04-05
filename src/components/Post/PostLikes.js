@@ -8,7 +8,7 @@ import Dialog from '../Dialog/Dialog';
 import UserCard from '../UserCard';
 import UserCardSkeleton from '../UserCard/UserCardSkeleton';
 
-const PostLikes = ({ postId, likeCount, itsMe }) => {
+const PostLikes = ({ postId, likeCount, itsMe, className }) => {
   const { t } = useTranslation();
   const [likes, setLikes] = useState(null);
   const [show, setShow] = useState(false);
@@ -32,7 +32,7 @@ const PostLikes = ({ postId, likeCount, itsMe }) => {
   };
 
   return (
-    <section className={style.Likes}>
+    <section className={`${style.Likes} ${className}`}>
       { !!likeCount &&
       <div className={style.LikesRow}>
         <button type="button" onClick={handleShowLikes}>
@@ -72,7 +72,12 @@ const PostLikes = ({ postId, likeCount, itsMe }) => {
 PostLikes.propTypes = {
   postId: PropTypes.string.isRequired,
   likeCount: PropTypes.number.isRequired,
-  itsMe: PropTypes.bool
+  itsMe: PropTypes.bool,
+  className: PropTypes.string
+};
+
+PostLikes.defaultProps = {
+  className: ''
 };
 
 export default PostLikes;

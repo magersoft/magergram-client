@@ -2,7 +2,7 @@ export const localState = {
   isLoggedIn: Boolean(localStorage.getItem('token')),
   loading: false,
   lang: 'ru',
-  darkMode: eval(localStorage.getItem('darkMode'))
+  darkMode: localStorage.getItem('darkMode') === 'true'
 };
 
 export const resolvers = {

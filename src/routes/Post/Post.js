@@ -194,9 +194,11 @@ export default ({ match, history }) => {
                   itsMe={itsMe}
                   postId={post.id}
                   likeCount={post.likeCount}
+                  className={style.Likes}
                 />
                 <PostTimeAgo
                   createdAt={post.createdAt}
+                  className={style.TimeAgo}
                 />
                 <PostAddComment
                   comments={post.comments}
@@ -205,6 +207,7 @@ export default ({ match, history }) => {
                   userAnswer={answer}
                   setCountComment={setCountComment}
                   isSinglePost
+                  className={style.AddComment}
                 />
               </div>
               <PostTools postId={post.id} itsMe={itsMe} />

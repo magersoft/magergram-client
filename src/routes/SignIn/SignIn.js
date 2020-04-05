@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import { useTranslation } from 'react-i18next';
-import { Button, Input, AppButtons, Separator } from '../../components/UI';
+import { Button, Input, Separator } from '../../components/UI';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { SIGN_IN } from './SignInQueries';
 import { LOG_USER_IN } from '../../apollo/GlobalQueries';
