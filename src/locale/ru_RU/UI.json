@@ -61,5 +61,12 @@
   "Send": "Отправить",
   "Your profile has been updated": "Ваш профиль был обновлен",
   "Phone": "Телефон",
-  "Disable account": "Заблокировать аккаунт"
+  "Disable account": "Заблокировать аккаунт",
+  "Application settings": "Настройки приложения",
+  "Settings": "Настройки",
+  "Current password": "Текущий пароль",
+  "New password": "Новый пароль",
+  "Confirm password": "Подтвердите новый пароль",
+  "Password was be changed": "Пароль успешно изменен",
+  "New password different": "Пароли различаются"
 }

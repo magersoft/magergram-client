@@ -12,14 +12,11 @@ const Toast = ({ message, show, duration }) => {
     }, duration);
 
     return () => clearTimeout(timeout);
-  }, [show]);
+  }, [show, duration]);
 
   return (
     <div className={`${style.Toast} ${active ? style.show : ''}`}>
       <div className={style.Message}>{ message }</div>
-      <div className={style.Close}>
-        close
-      </div>
     </div>
   )
 };

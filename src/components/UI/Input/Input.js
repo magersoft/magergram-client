@@ -3,10 +3,10 @@ import PropType from 'prop-types';
 import style from './Input.module.scss';
 
 const Input = ({
-    type = 'text',
+    type,
     value,
     name,
-    placeholder = '',
+    placeholder,
     required,
     icon,
     onChange,
@@ -31,7 +31,7 @@ const Input = ({
           maxLength="75"
           name={name}
           required={required}
-          className={`${style.Input} ${type === 'textarea' ? style.TextArea : null}`}
+          className={style.Input}
           onChange={onChange}
           onBlur={onBlur}
           onFocus={onFocus}
@@ -48,6 +48,11 @@ Input.propTypes = {
   type: PropType.string,
   name: PropType.string,
   placeholder: PropType.string
+};
+
+Input.defaultProps = {
+  type: 'text',
+  placeholder: ''
 };
 
 export default Input;

@@ -28,7 +28,7 @@ export default ({ user, setUser }) => {
       const { data: { editUser } } = result;
       if (editUser) {
         setUser(editUser);
-        setToastShow(true);
+        setToastShow(!toastShow);
       }
     }
   });
@@ -105,7 +105,6 @@ export default ({ user, setUser }) => {
           <aside className={style.Label}>{ t('Bio') }</aside>
           <div className={style.Input}>
             <Input
-              type="textarea"
               value={state.bio}
               placeholder={t('Bio')}
               disabled={loading}
@@ -142,7 +141,7 @@ export default ({ user, setUser }) => {
               <Button label={t('Send')} disabled={loading} type="submit" />
               { loading && <Spinner width={25} height={25} /> }
             </div>
-            <Button label={t('Disable account')} disabled type="secondary" />
+            <Button label={t('Disable account')} disabled type="secondary" small />
           </div>
         </div>
       </form>
