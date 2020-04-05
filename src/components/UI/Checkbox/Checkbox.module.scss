@@ -1,0 +1,52 @@
+.Control {
+  margin-right: 10px;
+}
+
+.Label {
+  display: flex;
+  align-items: center;
+  font-size: var(--base-font);
+  line-height: 14px;
+  font-weight: 600;
+  color: var(--blackColor);
+}
+
+.Input {
+  left: -9999px;
+  position: absolute;
+
+  &:checked ~ .Checkbox:before {
+    content: " ";
+  }
+
+  &:focus ~ .Checkbox {
+    border-color: var(--blueColor);
+  }
+
+  &:disabled ~ .Checkbox {
+    cursor: not-allowed;
+  }
+}
+
+.Checkbox {
+  display: inline-block;
+  border: 1px solid var(--borderColor);
+  border-radius: 3px;
+  margin: 0 8px 0 3px;
+  position: relative;
+  width: 16px;
+  height: 16px;
+
+  &:before {
+    content: none;
+    border-bottom: 2px solid var(--blackColor);
+    border-left: 2px solid var(--blackColor);
+    display: block;
+    width: 8px;
+    height: 3px;
+    left: 2px;
+    top: 3px;
+    position: absolute;
+    transform: rotateZ(-45deg);
+  }
+}
