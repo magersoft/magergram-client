@@ -17,7 +17,6 @@ const LOADING = gql`
 `;
 
 function App() {
-
   const { data: { isLoggedIn } } = useQuery(IS_LOGGED_IN);
   const { data: { loading } } = useQuery(LOADING);
 

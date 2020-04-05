@@ -68,5 +68,6 @@
   "New password": "Новый пароль",
   "Confirm password": "Подтвердите новый пароль",
   "Password was be changed": "Пароль успешно изменен",
-  "New password different": "Пароли различаются"
+  "New password different": "Пароли различаются",
+  "Application language": "Язык приложения"
 }

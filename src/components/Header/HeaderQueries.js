@@ -13,6 +13,8 @@ export const MY_PROFILE = gql`
      phone
      website
      bio
+     language
+     darkMode
    }
  }
 `;

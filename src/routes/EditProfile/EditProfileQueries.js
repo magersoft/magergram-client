@@ -42,3 +42,15 @@ export const CHANGE_PASSWORD = gql`
     }
   }
 `;
+
+export const TOGGLE_DARK_MODE = gql`
+  mutation darkMode($darkMode: Boolean!) {
+    darkMode(darkMode: $darkMode)
+  }
+`;
+
+export const CHANGE_LANGUAGE = gql`
+  mutation changeLanguage($lang: String!) {
+    changeLanguage(lang: $lang)
+  }
+`;

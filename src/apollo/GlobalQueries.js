@@ -24,6 +24,12 @@ export const REMOVE_LOADING = gql`
   }
 `;
 
+export const SET_LANGUAGE = gql`
+  mutation setLanguage($lang: String!) {
+    setLanguage(lang: $lang) @client
+  }
+`;
+
 export const UPLOAD_FILE = gql`
   mutation singleUpload($file: Upload!, $optimized: [Int], $toGoogleStorage: Boolean) {
     singleUpload(file: $file, optimized: $optimized, toGoogleStorage: $toGoogleStorage) {

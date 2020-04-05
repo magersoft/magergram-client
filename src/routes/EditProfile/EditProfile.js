@@ -37,7 +37,7 @@ export default () => {
     { name: t('Application settings'), link: '/edit-profile/settings' }
   ];
 
-  const Loader = <Spinner />;
+  const Loader = <div className={style.Loader}><Spinner width={60} height={60} /></div>;
 
   const handleCloseMenu = () => {
     setOpenMenu(false);
@@ -63,7 +63,7 @@ export default () => {
               <Route path="/edit-profile/password" render={() => <ChangePassword user={user} />} />
               <Route path="/edit-profile/push" component={PushNotification} />
               <Route path="/edit-profile/security" component={ConfidentialSecurity} />
-              <Route path="/edit-profile/settings" component={ApplicationSettings} />
+              <Route path="/edit-profile/settings" render={() => <ApplicationSettings user={user} />} />
             </Switch>
           </Suspense>
         </article>

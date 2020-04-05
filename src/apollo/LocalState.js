@@ -1,6 +1,7 @@
 export const localState = {
   isLoggedIn: Boolean(localStorage.getItem('token')),
-  loading: false
+  loading: false,
+  lang: 'ru'
 };
 
 export const resolvers = {
@@ -34,6 +35,14 @@ export const resolvers = {
       cache.writeData({
         data: {
           loading: false
+        }
+      })
+    },
+    setLanguage: (_, { lang }, { cache }) => {
+      localStorage.setItem('lang', lang);
+      cache.writeData({
+        data: {
+          lang
         }
       })
     }
