@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PostAddComment, PostButtons, PostContent, PostHeader, PostLikes, PostTimeAgo, PostTools } from './index';
 import style from './styles/Post.module.scss';
-import { MY_PROFILE } from '../Header/HeaderQueries';
-import { useApolloClient } from '@apollo/react-hooks';
 
 const Post = ({
   postId,
