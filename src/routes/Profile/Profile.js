@@ -10,7 +10,6 @@ import { FOLLOW, SEE_USER, SEE_USER_POSTS, UNFOLLOW } from './ProfileQuery';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { LOG_USER_OUT } from '../../apollo/GlobalQueries';
-import { MY_PROFILE } from '../../components/Header/HeaderQueries';
 import PostCard from '../../components/PostCard';
 import { FavoriteIcon, PortretIcon, PostsIcon } from '../../components/Icon';
 import EmptyPosts from '../../components/EmptyPosts';
@@ -31,7 +30,6 @@ export default ({ history, location }) => {
   const [profile, setProfile] = useState(null);
   const [posts, setPosts] = useState([]);
   const [noMorePosts, setNoMorePosts] = useState(false);
-  const [itsMe, setItsMe] = useState(false);
   const [dialogChangePhoto, setDialogChangePhoto] = useState(false);
   const [dialogSettings, setDialogSettings] = useState(false);
   const [dialogFollowers, setDialogFollowers] = useState(false);
@@ -48,7 +46,7 @@ export default ({ history, location }) => {
     setDialogSettings(false);
   }, [location, history]);
 
-  const { data, client, loading } = useQuery(SEE_USER, {
+  const { data, loading } = useQuery(SEE_USER, {
     variables: {
       username
     },
@@ -84,13 +82,6 @@ export default ({ history, location }) => {
   const [unFollow, { loading: unFollowLoading }] = useMutation(UNFOLLOW);
   const [logOut] = useMutation(LOG_USER_OUT);
 
-  useEffect(() => {
-    if (profile) {
-      const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
-      setItsMe(profile.id === myProfile.id);
-    }
-  }, [profile, client]);
-
   const handleFetchMore = async page => {
     try {
       await fetchMore({
@@ -115,7 +106,7 @@ export default ({ history, location }) => {
   };
 
   const handleClickAvatar = () => {
-    if (!itsMe) return;
+    if (!profile.isSelf) return;
     setDialogChangePhoto(true);
   };
 
@@ -185,7 +176,7 @@ export default ({ history, location }) => {
               { profile && !loading ? <h1>{ profile.username }</h1> : <SkeletonString height={25} width={150} /> }
               { profile && !loading ?
                 <React.Fragment>
-                  { itsMe ?
+                  { profile && profile.isSelf ?
                     <React.Fragment>
                       <Button
                         label={t('Edit profile')}
@@ -269,7 +260,7 @@ export default ({ history, location }) => {
                   </div>
                 }
               >
-                {posts.map(post => {
+                { posts.map(post => {
                   const {id, caption, likeCount, commentCount, files} = post;
                   return <PostCard
                     id={id}
@@ -279,7 +270,7 @@ export default ({ history, location }) => {
                     commentCount={commentCount}
                     key={id}
                   />
-                })}
+                }) }
               </InfiniteScroll> :
               <div className={style.Grid}>
                 { [...Array(9).keys()].map(idx => <SkeletonBlock maxHeight={293} maxWidth={293} key={idx} />) }
@@ -288,7 +279,7 @@ export default ({ history, location }) => {
             { !posts.length && !loadingPosts && <EmptyPosts /> }
           </article>
       </div>
-      { itsMe &&
+      { profile && profile.isSelf &&
         <React.Fragment>
           <UploadAvatar
             avatar={profile.avatar}
@@ -324,13 +315,13 @@ export default ({ history, location }) => {
         onClose={() => setDialogFollowers(false)}
       >
         { profile && profile.followers.map(follower => {
-          const { username, avatar, fullName, isFollowing, id } = follower;
+          const { username, avatar, fullName, isFollowing, id, isSelf } = follower;
           return <UserCard
             username={username}
             id={id}
             fullName={fullName}
             avatar={avatar}
-            itsMe={itsMe}
+            itsMe={isSelf}
             isFollowing={isFollowing}
             key={id}
           />
@@ -344,13 +335,13 @@ export default ({ history, location }) => {
         onClose={() => setDialogFollowing(false)}
       >
         { profile && profile.following.map(following => {
-          const { username, avatar, fullName, isFollowing, id } = following;
+          const { username, avatar, fullName, isFollowing, id, isSelf } = following;
           return <UserCard
             username={username}
             id={id}
             fullName={fullName}
             avatar={avatar}
-            itsMe={itsMe}
+            itsMe={isSelf}
             isFollowing={isFollowing}
             key={id}
           />

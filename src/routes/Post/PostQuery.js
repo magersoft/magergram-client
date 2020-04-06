@@ -17,6 +17,7 @@ export const POST = gql`
         id
         avatar
         username
+        isSelf
       }
       comments {
         id

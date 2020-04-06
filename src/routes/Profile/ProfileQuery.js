@@ -13,12 +13,14 @@ export const SEE_USER = gql`
       followersCount
       postsCount
       isFollowing
+      isSelf
       followers {
         id
         username
         avatar
         fullName
         isFollowing
+        isSelf
       }
       following {
         id
@@ -26,6 +28,7 @@ export const SEE_USER = gql`
         avatar
         fullName
         isFollowing
+        isSelf
       }
     }
   }

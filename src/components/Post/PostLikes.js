@@ -48,13 +48,13 @@ const PostLikes = ({ postId, likeCount, itsMe, className }) => {
         onClose={() => setShow(false)}
       >
         { likes && likes.map(user => {
-          const { username, avatar, fullName, isFollowing, id } = user;
+          const { username, avatar, fullName, isFollowing, id, isSelf } = user;
           return <UserCard
             username={username}
             id={id}
             fullName={fullName}
             avatar={avatar}
-            itsMe={itsMe}
+            itsMe={isSelf}
             isFollowing={isFollowing}
             key={id}
           />

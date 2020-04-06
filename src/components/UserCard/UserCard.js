@@ -59,7 +59,7 @@ const UserCard = ({ id, avatar, username, fullName, isFollowing, itsMe, small })
           <span>{ fullName }</span>
         </div>
       </div>
-      { itsMe &&
+      { !itsMe &&
         <div className={style.Button}>
           { following ?
             <Button

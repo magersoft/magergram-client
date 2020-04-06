@@ -16,7 +16,6 @@ import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { useTranslation } from 'react-i18next';
 import { REMOVE_COMMENT } from '../../components/Post/PostQueries';
-import { MY_PROFILE } from '../../components/Header/HeaderQueries';
 import InfiniteScroll from 'react-infinite-scroller';
 import Spinner from '../../components/Loader/Spinner';
 import PostCard from '../../components/PostCard';
@@ -36,11 +35,10 @@ export default ({ match, history }) => {
     userId: null,
     commentUserId: null
   });
-  const [itsMe, setItsMe] = useState(false);
 
   const postButtonsRef = useRef();
 
-  const { data, client } = useQuery(POST, {
+  const { data } = useQuery(POST, {
     variables: {
       id: match.params.postId
     },
@@ -61,13 +59,6 @@ export default ({ match, history }) => {
       }
     }
   }, [data]);
-
-  useEffect(() => {
-    if (post) {
-      const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
-      setItsMe(post.user.id === myProfile.id);
-    }
-  }, [post, client]);
 
   const [removeComment, { loading: removingCommentLoading }] = useMutation(REMOVE_COMMENT);
 
@@ -175,7 +166,7 @@ export default ({ match, history }) => {
               <div className={style.Additional}>
                 <PostCommentsBlock
                   postId={post.id}
-                  itsMe={itsMe}
+                  itsMe={post.user.isSelf}
                   user={post.user}
                   caption={post.caption}
                   comments={post.comments}
@@ -191,7 +182,7 @@ export default ({ match, history }) => {
                   onLike={handleLike}
                 />
                 <PostLikes
-                  itsMe={itsMe}
+                  itsMe={post.user.isSelf}
                   postId={post.id}
                   likeCount={post.likeCount}
                   className={style.Likes}
@@ -210,7 +201,7 @@ export default ({ match, history }) => {
                   className={style.AddComment}
                 />
               </div>
-              <PostTools postId={post.id} itsMe={itsMe} />
+              <PostTools postId={post.id} itsMe={post.user.isSelf} />
             </article>
           }
         </div>

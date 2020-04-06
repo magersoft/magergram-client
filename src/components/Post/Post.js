@@ -20,10 +20,8 @@ const Post = ({
   createdAt
 }) => {
   const { t } = useTranslation();
-  const client = useApolloClient();
   const [countComment, setCountComment] = useState(commentCount);
   const [countLike, setCountLike] = useState(likeCount);
-  const [itsMe, setItsMe] = useState(false);
 
   const postButtonsRef = useRef();
 
@@ -31,13 +29,6 @@ const Post = ({
     const count = like ? countLike - 1 : countLike + 1;
     setCountLike(count);
   };
-
-  useEffect(() => {
-    if (user) {
-      const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
-      setItsMe(user.id === myProfile.id);
-    }
-  }, [user, client]);
 
   return (
     <article className={style.Post}>
@@ -60,7 +51,7 @@ const Post = ({
           onLike={handleLike}
         />
         <PostLikes
-          itsMe={itsMe}
+          itsMe={user.isSelf}
           postId={postId}
           likeCount={countLike}
         />
@@ -104,7 +95,7 @@ const Post = ({
       </div>
       <PostTools
         postId={postId}
-        itsMe={itsMe}
+        itsMe={user.isSelf}
       />
     </article>
   )

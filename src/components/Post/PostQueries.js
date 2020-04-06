@@ -15,6 +15,7 @@ export const ADD_COMMENT = gql`
         id
         username
         avatar
+        isSelf
       }
       createdAt
     }
@@ -41,6 +42,7 @@ export const SEE_LIKES = gql`
       avatar
       fullName
       isFollowing
+      isSelf
     }
   }
 `;
