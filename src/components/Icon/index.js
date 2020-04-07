@@ -9,6 +9,9 @@ import ToolsIcon from './ToolsIcon';
 import PostsIcon from './PostsIcon';
 import PortretIcon from './PortretIcon';
 import CloseIcon from './CloseIcon';
+import NewStoryIcon from './NewStoryIcon';
+import DirectIcon from './DirectIcon';
+import AddPostIcon from './AddPostIcon';
 
 export {
   HomeIcon,
@@ -21,5 +24,8 @@ export {
   ToolsIcon,
   PostsIcon,
   PortretIcon,
-  CloseIcon
+  CloseIcon,
+  NewStoryIcon,
+  DirectIcon,
+  AddPostIcon
 };

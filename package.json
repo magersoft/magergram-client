@@ -13,6 +13,7 @@
     "apollo-link-state": "^0.4.2",
     "apollo-link-ws": "^1.0.19",
     "apollo-upload-client": "^12.1.0",
+    "classnames": "^2.2.6",
     "graphql": "^14.6.0",
     "i18next": "^19.3.2",
     "i18next-browser-languagedetector": "^4.0.2",

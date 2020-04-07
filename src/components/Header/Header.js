@@ -7,11 +7,12 @@ import DarkLogoImg from '../../assets/dark-logo.png'
 import DarkLogoImgX2 from '../../assets/dark-logo-x2.png'
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { Image, Search } from '../UI';
-import { HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
+import { DirectIcon, HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { MY_PROFILE } from './HeaderQueries';
 import { REMOVE_LOADING, SET_LANGUAGE, SET_LOADING, TOGGLE_DARK_MODE_CLIENT } from '../../apollo/GlobalQueries';
 import style from './Header.module.scss';
+import NewStoryIcon from '../Icon/NewStoryIcon';
 
 const DARK_MODE = gql`
   {
@@ -19,7 +20,7 @@ const DARK_MODE = gql`
   }
 `;
 
-export default () => {
+export default ({ setUser }) => {
   const [state, setState] = useState({
     username: '',
     avatar: null
@@ -41,6 +42,7 @@ export default () => {
         setState({ username, avatar });
         setDarkMode({ variables: { darkMode } });
         setLanguage({ variables: { lang: language } });
+        setUser(myProfile);
       }
     }
   }, [data, setDarkMode, setLanguage]);
@@ -62,6 +64,11 @@ export default () => {
       <div className={style.Inner}>
         <div className={style.Container}>
           <div className={style.Grid}>
+            <div className={style.SetStories}>
+              <button className={style.IconButton} onClick={() => alert('Coming soon ...')}>
+                <NewStoryIcon width={24} height={24} color="var(--color-primary)" />
+              </button>
+            </div>
             <div className={style.Logo}>
               <Link to="/">
                 <div className={style.LogoContainer}>
@@ -70,6 +77,11 @@ export default () => {
                   </div>
                 </div>
               </Link>
+            </div>
+            <div className={style.Direct}>
+              <button className={style.IconButton} onClick={() => alert('Coming soon ...')}>
+                <DirectIcon width={24} height={24} color="var(--color-primary)" />
+              </button>
             </div>
             <div className={style.Search}>
               <Search />
@@ -102,7 +114,7 @@ export default () => {
                       color="var(--color-main)"
                       width="22"
                       height="22"
-                      active={pathname === '/likes'}
+                      active={pathname === '/activity'}
                     />
                   </Link>
                 </div>
