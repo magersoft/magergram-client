@@ -57,12 +57,12 @@ const Activity = ({ show, onClose }) => {
             return (
               <div className={style.Card} key={notification.id}>
                 <div className={style.Avatar}>
-                  <Link to={`/${subscriber.username}`}>
+                  <Link to={`/${subscriber.username}`} onClick={onClose}>
                     <Image src={subscriber.avatar || NoAvatarImg} alt={`Avatar ${subscriber.username}`} />
                   </Link>
                 </div>
                 <div className={style.Info}>
-                  <Link to={`/${subscriber.username}`}>
+                  <Link to={`/${subscriber.username}`} onClick={onClose}>
                     <span className={style.Username}>{ subscriber.username }</span>
                   </Link>
                   { notification.type === 'SUBSCRIPTION' && notification.requesting &&
