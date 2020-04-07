@@ -19,7 +19,7 @@ const Dialog = ({ title, children, show, withScrollingData, fullScreen, onClose 
               <h3>{ title }</h3>
               { withScrollingData &&
                 <div className={style.CloseIcon} onClick={onClose}>
-                  <CloseIcon width={24} height={24} />
+                  <CloseIcon width={24} height={24} color="var(--color-main)" />
                 </div>
               }
             </div>
