@@ -48,7 +48,7 @@ const PostLikes = ({ postId, likeCount, itsMe, className }) => {
         onClose={() => setShow(false)}
       >
         { likes && likes.map(user => {
-          const { username, avatar, fullName, isFollowing, id, isSelf } = user;
+          const { username, avatar, fullName, isFollowing, id, isSelf, isPrivate, isRequestingSubscription } = user;
           return <UserCard
             username={username}
             id={id}
@@ -56,6 +56,8 @@ const PostLikes = ({ postId, likeCount, itsMe, className }) => {
             avatar={avatar}
             itsMe={isSelf}
             isFollowing={isFollowing}
+            isPrivate={isPrivate}
+            isRequestingSubscription={isRequestingSubscription}
             key={id}
           />
         }) }

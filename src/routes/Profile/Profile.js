@@ -6,7 +6,7 @@ import style from './Profile.module.scss';
 import { Button, Image } from '../../components/UI';
 import SettingIcon from '../../components/Icon/SettingIcon';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { FOLLOW, SEE_USER, SEE_USER_POSTS, UNFOLLOW } from './ProfileQuery';
+import { CANCEL_FOLLOW, FOLLOW, REQUEST_FOLLOW, SEE_USER, SEE_USER_POSTS, UNFOLLOW } from './ProfileQuery';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { LOG_USER_OUT } from '../../apollo/GlobalQueries';
@@ -21,6 +21,7 @@ import { ProfileBio, ProfileStats } from '../../components/ProfileModules';
 import Spinner from '../../components/Loader/Spinner';
 import SkeletonBlock from '../../components/Skeleton/SkeletonBlock/SkeletonBlock';
 import UploadAvatar from '../../components/UploadAvatar';
+import PrivateAccount from '../../components/PrivateAccount';
 
 const PER_PAGE_POST = 8;
 
@@ -80,6 +81,8 @@ export default ({ history, location }) => {
 
   const [follow, { loading: followLoading }] = useMutation(FOLLOW);
   const [unFollow, { loading: unFollowLoading }] = useMutation(UNFOLLOW);
+  const [requestFollow, { loading: requestFollowLoading }] = useMutation(REQUEST_FOLLOW);
+  const [cancelFollow, { loading: cancelFollowLoading }] = useMutation(CANCEL_FOLLOW);
   const [logOut] = useMutation(LOG_USER_OUT);
 
   const handleFetchMore = async page => {
@@ -111,21 +114,38 @@ export default ({ history, location }) => {
   };
 
   const handleFollowClick = () => {
-    follow({
-      variables: {
-        id: profile.id
-      },
-      update: (_, result) => {
-        const { data: { follow } } = result;
-        if (follow) {
-          setProfile({
-            ...profile,
-            isFollowing: true,
-            followersCount: profile.followersCount + 1
-          })
+    if (profile.isPrivate) {
+      requestFollow({
+        variables: {
+          subscriberId: profile.id
+        },
+        update: (_, result) => {
+          const { data: { requestFollow } } = result;
+          if (requestFollow) {
+            setProfile({
+              ...profile,
+              isRequestingSubscription: true
+            })
+          }
         }
-      }
-    })
+      })
+    } else {
+      follow({
+        variables: {
+          id: profile.id
+        },
+        update: (_, result) => {
+          const { data: { follow } } = result;
+          if (follow) {
+            setProfile({
+              ...profile,
+              isFollowing: true,
+              followersCount: profile.followersCount + 1
+            })
+          }
+        }
+      })
+    }
   };
 
   const handleUnFollowClick = () => {
@@ -140,6 +160,23 @@ export default ({ history, location }) => {
             ...profile,
             isFollowing: false,
             followersCount: profile.followersCount - 1
+          })
+        }
+      }
+    })
+  };
+
+  const handleCancelFollowClick = () => {
+    cancelFollow({
+      variables: {
+        subscriberId: profile.id
+      },
+      update: (_, result) => {
+        const { data: { cancelFollow } } = result;
+        if (cancelFollow) {
+          setProfile({
+            ...profile,
+            isRequestingSubscription: false
           })
         }
       }
@@ -188,19 +225,28 @@ export default ({ history, location }) => {
                         <SettingIcon width="24" height="24" color="var(--color-main)" />
                       </button>
                     </React.Fragment>
-                    : profile.isFollowing ?
-                      <Button
-                        label={t('Unfollow')}
-                        type="secondary"
-                        disabled={unFollowLoading}
-                        className={style.ProfileEdit}
-                        onClick={handleUnFollowClick}
-                      /> : <Button
-                        label={t('Follow')}
-                        disabled={followLoading}
-                        className={style.ProfileEdit}
-                        onClick={handleFollowClick}
-                      />
+                    : profile.isFollowing
+                      ? <Button
+                          label={t('Unfollow')}
+                          type="secondary"
+                          disabled={unFollowLoading}
+                          className={style.ProfileEdit}
+                          onClick={handleUnFollowClick}
+                        />
+                      : profile.isRequestingSubscription
+                        ? <Button
+                            label={t('Request send')}
+                            type="secondary"
+                            disabled={cancelFollowLoading}
+                            className={style.ProfileEdit}
+                            onClick={handleCancelFollowClick}
+                          />
+                        : <Button
+                            label={t('Follow')}
+                            disabled={followLoading || requestFollowLoading}
+                            className={style.ProfileEdit}
+                            onClick={handleFollowClick}
+                          />
                   }
                 </React.Fragment>
                 : <ButtonSkeleton width={200} className={style.SkeletonButton} />
@@ -276,7 +322,8 @@ export default ({ history, location }) => {
                 { [...Array(9).keys()].map(idx => <SkeletonBlock maxHeight={293} maxWidth={293} key={idx} />) }
               </div>
             }
-            { !posts.length && !loadingPosts && <EmptyPosts /> }
+            { !posts.length && !loadingPosts && (profile && !profile.isPrivate) && <EmptyPosts /> }
+            { !posts.length && !loadingPosts && (profile && profile.isPrivate) && <PrivateAccount /> }
           </article>
       </div>
       { profile && profile.isSelf &&
@@ -315,13 +362,15 @@ export default ({ history, location }) => {
         onClose={() => setDialogFollowers(false)}
       >
         { profile && profile.followers.map(follower => {
-          const { username, avatar, fullName, isFollowing, id, isSelf } = follower;
+          const { username, avatar, fullName, isFollowing, id, isSelf, isPrivate, isRequestingSubscription } = follower;
           return <UserCard
             username={username}
             id={id}
             fullName={fullName}
             avatar={avatar}
             itsMe={isSelf}
+            isRequestingSubscription={isRequestingSubscription}
+            isPrivate={isPrivate}
             isFollowing={isFollowing}
             key={id}
           />
@@ -335,13 +384,15 @@ export default ({ history, location }) => {
         onClose={() => setDialogFollowing(false)}
       >
         { profile && profile.following.map(following => {
-          const { username, avatar, fullName, isFollowing, id, isSelf } = following;
+          const { username, avatar, fullName, isFollowing, id, isSelf, isPrivate, isRequestingSubscription } = following;
           return <UserCard
             username={username}
             id={id}
             fullName={fullName}
             avatar={avatar}
             itsMe={isSelf}
+            isRequestingSubscription={isRequestingSubscription}
+            isPrivate={isPrivate}
             isFollowing={isFollowing}
             key={id}
           />

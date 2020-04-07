@@ -8,6 +8,9 @@ export const RECOMMEND_USERS = gql`
       fullName
       avatar
       isFollowing
+      isPrivate
+      isSelf
+      isRequestingSubscription
     }
   }
 `;

@@ -15,6 +15,9 @@ export const MY_PROFILE = gql`
      bio
      language
      darkMode
+     isSelf
+     isPrivate
+     isRequestingSubscription
    }
  }
 `;

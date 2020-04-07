@@ -14,6 +14,8 @@ export const SEE_USER = gql`
       postsCount
       isFollowing
       isSelf
+      isPrivate
+      isRequestingSubscription
       followers {
         id
         username
@@ -21,6 +23,8 @@ export const SEE_USER = gql`
         fullName
         isFollowing
         isSelf
+        isPrivate
+        isRequestingSubscription
       }
       following {
         id
@@ -29,6 +33,8 @@ export const SEE_USER = gql`
         fullName
         isFollowing
         isSelf
+        isPrivate
+        isRequestingSubscription
       }
     }
   }
@@ -66,5 +72,17 @@ export const FOLLOW = gql`
 export const UNFOLLOW = gql`
   mutation unfollow($id: String!) {
     unfollow(id: $id)
+  }
+`;
+
+export const REQUEST_FOLLOW = gql`
+  mutation requestFollow($subscriberId: String!) {
+    requestFollow(subscriberId: $subscriberId)
+  }
+`;
+
+export const CANCEL_FOLLOW = gql`
+  mutation cancelFollow($subscriberId: String!) {
+    cancelFollow(subscriberId: $subscriberId)
   }
 `;

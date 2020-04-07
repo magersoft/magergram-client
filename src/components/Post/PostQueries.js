@@ -43,6 +43,8 @@ export const SEE_LIKES = gql`
       fullName
       isFollowing
       isSelf
+      isPrivate
+      isRequestingSubscription
     }
   }
 `;

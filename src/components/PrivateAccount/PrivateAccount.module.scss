@@ -1,0 +1,14 @@
+@import '../../theme/mixins';
+
+.PrivateAccount {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  @include whiteBox();
+}
+
+.Header {
+  font-weight: 600;
+  margin-bottom: var(--spacing-m);
+}

@@ -65,12 +65,15 @@ export default ({ leftFixedPosition, isFeedGetted }) => {
         <h4>{ t('Recommendation for You') }</h4>
         <div className={style.RecommendedBlockWrapper}>
           { users.map(user => {
-            const { id, username, avatar, fullName, isFollowing } = user;
+            const { id, username, avatar, fullName, isFollowing, isSelf, isPrivate, isRequestingSubscription } = user;
             return <UserCard
               avatar={avatar}
               id={id}
               username={username}
               fullName={fullName}
+              itsMe={isSelf}
+              isPrivate={isPrivate}
+              isRequestingSubscription={isRequestingSubscription}
               isFollowing={isFollowing}
               key={id}
               small
