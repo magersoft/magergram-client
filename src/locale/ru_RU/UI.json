@@ -70,5 +70,10 @@
   "Password was be changed": "Пароль успешно изменен",
   "New password different": "Пароли различаются",
   "Application language": "Язык приложения",
-  "Request send": "Запрос отправлен"
+  "Request send": "Запрос отправлен",
+  "Private account": "Закрытый аккаунт",
+  "Confirm": "Одобрить",
+  "No notifications": "Нет уведомлений",
+  "Notifications": "Уведомления",
+  "Activity": "Действия"
 }

@@ -30,13 +30,16 @@ export default ({ isExistPosts, onLoading }) => {
           <div className={style.Wrapper}>
             <div className={style.RecommendedUsers}>
               { users && users.map(user => {
-                const { id, username, avatar, fullName, isFollowing } = user;
+                const { id, username, avatar, fullName, isFollowing, isSelf, isPrivate, isRequestingSubscription } = user;
                 return <UserCard
                   avatar={avatar}
                   id={id}
                   username={username}
                   fullName={fullName}
+                  itsMe={isSelf}
+                  isPrivate={isPrivate}
                   isFollowing={isFollowing}
+                  isRequestingSubscription={isRequestingSubscription}
                   key={id}
                 />
               }) }

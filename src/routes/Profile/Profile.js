@@ -344,6 +344,10 @@ export default ({ history, location }) => {
               onClick={() => history.push('/edit-profile/password')}
             />
             <DialogButton
+              text={t('Confidential and security')}
+              onClick={() => history.push('/edit-profile/security')}
+            />
+            <DialogButton
               text={t('Application settings')}
               onClick={() => history.push('/edit-profile/settings')}
             />

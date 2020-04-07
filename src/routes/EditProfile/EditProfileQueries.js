@@ -54,3 +54,9 @@ export const CHANGE_LANGUAGE = gql`
     changeLanguage(lang: $lang)
   }
 `;
+
+export const PRIVATE_ACCOUNT = gql`
+  mutation privateAccount($state: Boolean!) {
+    privateAccount(state: $state)
+  }
+`;

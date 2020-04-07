@@ -7,5 +7,8 @@
   "An email with a secret code has been sent to your email": "На вашу почту отправлено письмо с секретным кодом",
   "An sms with a secret code has been sent to your phone number": "На ваш номер телефона отправлено смс с секретным кодом",
   "You can activate dark mode in application. This action apply in all your authorized application": "Вы можете активировать темную тему в приложении. Это действие применяется во всех ваших авторизованных приложениях",
-  "You can change application language. This action apply in all your authorized application": "Вы можете изменить язык приложения. Это действие применяется во всех ваших авторизованных приложениях"
+  "You can change application language. This action apply in all your authorized application": "Вы можете изменить язык приложения. Это действие применяется во всех ваших авторизованных приложениях",
+  "If you have private account, your posts in Magergram will be able to see only people which you allowed. This does not apply current followers": "Если у вас закрытый аккаунт, ваши фото и видео в Magergram смогут видеть только люди, которых вы одобрите. Это не относится к уже существующим подписчикам",
+  "send request on subscription": "отправил запрос на подписку",
+  "accepted your request": "принял ваш запрос на подписку"
 }

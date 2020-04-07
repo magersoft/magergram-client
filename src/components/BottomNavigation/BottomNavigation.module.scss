@@ -28,6 +28,12 @@
   height: 100%;
   min-height: 0;
   min-width: 0;
+
+  button {
+    background: transparent;
+    border: 0;
+    outline: 0;
+  }
 }
 
 .UserProfile {

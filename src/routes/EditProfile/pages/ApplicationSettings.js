@@ -86,6 +86,7 @@ export default ({ user }) => {
           <Checkbox
             label={t('Dark theme')}
             checked={isDarkTheme}
+            disabled={loadingDarkMode}
             onChange={handleToggleDarkMode}
           />
           <p className={style.HelperText}>{ t('You can activate dark mode in application. This action apply in all your authorized application') } Magergam.</p>

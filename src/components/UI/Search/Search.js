@@ -86,6 +86,7 @@ export default () => {
                       id={id}
                       username={username}
                       avatar={avatar}
+                      itsMe={true}
                       fullName={fullName}
                       key={id}
                     />

@@ -62,7 +62,7 @@ export default () => {
               <Route path="/edit-profile" exact={true} render={() => <Edit user={user} setUser={setUser} />} />
               <Route path="/edit-profile/password" render={() => <ChangePassword user={user} />} />
               <Route path="/edit-profile/push" component={PushNotification} />
-              <Route path="/edit-profile/security" component={ConfidentialSecurity} />
+              <Route path="/edit-profile/security" render={() => <ConfidentialSecurity user={user} />} />
               <Route path="/edit-profile/settings" render={() => <ApplicationSettings user={user} />} />
             </Switch>
           </Suspense>

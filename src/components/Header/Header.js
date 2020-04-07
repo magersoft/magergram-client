@@ -13,6 +13,8 @@ import { MY_PROFILE } from './HeaderQueries';
 import { REMOVE_LOADING, SET_LANGUAGE, SET_LOADING, TOGGLE_DARK_MODE_CLIENT } from '../../apollo/GlobalQueries';
 import style from './Header.module.scss';
 import NewStoryIcon from '../Icon/NewStoryIcon';
+import Activity from '../Activity';
+import cx from 'classnames';
 
 const DARK_MODE = gql`
   {
@@ -20,10 +22,11 @@ const DARK_MODE = gql`
   }
 `;
 
-export default ({ setUser }) => {
+export default ({ setUser, activity }) => {
   const [state, setState] = useState({
     username: '',
-    avatar: null
+    avatar: null,
+    showActivity: false
   });
   const { pathname } = useLocation();
 
@@ -45,7 +48,7 @@ export default ({ setUser }) => {
         setUser(myProfile);
       }
     }
-  }, [data, setDarkMode, setLanguage]);
+  }, [data, setDarkMode, setLanguage, setUser]);
 
   useEffect(() => {
     if (loading) {
@@ -55,6 +58,10 @@ export default ({ setUser }) => {
       removeGlobalLoading();
     }
   }, [loading, data, setGlobalLoading, removeGlobalLoading]);
+
+  useEffect(() => {
+    setState(prevState => ({ ...prevState, showActivity: activity }));
+  }, [activity]);
 
   const { data: { darkMode } } = useQuery(DARK_MODE);
 
@@ -108,15 +115,16 @@ export default ({ setUser }) => {
                     />
                   </Link>
                 </div>
-                <div className={style.NavigationIcon}>
-                  <Link to="/">
+                <div className={cx(style.NavigationIcon, style.showActivityIcon)}>
+                  <button className={style.ActivityButton} onClick={() => setState({ ...state, showActivity: !state.showActivity })}>
                     <LikeIcon
                       color="var(--color-main)"
                       width="22"
                       height="22"
-                      active={pathname === '/activity'}
+                      active={state.showActivity}
                     />
-                  </Link>
+                  </button>
+                  <Activity show={state.showActivity} onClose={() => setState({ ...state, showActivity: false })} />
                 </div>
                 <div className={style.NavigationIcon}>
                   <Link to={`/${state.username}`} className={style.UserProfile}>
