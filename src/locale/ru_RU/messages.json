@@ -12,5 +12,6 @@
   "send request on subscription": "отправил запрос на подписку",
   "accepted your request": "принял ваш запрос на подписку",
   "put your photo like": "поставил(-а) вашему фото \"Нравится\"",
-  "commented your photo": "прокомментировал(-а) ваше фото"
+  "commented your photo": "прокомментировал(-а) ваше фото",
+  "started following you": "подписался(-сь) на ваши обновления"
 }

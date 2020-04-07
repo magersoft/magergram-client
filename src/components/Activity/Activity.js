@@ -68,6 +68,9 @@ const Activity = ({ show, onClose }) => {
                   { notification.type === 'SUBSCRIPTION' && notification.requesting &&
                     <span>{ t('send request on subscription') }</span>
                   }
+                  { notification.type === 'SUBSCRIPTION' && !notification.requesting &&
+                    <span>{ t('started following you') }</span>
+                  }
                   { notification.type === 'CONFIRM' && !notification.requesting &&
                     <span>{ t('accepted your request') }</span>
                   }
@@ -83,7 +86,7 @@ const Activity = ({ show, onClose }) => {
                   </div>
                 </div>
                 <div className={style.Action}>
-                  { notification.type === 'SUBSCRIPTION' &&
+                  { notification.type === 'SUBSCRIPTION' && notification.requesting &&
                     <Button
                       label={t('Confirm')}
                       type="secondary"
