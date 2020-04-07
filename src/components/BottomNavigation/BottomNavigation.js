@@ -32,22 +32,22 @@ export default ({ user, onActivity }) => {
       <div className={style.Container}>
         <div className={cx(style.Button, style.Home)} onClick={() => handleButtonClick(false)}>
           <Link to="/" title={t('Home')}>
-            <HomeIcon width={24} height={24} color="var(--color-primary)" active={pathname === '/' && !state.isActivity} />
+            <HomeIcon width={24} height={24} color="var(--color-main)" active={pathname === '/' && !state.isActivity} />
           </Link>
         </div>
         <div className={cx(style.Button, style.Explore)} onClick={() => handleButtonClick(false)}>
           <Link to="/explore" title={t('Search')}>
-            <SearchPeopleIcon width={24} height={24} color="var(--color-primary)" active={pathname === '/explore' && !state.isActivity} />
+            <SearchPeopleIcon width={24} height={24} color="var(--color-main)" active={pathname === '/explore' && !state.isActivity} />
           </Link>
         </div>
         <div className={cx(style.Button, style.AddPost)} onClick={() => handleButtonClick(false)}>
           <Link to="/add-post" title={t('Add Post')}>
-            <AddPostIcon width={24} height={24} color="var(--color-primary)" />
+            <AddPostIcon width={24} height={24} color="var(--color-main)" />
           </Link>
         </div>
         <div className={cx(style.Button, style.Activity)}>
           <button onClick={() => handleButtonClick(true)}>
-            <LikeIcon width={24} height={24} color="var(--color-primary)" active={state.isActivity} />
+            <LikeIcon width={24} height={24} color="var(--color-main)" active={state.isActivity} />
           </button>
         </div>
         <div className={cx(style.Button, style.User)} onClick={() => handleButtonClick(false)}>
