@@ -14,6 +14,12 @@ export const SEE_NOTIFICATIONS = gql`
         username
         avatar
       }
+      post {
+        id
+        files {
+          url
+        }
+      }
       createdAt
     }
   }

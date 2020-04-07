@@ -7,6 +7,7 @@ import Spinner from '../Loader/Spinner';
 import { Button, Image } from '../UI';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { useTranslation } from 'react-i18next';
+import timeAgo from '../../utils/timeAgo';
 
 const Activity = ({ show, onClose }) => {
   const { t } = useTranslation();
@@ -52,7 +53,7 @@ const Activity = ({ show, onClose }) => {
         {
           notifications.length ?
           notifications.map(notification => {
-            const { subscriber } = notification;
+            const { subscriber, post } = notification;
             return (
               <div className={style.Card} key={notification.id}>
                 <div className={style.Avatar}>
@@ -70,6 +71,16 @@ const Activity = ({ show, onClose }) => {
                   { notification.type === 'CONFIRM' && !notification.requesting &&
                     <span>{ t('accepted your request') }</span>
                   }
+                  { notification.type === 'LIKE' &&
+                    <span>{ t('put your photo like') }</span>
+                  }
+                  {
+                    notification.type === 'COMMENT' &&
+                    <span>{ t('commented your photo') }</span>
+                  }
+                  <div className={style.Ago}>
+                    <span>{ timeAgo.format(new Date(notification.createdAt)) }</span>
+                  </div>
                 </div>
                 <div className={style.Action}>
                   { notification.type === 'SUBSCRIPTION' &&
@@ -79,6 +90,14 @@ const Activity = ({ show, onClose }) => {
                       disabled={loadingConfirmFollow}
                       onClick={() => handleConfirm(notification.id, subscriber.id)}
                     />
+                  }
+                  {
+                    (notification.type === 'LIKE' || notification.type === 'COMMENT') &&
+                    <div className={style.MiniPost} onClick={onClose}>
+                      <Link to={`/post/${post.id}`} >
+                        <Image src={post.files[0].url} />
+                      </Link>
+                    </div>
                   }
                 </div>
               </div>

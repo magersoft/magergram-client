@@ -83,17 +83,14 @@
 
 .Info {
   display: inline;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 300px;
 
-  @media (max-width: 500px) {
-    max-width: 250px;
+  @media (max-width: 735px) {
+    display: flex;
   }
 
-  @media (max-width: 375px) {
-    max-width: 200px;
+  @media (max-width: 320px) {
+    max-width: 150px;
+    white-space: pre-wrap;
   }
 
   .Username {
@@ -128,5 +125,23 @@
 
   @media (min-width: 735px) {
     display: none;
+  }
+}
+
+.Ago {
+  color: var(--color-neutral-02);
+  font-size: 10px;
+}
+
+.MiniPost {
+  a {
+    display: block;
+    width: 40px;
+    height: 40px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
   }
 }
