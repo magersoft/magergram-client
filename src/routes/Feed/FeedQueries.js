@@ -13,6 +13,7 @@ export const FEED_QUERY = gql`
         id
         avatar
         username
+        isSelf
       }
       files {
         id

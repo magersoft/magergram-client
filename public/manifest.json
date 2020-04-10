@@ -1,6 +1,9 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Magergram",
+  "name": "Magergram Application",
+  "description": "Magergram is a simple way to capture and share the world's moments.",
+  "orientation": "portrait",
+  "prompt_message": "Добавьте значок на главный экран для легкого доступа к Instagram",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +23,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "gcm_sender_id": "309121554319"
 }

@@ -49,3 +49,9 @@ export const DELETE_FILE = gql`
     fileDelete(src: $src)
   }
 `;
+
+export const SEND_SUBSCRIPTION = gql`
+  mutation createSubscription($subscription: String!) {
+    createSubscription(subscription: $subscription)
+  }
+`;
