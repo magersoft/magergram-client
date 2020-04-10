@@ -13,11 +13,13 @@ const Activity = ({ show, onClose }) => {
   const { t } = useTranslation();
   const [notifications, setNotifications] = useState([]);
 
-  const [seeNotifications, { loading, data }] = useLazyQuery(SEE_NOTIFICATIONS);
+  const [seeNotifications, { loading, data }] = useLazyQuery(SEE_NOTIFICATIONS, {
+    fetchPolicy: 'network-only'
+  });
 
   useEffect(() => {
     if (show) {
-      seeNotifications()
+      seeNotifications();
     }
   }, [show, seeNotifications]);
 

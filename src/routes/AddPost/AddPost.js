@@ -18,7 +18,8 @@ export default ({ history }) => {
     caption: '',
     location: '',
     imageUploaded: false,
-    filter: null
+    filter: null,
+    disableShare: false
   });
   const [caman, setCaman] = useState(null);
   const [user, setUser] = useState(null);
@@ -61,7 +62,7 @@ export default ({ history }) => {
               }
             })
           } else {
-            setState({ ...state, imageUploaded: true });
+            setState({ ...state, imageUploaded: true, disableShare: false });
             renderImage(file);
             initCaman();
           }
@@ -104,6 +105,7 @@ export default ({ history }) => {
   };
 
   const upload = () => {
+    setState(prevState => ({ ...prevState, disableShare: true }));
     const canvas = document.querySelector('canvas');
     uploadFile(canvasToBlob(canvas, user.username), true);
   };
@@ -144,7 +146,7 @@ export default ({ history }) => {
                     label={t('Share')}
                     className={style.ShareButton}
                     small
-                    disabled={!state.imageUploaded}
+                    disabled={state.disableShare || !state.imageUploaded}
                   /> : <Spinner fill="var(--color-accent)" />
                 }
               </div>

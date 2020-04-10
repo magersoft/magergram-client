@@ -23,6 +23,7 @@ export default ({ user, onActivity }) => {
 
   const handleButtonClick = active => {
     setState({ ...state, isActivity: active });
+    document.body.style.overflow = active ? 'hidden' : null;
     onActivity(active);
   };
 
