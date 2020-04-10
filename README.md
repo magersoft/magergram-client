@@ -1,6 +1,6 @@
 # Magergram - Instagram clone for practice React, GraphQL, Apollo 
 
-### Application available now: [Magergram Client](http://magergram.herokuapp.com/) (pre-alpha build)
+### Application available now: [Magergram Client](http://magergram.herokuapp.com/) (alpha build)
 
 [Go to Magergram API repository](https://github.com/magersoft/magergram-api).
 
