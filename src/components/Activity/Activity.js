@@ -15,7 +15,7 @@ const Activity = ({ show, onClose }) => {
   useEffect(() => {
     if (data) {
       const { seeNotifications } = data;
-      setNotifications(seeNotifications)
+      setNotifications(seeNotifications);
     }
   }, [data]);
 

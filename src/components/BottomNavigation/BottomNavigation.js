@@ -20,6 +20,16 @@ export default ({ user }) => {
     }
   }, [user]);
 
+  const handleActivityClick = () => {
+      setState(prevState => ({
+        ...prevState,
+        user: {
+          ...prevState.user,
+          newNotificationsCount: 0
+        }
+      }))
+  };
+
   return (
     <nav className={`${style.Navigation} bottom-navigation`}>
       <div className={style.iOS11fix} />
@@ -40,7 +50,12 @@ export default ({ user }) => {
           </Link>
         </div>
         <div className={cx(style.Button, style.Activity)}>
-          <Link to="/activity" className={style.Link} title={t('Activity')}>
+          { state.user && state.user.newNotificationsCount !== 0 &&
+            <div className={style.NewNotificationsCount}>
+              <span>{ state.user.newNotificationsCount }</span>
+            </div>
+          }
+          <Link to="/activity" className={style.Link} title={t('Activity')} onClick={handleActivityClick}>
             <LikeIcon width={24} height={24} color="var(--color-main)" active={pathname === '/activity'} />
           </Link>
         </div>

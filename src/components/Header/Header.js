@@ -25,6 +25,7 @@ const DARK_MODE = gql`
 export default ({ setUser, activity }) => {
   const [state, setState] = useState({
     username: '',
+    newNotificationsCount: null,
     avatar: null,
     showActivity: false
   });
@@ -41,8 +42,8 @@ export default ({ setUser, activity }) => {
     if (data) {
       const { myProfile } = data;
       if (myProfile) {
-        const { username, avatar, darkMode, language } = myProfile;
-        setState({ username, avatar });
+        const { username, avatar, darkMode, language, newNotificationsCount } = myProfile;
+        setState({ username, avatar, newNotificationsCount });
         setDarkMode({ variables: { darkMode } });
         setLanguage({ variables: { lang: language } });
         setUser(myProfile);
@@ -116,7 +117,12 @@ export default ({ setUser, activity }) => {
                   </Link>
                 </div>
                 <div className={cx(style.NavigationIcon, style.showActivityIcon)}>
-                  <button className={style.ActivityButton} onClick={() => setState({ ...state, showActivity: !state.showActivity })}>
+                  <button className={style.ActivityButton} onClick={() => setState({ ...state, showActivity: !state.showActivity, newNotificationsCount: 0 })}>
+                    { state.newNotificationsCount && state.newNotificationsCount !== 0 ?
+                    <div className={style.NewNotificationsCount}>
+                      <span>{ state.newNotificationsCount }</span>
+                    </div> : null
+                    }
                     <LikeIcon
                       color="var(--color-main)"
                       width="22"
@@ -124,7 +130,7 @@ export default ({ setUser, activity }) => {
                       active={state.showActivity}
                     />
                   </button>
-                  <Activity show={state.showActivity} onClose={() => setState({ ...state, showActivity: false })} />
+                  { state.showActivity && <Activity show={state.showActivity} onClose={() => setState({...state, showActivity: false})}/> }
                 </div>
                 <div className={style.NavigationIcon}>
                   <Link to={`/${state.username}`} className={style.UserProfile}>
