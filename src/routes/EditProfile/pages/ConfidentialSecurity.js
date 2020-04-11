@@ -5,7 +5,7 @@ import { Checkbox } from '../../../components/UI';
 import { useMutation } from '@apollo/react-hooks';
 import { PRIVATE_ACCOUNT } from '../EditProfileQueries';
 import { MY_PROFILE } from '../../../components/Header/HeaderQueries';
-import { SEE_NOTIFICATIONS } from '../../../components/Activity/ActivityQueries';
+import { SEE_NOTIFICATIONS } from '../../Activity/ActivityQueries';
 
 export default ({ user }) => {
   const { t } = useTranslation();

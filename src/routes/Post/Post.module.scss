@@ -121,4 +121,8 @@ $additionalWidth: 335px;
     margin-left: var(--spacing-xxs);
     color: var(--color-main);
   }
+
+  @media (max-width: 735px) {
+    margin-left: var(--spacing-xs);
+  }
 }

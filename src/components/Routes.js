@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import LayoutDefault from '../layout/Default';
 import LayoutMain from '../layout/Main';
 import ScrollToTop from '../utils/ScrollToTop';
-import { LoaderJSX } from './Loader/Loader';
+import { LoaderJSX } from './Loader';
 
 const SignIn = lazy(() => import('../routes/SignIn/SignIn'));
 const SignUp = lazy(() => import('../routes/SignUp/SignUp'));
@@ -14,6 +14,7 @@ const Profile = lazy(() => import('../routes/Profile/Profile'));
 const EditProfile = lazy(() => import('../routes/EditProfile/EditProfile'));
 const Explore = lazy(() => import('../routes/Explore/Explore'));
 const AddPost = lazy(() => import('../routes/AddPost/AddPost'));
+const Activity = lazy(() => import('../routes/Activity/Activity'));
 const GenerateFilterPreview = lazy(() => import('../routes/Admin/GenerateFilterPreview'));
 
 const AppRouter = ({ isLoggedIn }) =>
@@ -30,6 +31,7 @@ const LoggedInRoutes = () =>
         <Route path="/add-post" component={AddPost} />
         <Route path="/explore" component={Explore} />
         <Route path="/edit-profile" component={EditProfile} />
+        <Route path="/activity" component={Activity} />
         <Route path="/generate-filter-preview" component={GenerateFilterPreview} />
         <Route path="/post/:postId" component={Post} />
         <Route path="/:username" component={Profile} />

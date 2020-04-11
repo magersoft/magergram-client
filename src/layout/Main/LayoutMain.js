@@ -9,7 +9,6 @@ import { subscribeUser } from '../../subscription';
 
 export default ({ children }) => {
   const [user, setUser] = useState(null);
-  const [showActivity, setShowActivity] = useState(false);
 
   const [sendSubscription] = useMutation(SEND_SUBSCRIPTION);
 
@@ -22,9 +21,9 @@ export default ({ children }) => {
       <main className={style.Main} role="main">
         { children }
       </main>
-      <Header setUser={setUser} activity={showActivity} />
+      <Header setUser={setUser} />
       <Footer />
-      <BottomNavigation user={user} onActivity={state => setShowActivity(state)} />
+      <BottomNavigation user={user} />
     </section>
   )
 

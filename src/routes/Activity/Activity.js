@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import style from './Activity.module.scss';
-import { useQuery} from '@apollo/react-hooks';
-import { SEE_NOTIFICATIONS } from '../../routes/Activity/ActivityQueries';
-import Spinner from '../Loader/Spinner';
+import { useQuery } from '@apollo/react-hooks';
+import { SEE_NOTIFICATIONS } from './ActivityQueries';
 import { useTranslation } from 'react-i18next';
-import NotificationCard from '../NotificationCard';
+import Spinner from '../../components/Loader/Spinner';
+import NotificationCard from '../../components/NotificationCard';
 
-const Activity = ({ show, onClose }) => {
+export default () => {
   const { t } = useTranslation();
   const [notifications, setNotifications] = useState([]);
 
-  const { loading, data } = useQuery(SEE_NOTIFICATIONS);
+  const { data, loading } = useQuery(SEE_NOTIFICATIONS);
 
   useEffect(() => {
     if (data) {
       const { seeNotifications } = data;
-      setNotifications(seeNotifications)
+      setNotifications(seeNotifications);
     }
   }, [data]);
 
@@ -24,31 +24,29 @@ const Activity = ({ show, onClose }) => {
   }
 
   return (
-    <React.Fragment>
-      { show && <div className={style.Overlay} onClick={onClose} /> }
-      <div className={`${style.Container} ${show ? style.active : ''}`}>
-        {
-          notifications.length ?
+    <div className={style.Container}>
+      <header className={style.Header}>
+        <h1 className={style.Title}>{t('Activity')}</h1>
+      </header>
+      <div className={style.Notifications}>
+        { notifications.length ?
           notifications.map(notification => {
             const { id, createdAt, subscriber, post, type } = notification;
             return (
               <NotificationCard
                 id={id}
                 key={id}
-                type={type}
-                subscriber={subscriber}
                 post={post}
+                type={type}
                 createdAt={createdAt}
+                subscriber={subscriber}
                 updateNotification={handleUpdateNotification}
-                onClose={onClose}
               />
             )
-          }) :
-          loading ? <Spinner /> : <div className={style.NotNotification}>{t('No notifications')}</div>
+          })
+          : loading ? <Spinner /> : <div className={style.NotNotification}>{t('No notifications')}</div>
         }
+      </div>
     </div>
-    </React.Fragment>
   )
 };
-
-export default Activity;

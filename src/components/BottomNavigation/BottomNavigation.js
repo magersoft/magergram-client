@@ -7,12 +7,11 @@ import { AddPostIcon, HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
 import { Image } from '../UI';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 
-export default ({ user, onActivity }) => {
+export default ({ user }) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const [state, setState] = useState({
-    user: null,
-    isActivity: false
+    user: null
   });
 
   useEffect(() => {
@@ -21,37 +20,31 @@ export default ({ user, onActivity }) => {
     }
   }, [user]);
 
-  const handleButtonClick = active => {
-    setState({ ...state, isActivity: active });
-    document.body.style.overflow = active ? 'hidden' : null;
-    onActivity(active);
-  };
-
   return (
     <nav className={`${style.Navigation} bottom-navigation`}>
       <div className={style.iOS11fix} />
       <div className={style.Container}>
-        <div className={cx(style.Button, style.Home)} onClick={() => handleButtonClick(false)}>
-          <Link to="/" title={t('Home')}>
-            <HomeIcon width={24} height={24} color="var(--color-main)" active={pathname === '/' && !state.isActivity} />
+        <div className={cx(style.Button, style.Home)}>
+          <Link to="/" className={style.Link} title={t('Home')}>
+            <HomeIcon width={24} height={24} color="var(--color-main)" active={pathname === '/'} />
           </Link>
         </div>
-        <div className={cx(style.Button, style.Explore)} onClick={() => handleButtonClick(false)}>
-          <Link to="/explore" title={t('Search')}>
-            <SearchPeopleIcon width={24} height={24} color="var(--color-main)" active={pathname === '/explore' && !state.isActivity} />
+        <div className={cx(style.Button, style.Explore)}>
+          <Link to="/explore" className={style.Link} title={t('Explore')}>
+            <SearchPeopleIcon width={24} height={24} color="var(--color-main)" active={pathname === '/explore'} />
           </Link>
         </div>
-        <div className={cx(style.Button, style.AddPost)} onClick={() => handleButtonClick(false)}>
-          <Link to="/add-post" title={t('Add Post')}>
+        <div className={cx(style.Button, style.AddPost)}>
+          <Link to="/add-post" className={style.Link} title={t('Add Post')}>
             <AddPostIcon width={24} height={24} color="var(--color-main)" />
           </Link>
         </div>
         <div className={cx(style.Button, style.Activity)}>
-          <button onClick={() => handleButtonClick(true)}>
-            <LikeIcon width={24} height={24} color="var(--color-main)" active={state.isActivity} />
-          </button>
+          <Link to="/activity" className={style.Link} title={t('Activity')}>
+            <LikeIcon width={24} height={24} color="var(--color-main)" active={pathname === '/activity'} />
+          </Link>
         </div>
-        <div className={cx(style.Button, style.User)} onClick={() => handleButtonClick(false)}>
+        <div className={cx(style.Button, style.User)}>
           { state.user &&
           <Link to={`/${state.user.username}`} className={style.UserProfile}>
             <Image src={state.user.avatar || NoAvatarImg} alt="Avatar profile" />
