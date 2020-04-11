@@ -75,5 +75,8 @@
   "Confirm": "Одобрить",
   "No notifications": "Нет уведомлений",
   "Notifications": "Уведомления",
-  "Activity": "Действия"
+  "Activity": "Действия",
+  "Application is s new version available": "Доступна новая версия приложения",
+  "Update available": "Доступно обновление",
+  "Install update": "Установить обновление"
 }

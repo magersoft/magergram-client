@@ -3,8 +3,8 @@ import style from './Activity.module.scss';
 import { useQuery } from '@apollo/react-hooks';
 import { SEE_NOTIFICATIONS } from './ActivityQueries';
 import { useTranslation } from 'react-i18next';
-import Spinner from '../../components/Loader/Spinner';
 import NotificationCard from '../../components/NotificationCard';
+import UserCardSkeleton from '../../components/UserCard/UserCardSkeleton';
 
 export default () => {
   const { t } = useTranslation();
@@ -44,7 +44,9 @@ export default () => {
               />
             )
           })
-          : loading ? <Spinner /> : <div className={style.NotNotification}>{t('No notifications')}</div>
+          : loading
+            ? [...Array(10).keys()].map(idx => <UserCardSkeleton key={idx} />)
+            : <div className={style.NotNotification}>{t('No notifications')}</div>
         }
       </div>
     </div>
