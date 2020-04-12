@@ -4,11 +4,13 @@ import filtersJson from '../../data/filters';
 import { startCase } from 'lodash';
 import NormalFilter from '../../assets/forFilter.jpg';
 import style from './ImageFilters.module.scss';
+import cx from 'classnames';
 
 const STATIC_SERVER = process.env.REACT_APP_STATIC_SERVER || 'http://localhost:4000';
 
 export default ({ imageUploaded, onSelectFilter, onRevertFilter }) => {
   const [filters, setFilters] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState('Normal');
 
   const parseFilters = () => {
     const filters = filtersJson.map(filter => {
@@ -26,7 +28,13 @@ export default ({ imageUploaded, onSelectFilter, onRevertFilter }) => {
 
   const selectFilteredImage = filter => {
     onSelectFilter(filter);
+    setSelectedFilter(filter);
   };
+
+  const revertFilter = () => {
+    onRevertFilter();
+    setSelectedFilter('Normal')
+  }
 
   return (
     <div className={`${style.ImageFilter} ${!imageUploaded ? style.disabled : null}`}>
@@ -37,7 +45,7 @@ export default ({ imageUploaded, onSelectFilter, onRevertFilter }) => {
         hanger="0"
         className={style.Slider}
       >
-        <div className={style.Filter} onClick={onRevertFilter}>
+        <div className={cx(style.Filter, selectedFilter === 'Normal' && style.active)} onClick={revertFilter}>
           <div className={style.FilterName}>
             Normal
           </div>
@@ -47,7 +55,7 @@ export default ({ imageUploaded, onSelectFilter, onRevertFilter }) => {
         </div>
         { filters.map((filter, index) => {
           return (
-            <div className={style.Filter} key={index} id={`it-${filter.name}`} onClick={() => selectFilteredImage(filter.name)}>
+            <div className={cx(style.Filter, selectedFilter === filter.name && style.active)} key={index} id={`it-${filter.name}`} onClick={() => selectFilteredImage(filter.name)}>
               <div className={style.FilterName}>
                 { startCase(filter.name) }
               </div>

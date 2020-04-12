@@ -20,7 +20,7 @@
 }
 
 .Slider {
-  height: 300px;
+  height: 122px;
 }
 
 .Filter {
@@ -30,6 +30,8 @@
   &Name {
     text-align: center;
     margin-bottom: var(--spacing-xxs);
+    font-size: var(--small-font);
+    color: var(--color-neutral-03);
     font-weight: 400;
   }
 
@@ -52,6 +54,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+  }
+
+  &.active {
+    .FilterName {
+      color: var(--color-main);
+      font-weight: 600;
     }
   }
 }
