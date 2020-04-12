@@ -8,13 +8,15 @@ import { Image } from '../UI';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { useMutation } from '@apollo/react-hooks';
 import { UPLOAD_FILE } from '../../apollo/GlobalQueries';
+import { Loader } from '../Loader';
 
 export default ({ user }) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const history = useHistory();
   const [state, setState] = useState({
-    user: null
+    user: null,
+    loading: false
   });
 
   const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
@@ -42,6 +44,7 @@ export default ({ user }) => {
   }
 
   const handleInputFileChange = event => {
+    setState(prevState => ({ ...prevState, loading: true }) );
     const { validity, files: [file] } = event.target;
     if (validity.valid && file) {
       singleUpload({
@@ -52,7 +55,8 @@ export default ({ user }) => {
           const { data: { singleUpload } } = result;
           if (singleUpload) {
             const file = singleUpload.path;
-            history.push('/add-post', { file })
+            history.push('/add-post', { file });
+            setState(prevState => ({ ...prevState, loading: false }) );
           }
         }
       })
@@ -61,6 +65,7 @@ export default ({ user }) => {
 
   return (
     <nav className={`${style.Navigation} bottom-navigation`}>
+      { state.loading && <Loader showProgress /> }
       <div className={style.iOS11fix} />
       <div className={style.Container}>
         <div className={cx(style.Button, style.Home)}>
