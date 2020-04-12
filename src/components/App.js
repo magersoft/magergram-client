@@ -1,5 +1,5 @@
-import React from 'react';
-import { useQuery, useApolloClient } from '@apollo/react-hooks';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import Router from './Routes';
 import { Loader } from './Loader';
@@ -7,8 +7,9 @@ import ThemeSwitcher from 'react-css-vars';
 import light from '../theme/light';
 import dark from '../theme/dark';
 import Dialog from './Dialog/Dialog';
-import { useTranslation } from 'react-i18next';
 import DialogButton from './Dialog/DialogButton';
+import { useTranslation } from 'react-i18next';
+import { APP_VERSION } from '../apollo/GlobalQueries';
 
 const IS_LOGGED_IN = gql`
   {
@@ -28,34 +29,40 @@ const DARK_MODE = gql`
   }
 `;
 
-const SERVICE_WORKER_UPDATED = gql`
-  {
-    serviceWorkerUpdated @client
-    serviceWorkerRegistration @client
-  }
-`
-
 function App() {
-  const client = useApolloClient();
+  const { t } = useTranslation();
   const { data: { isLoggedIn } } = useQuery(IS_LOGGED_IN);
   const { data: { loading } } = useQuery(LOADING);
   const { data: { darkMode } } = useQuery(DARK_MODE);
-  const { data: { serviceWorkerUpdated, serviceWorkerRegistration } } = useQuery(SERVICE_WORKER_UPDATED);
 
-  const { t } = useTranslation();
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [version, setVersion] = useState(null);
+
+  const { data } = useQuery(APP_VERSION);
+
+  useEffect(() => {
+    if (data) {
+      const currentAppVersion = localStorage.getItem('version');
+      const { getVersion } = data;
+
+      if (currentAppVersion) {
+        setUpdateAvailable(currentAppVersion !== getVersion);
+        setVersion(getVersion);
+      } else {
+        localStorage.setItem('version', getVersion);
+      }
+    }
+  }, [data]);
 
   const installUpdate = () => {
-    if (serviceWorkerRegistration) {
-      const registrationWaiting = serviceWorkerRegistration.waiting;
-      if (registrationWaiting) {
-        registrationWaiting.addEventListener('statechange', e => {
-          if (e.target.state === 'activated') {
-            window.location.reload();
-          }
-        });
-        client.writeData({ data: { serviceWorkerUpdated: false } });
-        registrationWaiting.postMessage({ type: 'SKIP_WAITING' });
-      }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          registration.update();
+          localStorage.setItem('version', version);
+          window.location.reload();
+        }
+      })
     }
   }
 
@@ -65,7 +72,7 @@ function App() {
       { loading && <Loader /> }
       <Router isLoggedIn={isLoggedIn} />
       <Dialog
-        show={serviceWorkerUpdated}
+        show={updateAvailable}
         image
         title={t('Update available')}
         description={t('Application is s new version available')}

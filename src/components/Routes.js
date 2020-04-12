@@ -25,7 +25,7 @@ const AppRouter = ({ isLoggedIn }) =>
 
 const LoggedInRoutes = () =>
   <LayoutMain>
-    <Suspense fallback={LoaderJSX}>
+    <Suspense fallback={LoaderJSX()}>
       <Switch>
         <Route path="/" exact={true} component={Feed} />
         <Route path="/add-post" component={AddPost} />

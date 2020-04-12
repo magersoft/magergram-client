@@ -55,3 +55,9 @@ export const SEND_SUBSCRIPTION = gql`
     createSubscription(subscription: $subscription)
   }
 `;
+
+export const APP_VERSION = gql`
+  query getVersion {
+    getVersion
+  }
+`

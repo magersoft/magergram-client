@@ -98,9 +98,11 @@ export default ({ user }) => {
         </div>
         <div className={cx(style.Button, style.User)}>
           { state.user &&
-          <Link to={`/${state.user.username}`} className={style.UserProfile}>
-            <Image src={state.user.avatar || NoAvatarImg} alt="Avatar profile" />
-          </Link>
+            <Link to={`/${state.user.username}`} className={style.UserProfile}>
+              <div className={style.UserProfileLink}>
+                <Image src={state.user.avatar || NoAvatarImg} alt="Avatar profile" />
+              </div>
+            </Link>
           }
         </div>
       </div>

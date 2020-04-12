@@ -72,10 +72,6 @@ export default ({ history }) => {
                 }
               }
             })
-          } else {
-            setState({ ...state, imageUploaded: true, disableShare: false });
-            renderImage(file);
-            initCaman();
           }
         }
       }
@@ -183,7 +179,7 @@ export default ({ history }) => {
                       label={t('Share')}
                       className={style.ShareButton}
                       small
-                      disabled={state.disableShare || !state.imageUploaded}
+                      disabled={state.disableShare || !state.imageUploaded || singleUploadLoading}
                     /> : <Spinner width={30} height={30} fill="var(--color-accent)" />
                   }
                 </div>
