@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 export const SEE_NOTIFICATIONS = gql`
-  query seeNotifications {
-    seeNotifications {
+  query seeNotifications($perPage: Int!, $page: Int!) {
+    seeNotifications(perPage: $perPage, page: $page) {
       id
       type
       requesting
