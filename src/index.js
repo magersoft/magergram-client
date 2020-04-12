@@ -16,11 +16,16 @@ const Application = () => (
 ReactDOM.render(<Application />, document.getElementById('root'));
 
 serviceWorker.register({
-  onUpdate: registration =>
-    Client.writeData({
-      data: {
-        serviceWorkerUpdated: true,
-        serviceWorkerRegistration: registration
-      }
-    })
+  onUpdate: async registration => {
+    if (registration && registration.waiting) {
+      await registration.unregister();
+      Client.writeData({
+        data: {
+          serviceWorkerUpdated: true,
+          serviceWorkerRegistration: registration
+        }
+      });
+      window.location.reload();
+    }
+  }
 });

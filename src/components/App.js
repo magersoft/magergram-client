@@ -48,14 +48,13 @@ function App() {
     if (serviceWorkerRegistration) {
       const registrationWaiting = serviceWorkerRegistration.waiting;
       if (registrationWaiting) {
-        registrationWaiting.postMessage({ type: 'SKIP_WAITING' });
-
         registrationWaiting.addEventListener('statechange', e => {
           if (e.target.state === 'activated') {
-            client.writeData({ data: { serviceWorkerUpdated: false } });
             window.location.reload();
           }
-        })
+        });
+        client.writeData({ data: { serviceWorkerUpdated: false } });
+        registrationWaiting.postMessage({ type: 'SKIP_WAITING' });
       }
     }
   }
