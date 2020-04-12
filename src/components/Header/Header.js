@@ -73,7 +73,7 @@ export default ({ setUser, activity }) => {
         <div className={style.Container}>
           <div className={style.Grid}>
             <div className={style.SetStories}>
-              <button className={style.IconButton} onClick={() => alert('Coming soon ...')}>
+              <button className={style.IconButton} onClick={() => alert('Stories coming soon ...')}>
                 <NewStoryIcon width={24} height={24} color="var(--color-main)" />
               </button>
             </div>
@@ -87,7 +87,7 @@ export default ({ setUser, activity }) => {
               </Link>
             </div>
             <div className={style.Direct}>
-              <button className={style.IconButton} onClick={() => alert('Coming soon ...')}>
+              <button className={style.IconButton} onClick={() => alert('Direct coming soon ...')}>
                 <DirectIcon width={24} height={24} color="var(--color-main)" />
               </button>
             </div>
