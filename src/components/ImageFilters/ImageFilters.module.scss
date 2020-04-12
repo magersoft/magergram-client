@@ -2,10 +2,10 @@
 
 .ImageFilter {
   display: block;
-  padding: var(--spacing-m) 0;
+  padding-top: var(--spacing-s);
   background: var(--color-light);
 
-  :global(.BrainhubCarousel) {
+  :global(.eg-flick-viewport, .eg-flick-camera) {
     flex-direction: row;
   }
 
@@ -14,12 +14,13 @@
     opacity: .5;
   }
 
-  @media (max-width: 735px) {
-    position: absolute;
-    bottom: 0;
+  @media (max-width: 820px) {
     width: 100%;
-    border-bottom: 1px solid var(--color-border-02);
   }
+}
+
+.Slider {
+  height: 300px;
 }
 
 .Filter {
@@ -36,7 +37,7 @@
     width: 150px;
     height: 150px;
 
-    @media (max-width: 735px) {
+    @media (max-width: 820px) {
       width: 100px;
       height: 100px;
     }

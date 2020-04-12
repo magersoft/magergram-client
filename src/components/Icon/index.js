@@ -12,6 +12,7 @@ import CloseIcon from './CloseIcon';
 import NewStoryIcon from './NewStoryIcon';
 import DirectIcon from './DirectIcon';
 import AddPostIcon from './AddPostIcon';
+import BackIcon from './BackIcon';
 
 export {
   HomeIcon,
@@ -27,5 +28,6 @@ export {
   CloseIcon,
   NewStoryIcon,
   DirectIcon,
-  AddPostIcon
+  AddPostIcon,
+  BackIcon
 };

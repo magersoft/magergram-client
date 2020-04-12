@@ -15,6 +15,10 @@
   margin: 0 auto;
   text-transform: uppercase;
   width: 100%;
+
+  @media (max-width: 735px) {
+    display: none;
+  }
 }
 
 .Nav {

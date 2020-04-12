@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Carousel from '@brainhubeu/react-carousel';
+import Flicking from '@egjs/react-flicking';
 import filtersJson from '../../data/filters';
 import { startCase } from 'lodash';
+import NormalFilter from '../../assets/forFilter.jpg';
 import style from './ImageFilters.module.scss';
-import '@brainhubeu/react-carousel/lib/style.css';
 
 const STATIC_SERVER = process.env.REACT_APP_STATIC_SERVER || 'http://localhost:4000';
 
-export default ({ imageUploaded, onSelectFilter }) => {
+export default ({ imageUploaded, onSelectFilter, onRevertFilter }) => {
   const [filters, setFilters] = useState([]);
 
   const parseFilters = () => {
@@ -30,24 +30,21 @@ export default ({ imageUploaded, onSelectFilter }) => {
 
   return (
     <div className={`${style.ImageFilter} ${!imageUploaded ? style.disabled : null}`}>
-      <Carousel
-        id="filterCarousel"
-        slidesPerPage={6}
-        breakpoints={{
-          980: {
-            slidesPerPage: 5
-          },
-          500: {
-            slidesPerPage: 4
-          },
-          375: {
-            slidesPerPage: 3
-          },
-          320: {
-            slidesPerPage: 3
-          }
-        }}
+      <Flicking
+        moveType={'freeScroll'}
+        gap={10}
+        anchor="0"
+        hanger="0"
+        className={style.Slider}
       >
+        <div className={style.Filter} onClick={onRevertFilter}>
+          <div className={style.FilterName}>
+            Normal
+          </div>
+          <div className={style.FilterImage}>
+            <img src={NormalFilter} alt="Normal" />
+          </div>
+        </div>
         { filters.map((filter, index) => {
           return (
             <div className={style.Filter} key={index} id={`it-${filter.name}`} onClick={() => selectFilteredImage(filter.name)}>
@@ -60,7 +57,7 @@ export default ({ imageUploaded, onSelectFilter }) => {
             </div>
           )
         }) }
-      </Carousel>
+      </Flicking>
     </div>
   )
 };

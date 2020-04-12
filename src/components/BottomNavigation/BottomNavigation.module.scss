@@ -11,6 +11,10 @@
   border-top: 1px solid var(--color-border);
   user-select: none;
   z-index: 4;
+
+  @media (min-width: 735px) {
+    display: none;
+  }
 }
 
 .Container {
@@ -30,6 +34,12 @@
   height: 100%;
   min-height: 0;
   min-width: 0;
+
+  button {
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+  }
 
   @media (max-width: 735px) {
     .Link {
@@ -74,5 +84,11 @@
 @media (min-width: 735px) {
   .Home, .Explore, .Activity, .User {
     display: none;
+  }
+}
+
+.UploadPhotoForm {
+  input {
+    display: none!important;
   }
 }

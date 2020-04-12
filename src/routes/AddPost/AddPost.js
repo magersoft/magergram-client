@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/UI';
 import Spinner from '../../components/Loader/Spinner';
 import { ADD_POST } from './AddPostQueries';
+import { BackIcon, CloseIcon } from '../../components/Icon';
 
 export default ({ history }) => {
   const { t } = useTranslation();
@@ -19,11 +20,12 @@ export default ({ history }) => {
     location: '',
     imageUploaded: false,
     filter: null,
-    disableShare: false
+    disableShare: false,
+    file: null
   });
   const [caman, setCaman] = useState(null);
   const [user, setUser] = useState(null);
-  const fileInputRef = useRef();
+  const [next, setNext] = useState(false);
   const uploadedImageRef = useRef();
 
   const { data } = useQuery(MY_PROFILE);
@@ -33,6 +35,15 @@ export default ({ history }) => {
       setUser(myProfile);
     }
   }, [data]);
+
+  useEffect(() => {
+    const { location: { state } } = history;
+    const file = state.file;
+    if (file) {
+      setState({ ...state, imageUploaded: true, disableShare: false, file });
+      renderImage(file);
+    }
+  }, [history]);
 
   const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
   const [addPost, { loading: addPostLoading }] = useMutation(ADD_POST);
@@ -75,33 +86,29 @@ export default ({ history }) => {
     setState({ ...state, [prop]: event.target.value })
   };
 
-  const handleClickUploadPhoto = async () => {
-    fileInputRef.current.click();
-  };
-
-  const handleInputFileChange = event => {
-    const { validity, files: [file] } = event.target;
-    if (validity.valid && file) {
-      uploadFile(file);
-    }
-  };
-
   const renderImage = src => {
-    const uploadedImageEl = uploadedImageRef.current;
-    const existImage = uploadedImageEl.querySelector('canvas');
-    if (existImage) existImage.remove();
-    const image = new Image();
-    image.crossOrigin = 'anonymous';
-    image.src = src;
-    image.classList.add(style.Image);
-    image.id = 'image';
-    uploadedImageEl.append(image);
+    const interval = setInterval(() => {
+      const uploadedImageEl = uploadedImageRef.current;
+      if (uploadedImageEl) {
+        clearInterval(interval);
+        console.log(uploadedImageEl);
+        const existImage = uploadedImageEl.querySelector('canvas');
+        if (existImage) existImage.remove();
+        const image = new Image();
+        image.crossOrigin = 'anonymous';
+        image.src = src;
+        image.classList.add(style.Image);
+        image.id = 'image';
+        uploadedImageEl.append(image);
+
+        initCaman();
+      }
+    }, 100);
   };
 
   const initCaman = () => {
     const image = document.getElementById('image');
-    const caman = window.Caman(image);
-    setCaman(caman);
+    setCaman(window.Caman(image));
   };
 
   const upload = () => {
@@ -117,6 +124,10 @@ export default ({ history }) => {
     setState({ ...state, filter });
   };
 
+  const handleRevertFilter = () => {
+    caman.revert(true);
+  }
+
   const rotate = () => {
     caman.rotate(90);
     caman.render();
@@ -126,31 +137,56 @@ export default ({ history }) => {
     }
   };
 
+  const handleClose = () => {
+    history.goBack();
+  }
+
+  const handleNext = () => {
+    setNext(true);
+  }
+
+  const handleBack = () => {
+    setNext(false);
+  }
+
   return (
-    <div className="container">
+    <div className={`container ${style.Container}`}>
       { user ?
         <div className={style.AddPost}>
+          <div className={style.Actions}>
+            <button className={style.Close} onClick={handleClose}>
+              <CloseIcon width={24} height={24} color="var(--color-main)" />
+            </button>
+            <h1 className={style.Title}>{ t('New publication') }</h1>
+            <Button
+              label={t('Next')}
+              className={style.Next}
+              onClick={handleNext}
+              small
+            />
+          </div>
           <div className={style.Post}>
-            <div ref={uploadedImageRef} className={style.ImageBlock} onClick={handleClickUploadPhoto}>
-              { singleUploadLoading ? <Spinner width={60} height={60} /> : <div className={`${style.AddIcon} sprite`} /> }
-              <form method="POST" encType="multipart/form-data" className={style.UploadPhotoForm}>
-                <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" onChange={handleInputFileChange} />
-              </form>
+            <div ref={uploadedImageRef} className={style.ImageBlock}>
+              <div className={`${style.IconRotate} sprite-create`} onClick={rotate} />
             </div>
             <div className={style.AdditionalBlock}>
-              <div className={style.Actions}>
-                <div className={`${style.IconRotate} sprite`} onClick={rotate} />
-                { !addPostLoading ?
-                  <Button
-                    onClick={upload}
-                    label={t('Share')}
-                    className={style.ShareButton}
-                    small
-                    disabled={state.disableShare || !state.imageUploaded}
-                  /> : <Spinner fill="var(--color-accent)" />
-                }
-              </div>
+              { next &&
               <div className={style.PostInfo}>
+                <div className={style.Actions}>
+                  <button className={style.Back} onClick={handleBack}>
+                    <BackIcon width={24} height={24} color="var(--color-main)" />
+                  </button>
+                  <h1 className={style.Title}>{ t('New publication') }</h1>
+                  { !addPostLoading ?
+                    <Button
+                      onClick={upload}
+                      label={t('Share')}
+                      className={style.ShareButton}
+                      small
+                      disabled={state.disableShare || !state.imageUploaded}
+                    /> : <Spinner width={30} height={30} fill="var(--color-accent)" />
+                  }
+                </div>
                 <textarea
                   className={style.Caption}
                   placeholder={`${t('Add caption')} ...`}
@@ -168,9 +204,14 @@ export default ({ history }) => {
                   onChange={handleChange('location')}
                 />
               </div>
+              }
+              <ImageFilters
+                imageUploaded={state.imageUploaded}
+                onSelectFilter={handleSelectFilter}
+                onRevertFilter={handleRevertFilter}
+              />
             </div>
           </div>
-          <ImageFilters imageUploaded={state.imageUploaded} onSelectFilter={handleSelectFilter} />
         </div> : <PostSkeleton />
       }
     </div>

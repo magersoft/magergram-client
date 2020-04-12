@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import cx from 'classnames';
 import style from './BottomNavigation.module.scss';
 import { useTranslation } from 'react-i18next';
 import { AddPostIcon, HomeIcon, LikeIcon, SearchPeopleIcon } from '../Icon';
 import { Image } from '../UI';
 import NoAvatarImg from '../../assets/noAvatar.jpg';
+import { useMutation } from '@apollo/react-hooks';
+import { UPLOAD_FILE } from '../../apollo/GlobalQueries';
 
 export default ({ user }) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
+  const history = useHistory();
   const [state, setState] = useState({
     user: null
   });
+
+  const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);
+
+  const fileInputRef = useRef();
 
   useEffect(() => {
     if (user) {
@@ -30,6 +37,28 @@ export default ({ user }) => {
       }))
   };
 
+  const handleClickUploadPhoto = () => {
+    fileInputRef.current.click();
+  }
+
+  const handleInputFileChange = event => {
+    const { validity, files: [file] } = event.target;
+    if (validity.valid && file) {
+      singleUpload({
+        variables: {
+          file
+        },
+        update: (_, result) => {
+          const { data: { singleUpload } } = result;
+          if (singleUpload) {
+            const file = singleUpload.path;
+            history.push('/add-post', { file })
+          }
+        }
+      })
+    }
+  }
+
   return (
     <nav className={`${style.Navigation} bottom-navigation`}>
       <div className={style.iOS11fix} />
@@ -45,9 +74,12 @@ export default ({ user }) => {
           </Link>
         </div>
         <div className={cx(style.Button, style.AddPost)}>
-          <Link to="/add-post" className={style.Link} title={t('Add Post')}>
+          <button className={style.Link} title={t('Add Post')} disabled={singleUploadLoading} onClick={handleClickUploadPhoto}>
             <AddPostIcon width={24} height={24} color="var(--color-main)" />
-          </Link>
+            <form method="POST" encType="multipart/form-data" className={style.UploadPhotoForm}>
+              <input ref={fileInputRef} type="file" accept="image/jpeg,image/png" onChange={handleInputFileChange} />
+            </form>
+          </button>
         </div>
         <div className={cx(style.Button, style.Activity)}>
           { state.user && state.user.newNotificationsCount !== 0 &&

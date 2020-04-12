@@ -65,7 +65,8 @@ export default ({ history }) => {
           slide.appendChild(filter.image);
           console.log(caman);
           caman(`#${filter.image.id}`, function() {
-            this[filter.name]().render();
+            this[filter.name]();
+            this.render();
           });
           clearInterval(interval);
         }
