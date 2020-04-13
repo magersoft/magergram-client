@@ -58,11 +58,18 @@ function App() {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
         for (let registration of registrations) {
-          registration.update();
-          localStorage.setItem('version', version);
-          window.location.reload();
+          try {
+            registration.update();
+            localStorage.setItem('version', version);
+            window.location.reload();
+          } catch (e) {
+            console.error(e);
+            window.location.reload();
+          }
         }
       })
+    } else {
+      window.location.reload();
     }
   }
 
