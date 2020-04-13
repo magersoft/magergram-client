@@ -8,5 +8,6 @@
   " Field name = username": "Пользователь с таким имени уже существует",
   "Email or phone required field": "Эл. адрес или телефона является обязательным",
   "Server not response! Wait or reload application later": "Сервер не отвечает! Ожидайте или перезапустите приложение позже",
-  "New password must be different from current password": "Новый пароль должен отличаться от текущего пароля"
+  "New password must be different from current password": "Новый пароль должен отличаться от текущего пароля",
+  "Only english lower case letter and digits": "Имя пользователя может содержать только латинские буквы и цифры в нижнем регистре"
 }

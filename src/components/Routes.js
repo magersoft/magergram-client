@@ -42,7 +42,7 @@ const LoggedInRoutes = () =>
 
 const LoggedOutRoutes = () =>
   <LayoutDefault>
-    <Suspense fallback={LoaderJSX}>
+    <Suspense fallback={LoaderJSX()}>
       <Switch>
         <Route path="/" exact={true} component={SignIn} />
         <Route path="/signup" component={SignUp} />

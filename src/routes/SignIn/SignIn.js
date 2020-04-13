@@ -111,7 +111,7 @@ export default () => {
             </div>
             <Separator text={t('or')} />
             <div className={style.SocialLogin}>
-              <button className={style.FacebookButton}>
+              <button className={style.FacebookButton} onClick={() => alert('Coming soon ...')}>
                 <span className={`${style.FacebookIcon} sprite`} />
                 <span className={style.FacebookText}>{t('Login with Facebook')}</span>
               </button>
@@ -123,7 +123,7 @@ export default () => {
                 </p>
               </div>
             }
-            <Link to="/" className={style.ForgotPassword}>{t('Forgot password')}?</Link>
+            <Link to="/" className={style.ForgotPassword} onClick={() => alert('Coming soon ...')}>{t('Forgot password')}?</Link>
           </form>
         </div>
       </div>

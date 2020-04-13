@@ -75,7 +75,7 @@ function App() {
         show={updateAvailable}
         image
         title={t('Update available')}
-        description={t('Application is s new version available')}
+        description={`${t('Application is s new version available')} v${version}`}
       >
         <DialogButton text={t('Install update')} type="danger" onClick={installUpdate} />
       </Dialog>

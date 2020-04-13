@@ -150,7 +150,7 @@ export default ({ history }) => {
               { t('Sign Up, to watch photos and videos of your friends.') }
             </h2>
             <div className={style.SocialLogin}>
-              <Button label={t('Login with Facebook')} />
+              <Button label={t('Login with Facebook')} onClick={() => alert('Coming soon ...')}/>
             </div>
             <Separator text={t('or')} />
             <div className={style.Control}>
