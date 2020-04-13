@@ -54,22 +54,26 @@ function App() {
     }
   }, [data]);
 
+  const saveVersion = () => {
+    localStorage.setItem('version', version);
+    window.location.reload();
+  }
+
   const installUpdate = () => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
         for (let registration of registrations) {
           try {
             registration.update();
-            localStorage.setItem('version', version);
-            window.location.reload();
+            saveVersion();
           } catch (e) {
             console.error(e);
-            window.location.reload();
+            saveVersion();
           }
         }
       })
     } else {
-      window.location.reload();
+      saveVersion();
     }
   }
 
