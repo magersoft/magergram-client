@@ -9,6 +9,10 @@ import style from './Feed.module.scss';
 import RecommendForYou from '../../components/RecommendForYou';
 import Spinner from '../../components/Loader/Spinner';
 import InfiniteScroll from 'react-infinite-scroller';
+import AppHeader from '../../components/AppHeader';
+import NewStoryIcon from '../../components/Icon/NewStoryIcon';
+import { DirectIcon } from '../../components/Icon';
+import { Link } from 'react-router-dom';
 
 const RESIZE_BREAKPOINT = 1000;
 const RIGHT_POSITION = 28;
@@ -100,60 +104,72 @@ export default () => {
       <Helmet>
         <title>Magergram</title>
       </Helmet>
-        { afterQuery && <RecommendForYou isExistPosts={feed.length} onLoading={handleChangeContainer} /> }
-        { showContainer &&
-          <section className={`${style.Container} ${showSidebar ? style.fullWidth : ''}`}>
-            <div ref={feedRef} className={showSidebar ? style.Feed : ''}>
-              <StoriesList />
-              <div className={style.Posts}>
-                { !data && loading ?
-                  <React.Fragment>
-                    <PostSkeleton />
-                    <PostSkeleton />
-                  </React.Fragment>
-                  :
-                  <InfiniteScroll
-                    pageStart={0}
-                    loadMore={handleFetchMore}
-                    hasMore={!noMoreFeed}
-                    initialLoad={false}
-                    loader={
-                      <div key={0} className={style.MoreLoading}>
-                        { feed.length ? <Spinner width={50} height={50} /> : null }
-                      </div>
-                    }
-                  >
-                    { feed.map(post => {
-                      const { id, location, caption, likeCount, isLiked, commentCount, files, user, lastComments, createdAt } = post;
-                      return (
-                        !!files.length &&
-                        <Post
-                          key={id}
-                          postId={id}
-                          user={user}
-                          location={location}
-                          caption={caption}
-                          files={files}
-                          comments={lastComments}
-                          commentCount={commentCount}
-                          likeCount={likeCount}
-                          isLiked={isLiked}
-                          createdAt={createdAt}
-                        />
-                      )
-                    }) }
-                  </InfiniteScroll>
-                }
-              </div>
-              { loading &&
-                <div className={style.MoreLoading}>
-                  <Spinner width={50} height={50} />
-                </div>
+      <AppHeader
+        leftButton={
+          <button onClick={() => alert('Coming soon ...')}>
+            <NewStoryIcon width={24} height={24} color="var(--color-main)" />
+          </button>
+        }
+        rightButton={
+          <Link to="/direct">
+            <DirectIcon width={24} height={24} color="var(--color-main)" />
+          </Link>
+        }
+      />
+      { afterQuery && <RecommendForYou isExistPosts={feed.length} onLoading={handleChangeContainer} /> }
+      { showContainer &&
+        <section className={`${style.Container} ${showSidebar ? style.fullWidth : ''}`}>
+          <div ref={feedRef} className={showSidebar ? style.Feed : ''}>
+            <StoriesList />
+            <div className={style.Posts}>
+              { !data && loading ?
+                <React.Fragment>
+                  <PostSkeleton />
+                  <PostSkeleton />
+                </React.Fragment>
+                :
+                <InfiniteScroll
+                  pageStart={0}
+                  loadMore={handleFetchMore}
+                  hasMore={!noMoreFeed}
+                  initialLoad={false}
+                  loader={
+                    <div key={0} className={style.MoreLoading}>
+                      { feed.length ? <Spinner width={50} height={50} /> : null }
+                    </div>
+                  }
+                >
+                  { feed.map(post => {
+                    const { id, location, caption, likeCount, isLiked, commentCount, files, user, lastComments, createdAt } = post;
+                    return (
+                      !!files.length &&
+                      <Post
+                        key={id}
+                        postId={id}
+                        user={user}
+                        location={location}
+                        caption={caption}
+                        files={files}
+                        comments={lastComments}
+                        commentCount={commentCount}
+                        likeCount={likeCount}
+                        isLiked={isLiked}
+                        createdAt={createdAt}
+                      />
+                    )
+                  }) }
+                </InfiniteScroll>
               }
             </div>
-            {  (!afterQuery || !!feed.length ) && showSidebar && <Sidebar leftFixedPosition={leftFixedPosition} isFeedGetted={feed.length} /> }
-          </section>
-        }
+            { loading &&
+              <div className={style.MoreLoading}>
+                <Spinner width={50} height={50} />
+              </div>
+            }
+          </div>
+          {  (!afterQuery || !!feed.length ) && showSidebar && <Sidebar leftFixedPosition={leftFixedPosition} isFeedGetted={feed.length} /> }
+        </section>
+      }
     </React.Fragment>
   )
 };

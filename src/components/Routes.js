@@ -15,6 +15,7 @@ const EditProfile = lazy(() => import('../routes/EditProfile/EditProfile'));
 const Explore = lazy(() => import('../routes/Explore/Explore'));
 const AddPost = lazy(() => import('../routes/AddPost/AddPost'));
 const Activity = lazy(() => import('../routes/Activity/Activity'));
+const Direct = lazy(() => import('../routes/Direct/Direct'));
 const GenerateFilterPreview = lazy(() => import('../routes/Admin/GenerateFilterPreview'));
 
 const AppRouter = ({ isLoggedIn }) =>
@@ -32,6 +33,7 @@ const LoggedInRoutes = () =>
         <Route path="/explore" component={Explore} />
         <Route path="/edit-profile" component={EditProfile} />
         <Route path="/activity" component={Activity} />
+        <Route path="/direct" component={Direct} />
         <Route path="/generate-filter-preview" component={GenerateFilterPreview} />
         <Route path="/post/:postId" component={Post} />
         <Route path="/:username" component={Profile} />

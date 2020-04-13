@@ -11,6 +11,7 @@ import { Button } from '../../components/UI';
 import Spinner from '../../components/Loader/Spinner';
 import { ADD_POST } from './AddPostQueries';
 import { BackIcon, CloseIcon } from '../../components/Icon';
+import AppHeader from '../../components/AppHeader';
 
 export default ({ history }) => {
   const { t } = useTranslation();
@@ -146,21 +147,26 @@ export default ({ history }) => {
   }
 
   return (
-    <div className={`container ${style.Container}`}>
+    <React.Fragment>
+      <AppHeader
+        title={ t('New publication') }
+        leftButton={
+          <button className={style.Close} onClick={handleClose}>
+            <CloseIcon width={24} height={24} color="var(--color-main)" />
+          </button>
+        }
+        rightButton={
+          <Button
+            label={t('Next')}
+            className={style.Next}
+            onClick={handleNext}
+            small
+          />
+        }
+      />
+      <div className={`container ${style.Container}`}>
       { user ?
         <div className={style.AddPost}>
-          <div className={style.Actions}>
-            <button className={style.Close} onClick={handleClose}>
-              <CloseIcon width={24} height={24} color="var(--color-main)" />
-            </button>
-            <h1 className={style.Title}>{ t('New publication') }</h1>
-            <Button
-              label={t('Next')}
-              className={style.Next}
-              onClick={handleNext}
-              small
-            />
-          </div>
           <div className={style.Post}>
             <div ref={uploadedImageRef} className={style.ImageBlock}>
               <div className={`${style.IconRotate} sprite-create`} onClick={rotate} />
@@ -211,5 +217,6 @@ export default ({ history }) => {
         </div> : <PostSkeleton />
       }
     </div>
+    </React.Fragment>
   )
 };

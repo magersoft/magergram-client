@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import Spinner from '../../components/Loader/Spinner';
 import { useQuery } from '@apollo/react-hooks';
 import { MY_PROFILE } from '../../components/Header/HeaderQueries';
-import { CloseIcon } from '../../components/Icon';
+import { BackIcon } from '../../components/Icon';
+import AppHeader from '../../components/AppHeader';
 
 const Edit = lazy(() => import('./pages/Edit'));
 const ChangePassword = lazy(() => import('./pages/ChangePassword'));
@@ -14,7 +15,7 @@ const PushNotification = lazy(() => import('./pages/PushNotification'));
 const ConfidentialSecurity = lazy(() => import('./pages/ConfidentialSecurity'));
 const ApplicationSettings = lazy(() => import('./pages/ApplicationSettings'));
 
-export default () => {
+export default ({ history }) => {
   const { t } = useTranslation();
   const [user, setUser] = useState(null);
   const [isOpenMenu, setOpenMenu] = useState(false);
@@ -44,15 +45,30 @@ export default () => {
   };
 
   return (
-    <div className="container">
+    <React.Fragment>
+      <AppHeader
+        title={t('Edit profile')}
+        leftButton={user &&
+          <button className={style.Back} onClick={() => history.push(`/${user.username}`)}>
+            <BackIcon width={24} height={24} color="var(--color-main)" />
+          </button>
+        }
+        rightButton={
+          <div className={style.MenuTrigger} onClick={() => setOpenMenu(true)}>
+            <button>
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        }
+      />
+      <div className="container">
       <Helmet>
         <title>{ t('Edit profile') }</title>
       </Helmet>
       <div className={style.EditProfile}>
         <ul className={`${style.Menu} ${isOpenMenu ? style.open : ''}`}>
-          <div className={style.CloseIcon} onClick={handleCloseMenu}>
-            <CloseIcon width={25} height={25} color="var(--color-main)" />
-          </div>
           { menu.map(item => <li key={item.link}><NavLink exact to={item.link} onClick={handleCloseMenu}>{ item.name }</NavLink></li>) }
         </ul>
         { user && !loading &&
@@ -68,18 +84,9 @@ export default () => {
           </Suspense>
         </article>
         }
-        <div className={style.MenuTrigger} onClick={() => setOpenMenu(true)}>
-          <button>
-            <span />
-            <span />
-            <span />
-          </button>
-          <div className={style.MenuLabel}>
-            <span>{ t('Settings') }</span>
-          </div>
-        </div>
         { isOpenMenu && <div className={style.Overlay} onClick={handleCloseMenu} /> }
       </div>
     </div>
+    </React.Fragment>
   )
 }

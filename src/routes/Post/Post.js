@@ -20,6 +20,8 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Spinner from '../../components/Loader/Spinner';
 import PostCard from '../../components/PostCard';
 import { Link } from 'react-router-dom';
+import AppHeader from '../../components/AppHeader';
+import { BackIcon, DirectIcon } from '../../components/Icon';
 
 const PER_PAGE_POSTS = 3;
 
@@ -145,6 +147,18 @@ export default ({ match, history }) => {
 
   return (
     <React.Fragment>
+      <AppHeader
+        leftButton={
+          <button className={style.Back} onClick={history.goBack}>
+            <BackIcon width={24} height={24} color="var(--color-main)" />
+          </button>
+        }
+        rightButton={
+          <Link to="/direct">
+            <DirectIcon width={24} height={24} color="var(--color-main)" />
+          </Link>
+        }
+      />
       <div className="container">
         <div className={style.Post}>
           { !post ?

@@ -7,6 +7,7 @@ import NotificationCard from '../../components/NotificationCard';
 import UserCardSkeleton from '../../components/UserCard/UserCardSkeleton';
 import InfiniteScroll from 'react-infinite-scroller';
 import Spinner from '../../components/Loader/Spinner';
+import AppHeader from '../../components/AppHeader';
 
 const PER_PAGE_NOTIFICATIONS = 10;
 
@@ -59,9 +60,7 @@ export default () => {
 
   return (
     <div className={style.Container}>
-      <header className={style.Header}>
-        <h1 className={style.Title}>{t('Activity')}</h1>
-      </header>
+      <AppHeader title={t('Activity')} />
       <div className={style.Notifications}>
         { notifications.length
           ? <InfiniteScroll

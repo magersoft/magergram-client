@@ -11,7 +11,7 @@ import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { LOG_USER_OUT } from '../../apollo/GlobalQueries';
 import PostCard from '../../components/PostCard';
-import { FavoriteIcon, PortretIcon, PostsIcon } from '../../components/Icon';
+import { DirectIcon, FavoriteIcon, PortretIcon, PostsIcon } from '../../components/Icon';
 import EmptyPosts from '../../components/EmptyPosts';
 import SkeletonAvatar from '../../components/Skeleton/SkeletonAvatar';
 import SkeletonString from '../../components/Skeleton/SkeletonString';
@@ -22,6 +22,8 @@ import Spinner from '../../components/Loader/Spinner';
 import SkeletonBlock from '../../components/Skeleton/SkeletonBlock/SkeletonBlock';
 import UploadAvatar from '../../components/UploadAvatar';
 import PrivateAccount from '../../components/PrivateAccount';
+import AppHeader from '../../components/AppHeader';
+import { Link } from 'react-router-dom';
 
 const PER_PAGE_POST = 8;
 
@@ -193,6 +195,18 @@ export default ({ history, location }) => {
 
   return (
     <React.Fragment>
+      <AppHeader
+        leftButton={
+          <button onClick={handleSettingsClick}>
+            <SettingIcon width="24" height="24" color="var(--color-main)" />
+          </button>
+        }
+        rightButton={
+          <Link to="/direct">
+            <DirectIcon width={24} height={24} color="var(--color-main)" />
+          </Link>
+        }
+      />
       <div className="container">
         <header className={style.Header}>
           <div className={style.ProfilePhoto}>
