@@ -32,7 +32,7 @@ export default () => {
   const menu = [
     { name: t('Edit profile'), link: '/edit-profile' },
     { name: t('Change password'), link: '/edit-profile/password' },
-    { name: t('Push-notification'), link: '/edit-profile/push' },
+    { name: t('Notifications'), link: '/edit-profile/notification' },
     { name: t('Confidential and security'), link: '/edit-profile/security' },
     { name: t('Application settings'), link: '/edit-profile/settings' }
   ];
@@ -61,7 +61,7 @@ export default () => {
             <Switch>
               <Route path="/edit-profile" exact={true} render={() => <Edit user={user} setUser={setUser} />} />
               <Route path="/edit-profile/password" render={() => <ChangePassword user={user} />} />
-              <Route path="/edit-profile/push" component={PushNotification} />
+              <Route path="/edit-profile/notification" render={() => <PushNotification user={user} />} />
               <Route path="/edit-profile/security" render={() => <ConfidentialSecurity user={user} />} />
               <Route path="/edit-profile/settings" render={() => <ApplicationSettings user={user} />} />
             </Switch>

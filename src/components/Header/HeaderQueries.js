@@ -19,6 +19,7 @@ export const MY_PROFILE = gql`
      isPrivate
      isRequestingSubscription
      newNotificationsCount
+     emailNotification
    }
  }
 `;

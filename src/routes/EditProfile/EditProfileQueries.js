@@ -60,3 +60,9 @@ export const PRIVATE_ACCOUNT = gql`
     privateAccount(state: $state)
   }
 `;
+
+export const EMAIL_NOTIFICATION = gql`
+  mutation toggleEmailNotification($state: Boolean!) {
+    toggleEmailNotification(state: $state)
+  }
+`;
