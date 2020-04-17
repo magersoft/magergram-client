@@ -8,7 +8,7 @@ import NoAvatarImg from '../../assets/noAvatar.jpg';
 import { useMutation } from '@apollo/react-hooks';
 import { CANCEL_FOLLOW, FOLLOW, REQUEST_FOLLOW, UNFOLLOW } from '../../routes/Profile/ProfileQuery';
 
-const UserCard = ({ id, avatar, username, fullName, isPrivate, isFollowing, itsMe, isRequestingSubscription, small }) => {
+const UserCard = ({ id, avatar, username, fullName, isPrivate, isFollowing, itsMe, isRequestingSubscription, customButton, small }) => {
   const { t } = useTranslation();
   const [following, setFollowing] = useState(isFollowing);
   const [requestingSubscription, setRequestingSubscription] = useState(isRequestingSubscription);
@@ -90,7 +90,7 @@ const UserCard = ({ id, avatar, username, fullName, isPrivate, isFollowing, itsM
           <span>{ fullName }</span>
         </div>
       </div>
-      { !itsMe &&
+      { !itsMe && !customButton &&
         <div className={style.Button}>
           { following
             ? <Button
@@ -118,6 +118,7 @@ const UserCard = ({ id, avatar, username, fullName, isPrivate, isFollowing, itsM
           }
         </div>
       }
+      { customButton && <div className={style.Button}>{ customButton }</div> }
     </div>
   )
 };
@@ -131,7 +132,8 @@ UserCard.propTypes = {
   itsMe: PropTypes.bool,
   isRequestingSubscription: PropTypes.bool,
   isPrivate: PropTypes.bool,
-  small: PropTypes.bool
+  small: PropTypes.bool,
+  customButton: PropTypes.node
 };
 
 export default UserCard;

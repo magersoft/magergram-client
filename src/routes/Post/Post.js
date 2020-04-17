@@ -154,7 +154,7 @@ export default ({ match, history }) => {
           </button>
         }
         rightButton={
-          <Link to="/direct">
+          <Link to="/direct/inbox">
             <DirectIcon width={24} height={24} color="var(--color-main)" />
           </Link>
         }

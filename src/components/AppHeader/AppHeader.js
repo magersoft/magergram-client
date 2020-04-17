@@ -15,7 +15,7 @@ const DARK_MODE = gql`
   }
 `;
 
-const AppHeader = ({ leftButton, rightButton, title }) => {
+const AppHeader = ({ leftButton, rightButton, title, customTitle }) => {
   const { data: { darkMode } } = useQuery(DARK_MODE);
 
   return (
@@ -29,15 +29,17 @@ const AppHeader = ({ leftButton, rightButton, title }) => {
             </div>
             { title
               ? <h1 className={style.Title}>{ title }</h1>
-              : <div className={style.Logo}>
-                <Link to="/">
-                  <div className={style.LogoContainer}>
-                    <div className={style.LogoImg}>
-                      <img src={darkMode ? DarkLogoImg : LogoImg} srcSet={darkMode ? DarkLogoImgX2 : LogoImgX2} alt="Magergram" />
-                    </div>
+              : customTitle
+                ? customTitle
+                : <div className={style.Logo}>
+                    <Link to="/">
+                      <div className={style.LogoContainer}>
+                        <div className={style.LogoImg}>
+                          <img src={darkMode ? DarkLogoImg : LogoImg} srcSet={darkMode ? DarkLogoImgX2 : LogoImgX2} alt="Magergram" />
+                        </div>
+                      </div>
+                    </Link>
                   </div>
-                </Link>
-              </div>
             }
             <div className={style.RightButton}>
               { rightButton }
@@ -52,6 +54,7 @@ const AppHeader = ({ leftButton, rightButton, title }) => {
 AppHeader.propTypes = {
   leftButton: PropTypes.node,
   rightButton: PropTypes.node,
+  customTitle: PropTypes.node,
   title: PropTypes.string
 }
 
