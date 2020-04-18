@@ -31,6 +31,7 @@ export const SEE_ROOMS = gql`
       lastMessage {
         id
         text
+        isRead
         createdAt
       }
     }
@@ -45,19 +46,28 @@ export const SEE_ROOM = gql`
         id
         username
         avatar
+        isSelf
       }
-      messages {
+    }
+  }
+`;
+
+export const SEE_MESSAGES = gql`
+  query seeMessages($roomId: String!, $perPage: Int!, $page: Int!) {
+    seeMessages(roomId: $roomId, perPage: $perPage, page: $page) {
+      id
+      text
+      from {
         id
-        text
-        from {
-          id
-          isSelf
-        }
-        to {
-          id
-        }
-        createdAt
+        username
+        avatar
       }
+      to {
+        id
+        username
+        avatar
+      }
+      createdAt
     }
   }
 `;
@@ -69,9 +79,13 @@ export const NEW_MESSAGE_SUBSCRIPTION = gql`
       text
       from {
         id
+        username
+        avatar
       }
       to {
         id
+        username
+        avatar
       }
       createdAt
     }
@@ -85,9 +99,13 @@ export const SEND_MESSAGE = gql`
       text
       from {
         id
+        username
+        avatar
       }
       to {
         id
+        username
+        avatar
       }
       createdAt
     }

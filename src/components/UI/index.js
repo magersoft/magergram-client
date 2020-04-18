@@ -6,6 +6,7 @@ import Search from './Search';
 import Image from './Image';
 import Checkbox from './Checkbox';
 import RadioButton from './RadioButton';
+import Message from './Message';
 
 export {
   Button,
@@ -15,5 +16,6 @@ export {
   Search,
   Image,
   Checkbox,
-  RadioButton
+  RadioButton,
+  Message
 }

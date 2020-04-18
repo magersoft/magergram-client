@@ -6,6 +6,7 @@ import BottomNavigation from '../../components/BottomNavigation';
 import { useMutation } from '@apollo/react-hooks';
 import { SEND_SUBSCRIPTION } from '../../apollo/GlobalQueries';
 import { subscribeUser } from '../../subscription';
+import NewMessageListener from '../../components/NewMessageListener';
 
 export default ({ children }) => {
   const [user, setUser] = useState(null);
@@ -24,6 +25,7 @@ export default ({ children }) => {
       <Header setUser={setUser} />
       <Footer />
       <BottomNavigation user={user} />
+      {/*<NewMessageListener />*/}
     </section>
   )
 

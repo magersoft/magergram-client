@@ -68,79 +68,31 @@
   margin-bottom: 20px;
 }
 
-.Message {
+.MessageTime {
   flex: 0 0 auto;
   justify-content: flex-start;
-  flex-direction: row;
-  align-items: flex-end;
-  align-content: stretch;
-
-  &.Mine {
-    .MessageInner {
-      align-self: flex-end;
-      background-color: var(--color-border-02);
-    }
-  }
+  align-items: stretch;
 
   &Wrapper {
-    flex: 1 1 auto;
-    min-height: 0;
-    min-width: 0;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    flex: 0 0 auto;
     justify-content: flex-start;
     align-items: stretch;
     align-content: stretch;
   }
 
-  &Inner {
-    align-self: flex-start;
-    justify-content: center;
-    padding: var(--spacing-m);
-    max-width: 236px;
-    min-height: 44px;
-    border: 1px solid var(--color-border-02);
-    border-radius: 22px;
-    z-index: 1;
-    user-select: none;
-    touch-action: manipulation;
-    margin-bottom: var(--spacing-xs);
-  }
-
   &Text {
-    overflow-wrap: break-word;
-    white-space: normal;
-    color: var(--color-main);
+    text-align: center;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-neutral-03);
     font-weight: 400;
-    font-size: var(--base-font);
-    line-height: 18px;
-    margin: -3px 0 -4px;
-  }
-
-  &Time {
-    flex: 0 0 auto;
-    justify-content: flex-start;
-    align-items: stretch;
-
-    &Wrapper {
-      margin-top: 12px;
-      margin-bottom: 24px;
-      flex: 0 0 auto;
-      justify-content: flex-start;
-      align-items: stretch;
-      align-content: stretch;
-    }
-
-    &Text {
-      text-align: center;
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      color: var(--color-neutral-03);
-      font-weight: 400;
-      font-size: var(--small-font);
-      line-height: 14px;
-      margin: -2px 0 -3px;
-    }
+    font-size: var(--small-font);
+    line-height: 14px;
+    margin: -2px 0 -3px;
   }
 }
 
@@ -208,6 +160,27 @@
   align-items: stretch;
   align-content: stretch;
 
+  &.UnRead {
+    .RoomCardUsername {
+      font-weight: 600;
+    }
+
+    .RoomCardMessageText {
+      font-weight: 600;
+      color: var(--color-main);
+    }
+
+    .Dot {
+      position: absolute;
+      right: var(--spacing-m);
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-accent);
+      border-radius: 50%;
+    }
+  }
+
   a {
     color: var(--color-main);
   }
@@ -235,9 +208,9 @@
     }
   }
 
-  &CardInfo {
-    flex: 1 1 auto;
+  &Info {
     justify-content: center;
+    width: 77%;
   }
 
   &Username {
@@ -250,5 +223,19 @@
   &Message {
     flex-direction: row;
     color: var(--color-neutral-03);
+
+    span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &Text {
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }

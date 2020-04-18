@@ -9,13 +9,20 @@ import { useTranslation } from 'react-i18next';
 import { useQuery } from '@apollo/react-hooks';
 import { SEE_ROOMS } from '../DirectQueries';
 import timeAgo from '../../../utils/timeAgo';
+import cx from 'classnames';
+import UserCardSkeleton from '../../../components/UserCard/UserCardSkeleton';
+import SkeletonAvatar from '../../../components/Skeleton/SkeletonAvatar';
+import SkeletonString from '../../../components/Skeleton/SkeletonString';
 
 export default ({ history }) => {
   const { t } = useTranslation();
 
   const [rooms, setRooms] = useState([]);
 
-  const { data, loading } = useQuery(SEE_ROOMS);
+  const { data, loading } = useQuery(SEE_ROOMS, {
+    fetchPolicy: 'network-only',
+    // pollInterval: 1000
+  });
 
   useEffect(() => {
     if (data) {
@@ -46,8 +53,11 @@ export default ({ history }) => {
         <div className={style.Inbox}>
           { rooms.length ? rooms.map(room => {
             const user = room.participants[1];
+            const lastMessage = room.lastMessage[0];
+
             return (
-              <div className={style.RoomCard} key={room.id}>
+              <div className={cx(style.RoomCard, !lastMessage.isRead && style.UnRead)} key={room.id}>
+                <div className={style.Dot} />
                 <Link to={`/direct/t/${room.id}`}>
                   <div className={style.RoomCardWrapper}>
                     <div className={style.Avatar}>
@@ -58,9 +68,9 @@ export default ({ history }) => {
                         { user.username }
                       </div>
                       <div className={style.RoomCardMessage}>
-                        <span>{ room.lastMessage[0].text }</span>
+                        <span className={style.RoomCardMessageText}>{ lastMessage.text }</span>
                         <span>&nbsp;•&nbsp;</span>
-                        <span>{ timeAgo.format(new Date(room.lastMessage[0].createdAt)) }</span>
+                        <span>{ timeAgo.format(new Date(lastMessage.createdAt)) }</span>
                       </div>
                     </div>
                   </div>
@@ -68,6 +78,18 @@ export default ({ history }) => {
               </div>
             )
           }) : null }
+          { loading && [...Array(10).keys()].map(idx => (
+            <div className={style.RoomCard} key={idx}>
+              <div className={style.RoomCardWrapper}>
+                <div className={style.Avatar}>
+                  <SkeletonAvatar width={56} height={56} />
+                </div>
+                <div className={style.RoomCardInfo}>
+                  <SkeletonString height={15} width={300} />
+                </div>
+              </div>
+            </div>
+          )) }
         </div>
       </div>
     </React.Fragment>
