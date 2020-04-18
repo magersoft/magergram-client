@@ -44,7 +44,7 @@ export default ({ match, history }) => {
     variables: {
       id: match.params.postId
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-and-network'
   });
 
   useEffect(() => {

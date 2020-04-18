@@ -12,7 +12,7 @@ export default () => {
   const [posts, setPosts] = useState([]);
 
   const { data, loading } = useQuery(SEE_EXPLORE, {
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-and-network'
   });
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default () => {
       <div className={style.Posts}>
         <h1 className={style.Title}>{ t('Interesting') }</h1>
           <div className={style.Grid}>
-            { posts.length && !loading ?
+            { posts.length ?
               posts.map(post => {
                 const {id, files, commentCount, likeCount, caption} = post;
                 return <PostCard
@@ -42,7 +42,7 @@ export default () => {
                 />
               }) : null
             }
-            { loading && [...Array(12).keys()].map(idx => <SkeletonBlock maxHeight={293} maxWidth={293} key={idx}/>) }
+            { loading && [...Array(24).keys()].map(idx => <SkeletonBlock maxHeight={293} maxWidth={293} key={idx}/>) }
           </div>
         { !posts.length && <EmptyPosts /> }
       </div>

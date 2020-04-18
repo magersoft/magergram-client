@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import style from './Message.module.scss'
+import NoAvatarImg from '../../../assets/noAvatar.jpg';
 import cx from 'classnames';
 import emojiRegex from 'emoji-regex';
 
@@ -10,10 +11,9 @@ const Message = ({ id, text, fromUser, toUser, currentUserId }) => {
   const verifyMessage = () => {
     const regexEmoji = emojiRegex();
     let match;
-    let emoji;
     let onlyEmoji;
+    // eslint-disable-next-line
     while (match = regexEmoji.exec(text)) {
-      emoji = match[0];
       onlyEmoji = match['index'] === 0;
     }
     return (
@@ -30,7 +30,7 @@ const Message = ({ id, text, fromUser, toUser, currentUserId }) => {
       { fromUser.id !== currentUserId &&
       <div className={style.PartnerAvatar}>
         <Link to={`/${fromUser.username}`} className={style.Avatar}>
-          <img src={fromUser.avatar} alt={fromUser.username} />
+          <img src={fromUser.avatar || NoAvatarImg} alt={fromUser.username} />
         </Link>
       </div>
       }

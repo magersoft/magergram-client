@@ -32,7 +32,7 @@ export default () => {
       perPage: PER_PAGE_POST,
       page: 0
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-and-network'
   });
 
   useEffect(() => {

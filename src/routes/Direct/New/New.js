@@ -14,7 +14,7 @@ export default ({ history }) => {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
 
-  const { data, loading } = useQuery(MY_FOLLOWING);
+  const { data, loading } = useQuery(MY_FOLLOWING, { fetchPolicy: 'cache-and-network' });
 
   const [createRoom, { loading: loadingCreatingRoom }] = useMutation(CREATE_ROOM);
 
@@ -47,7 +47,7 @@ export default ({ history }) => {
       <AppHeader
         title={t('New message')}
         leftButton={
-          <button className="back-button" onClick={history.goBack}>
+          <button className="back-button" onClick={users.length ? history.goBack : () => history.push('/')}>
             <BackIcon width={24} height={24} color="var(--color-main)" />
           </button>
         }
@@ -60,6 +60,7 @@ export default ({ history }) => {
         </div>
         <div className={style.FollowingUsers}>
           <h2>{ t('Recommended') }</h2>
+          { loading && [...Array(15).keys()].map(idx => <UserCardSkeleton key={idx} />) }
           { users.length ? users.map(user => {
             const { username, id, avatar, fullName } = user;
             return (
@@ -78,8 +79,7 @@ export default ({ history }) => {
                 }
               />
             )
-          }) : null }
-          { loading && [...Array(10).keys()].map(idx => <UserCardSkeleton key={idx} />) }
+          }) : <div className={style.EmptyParents}>{ t('Subscribe to start chatting') }</div> }
         </div>
       </div>
     </React.Fragment>

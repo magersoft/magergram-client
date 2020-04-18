@@ -10,9 +10,9 @@ import { useQuery } from '@apollo/react-hooks';
 import { SEE_ROOMS } from '../DirectQueries';
 import timeAgo from '../../../utils/timeAgo';
 import cx from 'classnames';
-import UserCardSkeleton from '../../../components/UserCard/UserCardSkeleton';
 import SkeletonAvatar from '../../../components/Skeleton/SkeletonAvatar';
 import SkeletonString from '../../../components/Skeleton/SkeletonString';
+import NoAvatarImg from '../../../assets/noAvatar.jpg';
 
 export default ({ history }) => {
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ export default ({ history }) => {
   const [rooms, setRooms] = useState([]);
 
   const { data, loading } = useQuery(SEE_ROOMS, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network'
     // pollInterval: 1000
   });
 
@@ -28,6 +28,10 @@ export default ({ history }) => {
     if (data) {
       const { seeRooms } = data;
       setRooms(seeRooms);
+
+      if (!seeRooms.length) {
+        history.push('/direct/new');
+      }
     }
   }, [data]);
 
@@ -61,7 +65,7 @@ export default ({ history }) => {
                 <Link to={`/direct/t/${room.id}`}>
                   <div className={style.RoomCardWrapper}>
                     <div className={style.Avatar}>
-                      <img src={user.avatar} alt={user.username} />
+                      <img src={user.avatar || NoAvatarImg} alt={user.username} />
                     </div>
                     <div className={style.RoomCardInfo}>
                       <div className={style.RoomCardUsername}>
@@ -78,14 +82,14 @@ export default ({ history }) => {
               </div>
             )
           }) : null }
-          { loading && [...Array(10).keys()].map(idx => (
+          { loading && [...Array(15).keys()].map(idx => (
             <div className={style.RoomCard} key={idx}>
               <div className={style.RoomCardWrapper}>
                 <div className={style.Avatar}>
                   <SkeletonAvatar width={56} height={56} />
                 </div>
                 <div className={style.RoomCardInfo}>
-                  <SkeletonString height={15} width={300} />
+                  <SkeletonString height={15} width={200} />
                 </div>
               </div>
             </div>

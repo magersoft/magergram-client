@@ -4,13 +4,13 @@ import SkeletonString from '../Skeleton/SkeletonString';
 import { useTranslation } from 'react-i18next';
 import style from './Profile.module.scss';
 
-const ProfileStats = ({ profile, isMobile, loading, onDialogFollowers, onDialogFollowing }) => {
+const ProfileStats = ({ profile, isMobile, onDialogFollowers, onDialogFollowing }) => {
   const { t } = useTranslation();
 
   return (
     <ul className={`${style.ProfileInfo} ${isMobile && style.ProfileInfoMobile}`}>
       <li className={style.ProfileInfoStat}>
-        { profile && !loading ?
+        { profile ?
           <span>
             <span className={style.Count}>{ profile.postsCount }</span>
             <span>&nbsp;{ t('Publications') }</span>
@@ -18,7 +18,7 @@ const ProfileStats = ({ profile, isMobile, loading, onDialogFollowers, onDialogF
         }
       </li>
       <li className={style.ProfileInfoStat} onClick={onDialogFollowers}>
-        { profile && !loading ?
+        { profile ?
           <span>
             <span className={style.Count}>{ profile.followersCount }</span>
             <span>&nbsp;{ t('Followers') }</span>
@@ -26,7 +26,7 @@ const ProfileStats = ({ profile, isMobile, loading, onDialogFollowers, onDialogF
         }
       </li>
       <li className={style.ProfileInfoStat} onClick={onDialogFollowing}>
-        { profile && !loading ?
+        { profile ?
           <span>
             <span className={style.Count}>{ profile.followingCount }</span>
             <span>&nbsp;{ t('Following') }</span>
@@ -39,7 +39,6 @@ const ProfileStats = ({ profile, isMobile, loading, onDialogFollowers, onDialogF
 
 ProfileStats.propTypes = {
   isMobile: PropTypes.bool,
-  loading: PropTypes.bool,
   onDialogFollowers: PropTypes.func.isRequired,
   onDialogFollowing: PropTypes.func.isRequired
 };

@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { LoaderJSX } from '../../components/Loader';
-import style from './Direct.module.scss';
 
 const Inbox = lazy(() => import('./Inbox/Inbox'));
 const New = lazy(() => import('./New/New'));

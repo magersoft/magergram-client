@@ -21,7 +21,7 @@ const Activity = ({ show, onClose }) => {
       perPage: PER_PAGE_NOTIFICATIONS,
       page: 0
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-and-network'
   });
 
   useEffect(() => {

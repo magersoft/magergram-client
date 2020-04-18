@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import style from '../Direct.module.scss';
 import { NEW_MESSAGE_SUBSCRIPTION, SEE_MESSAGES, SEE_ROOM, SEND_MESSAGE } from '../DirectQueries';
@@ -35,7 +36,7 @@ export default ({ match, history }) => {
     variables: {
       id: match.params.id
     },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
 
   useEffect(() => {
@@ -109,7 +110,9 @@ export default ({ match, history }) => {
           setTimeout(() => {
             if (lastMoreMessage) {
               const msgEl = document.getElementById(`msg-${lastMoreMessage.id}`);
-              msgEl.scrollIntoView();
+              if (msgEl) {
+                msgEl.scrollIntoView();
+              }
             }
           });
 
@@ -174,10 +177,14 @@ export default ({ match, history }) => {
         <AppHeader
           customTitle={
             <div className={style.Header}>
-              <div className={style.Avatar}>
-                <img src={companionUser.avatar} alt={companionUser.username} />
-              </div>
-              <h1 className={style.Username}>{ companionUser.username }</h1>
+              <Link to={`/${companionUser.username}`}>
+                <div className={style.Avatar}>
+                  <img src={companionUser.avatar} alt={companionUser.username} />
+                </div>
+              </Link>
+              <Link to={`/${companionUser.username}`}>
+                <h1 className={style.Username}>{ companionUser.username }</h1>
+              </Link>
             </div>
           }
           leftButton={
@@ -195,11 +202,10 @@ export default ({ match, history }) => {
             initialLoad={false}
             className={style.Messages}
             loader={
-              messages.length && messagesLoading
-                ? <div className={style.InitialLoading} key={0}>
-                    <Spinner width={40} height={40} />
-                  </div>
-                : null
+              messages.length >= PER_PAGE_MESSAGES ?
+              <div className={style.InitialLoading} key={0}>
+                <Spinner width={40} height={40} />
+              </div> : null
             }
           >
             { messages.length ?
@@ -208,6 +214,17 @@ export default ({ match, history }) => {
 
                 return (
                 <React.Fragment key={id}>
+                  <div className={style.MessageTime}>
+                    <div className={style.MessageTimeWrapper}>
+                      <div className={style.MessageTimeText}>
+                        { upperFirst(new Date(createdAt).toLocaleTimeString('ru-ru', {
+                          weekday: 'long',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })) }
+                      </div>
+                    </div>
+                  </div>
                   <Message
                     id={id}
                     text={text}
@@ -215,25 +232,13 @@ export default ({ match, history }) => {
                     toUser={to}
                     currentUserId={currentUser.id}
                   />
-
-                  <div className={style.MessageTime}>
-                    <div className={style.MessageTimeWrapper}>
-                    <div className={style.MessageTimeText}>
-                      { upperFirst(new Date(createdAt).toLocaleTimeString('ru-ru', {
-                        weekday: 'long',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })) }
-                    </div>
-                  </div>
-                  </div>
                 </React.Fragment>
                 )
               }) : null
             }
-              <div ref={messagesEndRef} />
           </InfiniteScroll>
         </div>
+        <div className={style.iOS11fix} />
         <form className={style.SendMessage} onSubmit={handleSendMessage}>
           <div className={style.Control}>
             <div className={style.ControlWrapper}>
@@ -252,6 +257,7 @@ export default ({ match, history }) => {
             </div>
           </div>
         </form>
+        <div ref={messagesEndRef} className={style.End} />
       </React.Fragment>
       }
     </React.Fragment>

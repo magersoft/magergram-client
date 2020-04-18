@@ -21,7 +21,7 @@ export default () => {
       perPage: PER_PAGE_NOTIFICATIONS,
       page: 0
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-and-network'
   });
 
   useEffect(() => {
@@ -90,7 +90,7 @@ export default () => {
             }) }
             </InfiniteScroll>
           : loading
-            ? [...Array(10).keys()].map(idx => <UserCardSkeleton key={idx} />)
+            ? [...Array(15).keys()].map(idx => <UserCardSkeleton key={idx} />)
             : <div className={style.NotNotification}>{t('No notifications')}</div>
         }
       </div>

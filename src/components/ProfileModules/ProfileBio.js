@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import SkeletonString from '../Skeleton/SkeletonString';
 import style from './Profile.module.scss';
 
-const ProfileBio = ({ profile, isMobile, loading }) => {
+const ProfileBio = ({ profile, isMobile }) => {
 
   return (
     <div className={`${style.ProfileBio} ${isMobile && style.ProfileBioMobile}`}>
-      { profile && !loading ?
+      { profile ?
         <React.Fragment>
           <h2>{ profile.fullName }</h2>
           { profile.bio && <span>{ profile.bio }</span> }

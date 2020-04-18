@@ -17,7 +17,7 @@ const PostLikes = ({ postId, likeCount, itsMe, className }) => {
     variables: {
       postId
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-and-network'
   });
   useEffect(() => {
     if (data) {

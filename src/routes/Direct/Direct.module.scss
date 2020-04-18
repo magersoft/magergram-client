@@ -18,6 +18,7 @@
   }
 
   .Username {
+    color: var(--color-main);
     font-size: var(--medium-font);
     line-height: 24px;
     font-weight: 600;
@@ -30,6 +31,7 @@
 }
 
 .Search {
+  display: none; // todo: later
   flex-direction: row;
   margin-bottom: var(--spacing-xs);
   border-bottom: 1px solid var(--color-border);
@@ -65,7 +67,8 @@
   justify-content: flex-end;
   align-items: stretch;
   align-content: stretch;
-  margin-bottom: 20px;
+  margin-top: 31px;
+  margin-bottom: env(safe-area-inset-bottom);
 }
 
 .MessageTime {
@@ -99,11 +102,26 @@
 .SendMessage {
   position: fixed;
   bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   height: 76px;
   width: 100%;
   padding: var(--spacing-m);
-  z-index: 10;
-  background-color: var(--color-bg);
+  z-index: 5;
+  background-color: var(--color-light);
+}
+
+.iOS11fix {
+  position: absolute;
+  bottom: -76px;
+  background-color: var(--color-light);
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+.End {
+  position: absolute;
+  bottom: -100px;
 }
 
 .Control {
@@ -238,4 +256,9 @@
       white-space: nowrap;
     }
   }
+}
+
+.EmptyParents {
+  text-align: center;
+  margin: var(--spacing-m);
 }

@@ -25,7 +25,7 @@ import PrivateAccount from '../../components/PrivateAccount';
 import AppHeader from '../../components/AppHeader';
 import { Link } from 'react-router-dom';
 
-const PER_PAGE_POST = 8;
+const PER_PAGE_POST = 9;
 
 export default ({ history, location }) => {
   const username = location.pathname.replace('/', '');
@@ -53,7 +53,7 @@ export default ({ history, location }) => {
     variables: {
       username
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-and-network'
   });
   useEffect(() => {
     if (data) {
@@ -70,7 +70,7 @@ export default ({ history, location }) => {
       perPage: PER_PAGE_POST,
       page: 0
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'cache-and-network'
   });
   useEffect(() => {
     if (dataPosts) {
@@ -213,7 +213,7 @@ export default ({ history, location }) => {
             <div className={style.ProfilePhotoContainer}>
               <div className={style.ProfilePhotoBlock}>
                 <button className={style.ProfilePhotoChange} title={t('Change profile photo')} onClick={handleClickAvatar}>
-                  { profile && !loading ?
+                  { profile ?
                     <Image src={profile.avatar || NoAvatarImg} alt={t('Change profile photo')} />
                     :
                     <SkeletonAvatar maxHeight={150} maxWidth={150} />
@@ -224,8 +224,8 @@ export default ({ history, location }) => {
           </div>
           <section className={style.Profile}>
             <div className={style.ProfileSettings}>
-              { profile && !loading ? <h1>{ profile.username }</h1> : <SkeletonString height={25} width={150} /> }
-              { profile && !loading ?
+              { profile ? <h1>{ profile.username }</h1> : <SkeletonString height={25} width={150} /> }
+              { profile ?
                 <React.Fragment>
                   { profile && profile.isSelf ?
                     <React.Fragment>
@@ -268,21 +268,19 @@ export default ({ history, location }) => {
             </div>
             <ProfileStats
               profile={profile}
-              loading={loading}
               onDialogFollowing={() => setDialogFollowing(true)}
               onDialogFollowers={() => setDialogFollowers(true)}
             />
-            <ProfileBio profile={profile} loading={loading} />
+            <ProfileBio profile={profile} />
           </section>
         </header>
-        <ProfileBio profile={profile} isMobile loading={loading} />
+        <ProfileBio profile={profile} isMobile />
         <div className="stories" style={{marginBottom: 40}}>
           {/*{ todo: Stories }*/}
         </div>
         <ProfileStats
           profile={profile}
           isMobile
-          loading={loading}
           onDialogFollowing={() => setDialogFollowing(true)}
           onDialogFollowers={() => setDialogFollowers(true)}
         />
@@ -307,7 +305,7 @@ export default ({ history, location }) => {
           </div>
         </div>
           <article className={style.Posts}>
-            { posts && !loadingPosts ?
+            { posts.length ?
               <InfiniteScroll
                 pageStart={0}
                 loadMore={handleFetchMore}

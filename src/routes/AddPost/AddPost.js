@@ -44,6 +44,7 @@ export default ({ history }) => {
       setState({ ...state, imageUploaded: true, disableShare: false, file });
       renderImage(file);
     }
+    // eslint-disable-next-line
   }, [history]);
 
   const [singleUpload, { loading: singleUploadLoading }] = useMutation(UPLOAD_FILE);

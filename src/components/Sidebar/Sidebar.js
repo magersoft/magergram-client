@@ -27,7 +27,7 @@ export default ({ leftFixedPosition, isFeedGetted }) => {
     }
   }, [isFeedGetted, client]);
 
-  const { data, loading } = useQuery(RECOMMEND_USERS, { fetchPolicy: 'network-only' });
+  const { data, loading } = useQuery(RECOMMEND_USERS, { fetchPolicy: 'cache-and-network' });
 
   useEffect(() => {
     if (data) {

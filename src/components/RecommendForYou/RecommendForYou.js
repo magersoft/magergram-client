@@ -10,7 +10,7 @@ import EmptyPosts from '../EmptyPosts';
 export default ({ isExistPosts, onLoading }) => {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
-  const { data, loading } = useQuery(RECOMMEND_USERS, { skip: isExistPosts, fetchPolicy: 'network-only' });
+  const { data, loading } = useQuery(RECOMMEND_USERS, { skip: isExistPosts, fetchPolicy: 'cache-and-network' });
 
   useEffect(() => {
     if (data) {
