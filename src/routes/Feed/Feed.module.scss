@@ -1,3 +1,5 @@
+@import '../../theme/mixins';
+
 .Container {
   position: relative;
   padding-top: 60px;
@@ -40,4 +42,10 @@
   @media (max-width: 735px) {
     margin-top: var(--spacing-xxl);
   }
+}
+
+.MessagesCount {
+  right: -12px;
+  top: -8px;
+  @include notificationCountLabel();
 }

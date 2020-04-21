@@ -43,6 +43,7 @@ const AppHeader = ({ leftButton, rightButton, title, customTitle }) => {
             }
             <div className={style.RightButton}>
               { rightButton }
+
             </div>
           </div>
         </div>
