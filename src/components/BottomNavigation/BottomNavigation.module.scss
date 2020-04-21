@@ -76,8 +76,8 @@
 }
 
 .NewNotificationsCount {
-  right: 17px;
-  top: 2px;
+  right: -12px;
+  top: -7px;
   @include notificationCountLabel();
 }
 
