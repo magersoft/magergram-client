@@ -258,6 +258,13 @@
   }
 }
 
+.Typing {
+  margin: 0 var(--spacing-m);
+  flex: 0 0 auto;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
 .EmptyParents {
   text-align: center;
   margin: var(--spacing-m);

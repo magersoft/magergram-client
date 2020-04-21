@@ -2,8 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import style from '../Direct.module.scss';
-import { NEW_MESSAGE_SUBSCRIPTION, SEE_MESSAGES, SEE_ROOM, SEND_MESSAGE } from '../DirectQueries';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import {
+  NEW_MESSAGE_SUBSCRIPTION,
+  SEE_MESSAGES,
+  SEE_ROOM,
+  SEND_MESSAGE,
+  SUBSCRIPTION_TYPING_MESSAGE,
+  TYPING_MESSAGE
+} from '../DirectQueries';
+import { useMutation, useQuery, useSubscription } from '@apollo/react-hooks';
 import { useTranslation } from 'react-i18next';
 import AppHeader from '../../../components/AppHeader';
 import BackIcon from '../../../components/Icon/BackIcon';
@@ -166,6 +173,33 @@ export default ({ match, history }) => {
   }
   useEffect(scrollToBottom);
 
+  const { data: dataTyping } = useSubscription(SUBSCRIPTION_TYPING_MESSAGE);
+  console.log(dataTyping);
+
+  const [userTyping] = useMutation(TYPING_MESSAGE);
+
+  const [typing, setTyping] = useState(false);
+
+  useEffect(() => {
+    if (text.length) {
+      setTyping(true);
+    } else {
+      setTyping(false);
+    }
+  }, [text]);
+
+  useEffect(() => {
+    if (currentUser && companionUser) {
+      userTyping({
+        variables: {
+          roomId: match.params.id,
+          toUserId: companionUser.id,
+          typing
+        }
+      });
+    }
+  }, [typing]);
+
   return (
     <React.Fragment>
       { loading && <Loader showProgress /> }
@@ -237,6 +271,11 @@ export default ({ match, history }) => {
               }) : null
             }
           </InfiniteScroll>
+          { dataTyping && dataTyping.typingMessage &&
+          <div className={style.Typing}>
+            <span>{ t('Typing') } ...</span>
+          </div>
+          }
         </div>
         <div className={style.iOS11fix} />
         <form className={style.SendMessage} onSubmit={handleSendMessage}>

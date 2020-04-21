@@ -111,3 +111,15 @@ export const SEND_MESSAGE = gql`
     }
   }
 `;
+
+export const TYPING_MESSAGE = gql`
+  mutation typingMessage($roomId: String!, $toUserId: String!, $typing: Boolean!) {
+    typingMessage(roomId: $roomId, toUserId: $toUserId, typing: $typing)
+  }
+`;
+
+export const SUBSCRIPTION_TYPING_MESSAGE = gql`
+  subscription typingMessage {
+    typingMessage
+  }
+`;
