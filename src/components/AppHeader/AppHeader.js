@@ -20,13 +20,13 @@ const AppHeader = ({ leftButton, rightButton, title, customTitle, withNotificati
   const client = useApolloClient();
   const { data: { darkMode } } = useQuery(DARK_MODE);
 
-  const [newMessageCount, setMessageCount] = useState(0);
+  const [newMessagesCount, setMessagesCount] = useState(0);
 
   useEffect(() => {
     if (withNotification) {
       const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
       if (myProfile) {
-        setMessageCount(myProfile.newMessagesCount);
+        setMessagesCount(myProfile.newMessagesCount);
       }
     }
   }, [withNotification]);
@@ -57,10 +57,10 @@ const AppHeader = ({ leftButton, rightButton, title, customTitle, withNotificati
             <div className={style.RightButton}>
               <React.Fragment>
                 { withNotification &&
-                  newMessageCount &&
-                  newMessageCount !== 0
+                  newMessagesCount &&
+                  newMessagesCount !== 0
                   ? <div className={style.NewNotificationsCount}>
-                      <span>{ newMessageCount }</span>
+                      <span>{ newMessagesCount }</span>
                     </div>
                   : null
                 }

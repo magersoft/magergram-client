@@ -56,7 +56,7 @@ export default ({ history }) => {
       <div className="container">
         <div className={style.Inbox}>
           { rooms.length ? rooms.map(room => {
-            const user = room.participants[1];
+            const user = room.participants.filter(user => !user.isSelf)[0];
             const lastMessage = room.lastMessage[0];
 
             return (

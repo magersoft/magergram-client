@@ -27,6 +27,7 @@ export const SEE_ROOMS = gql`
         id
         username
         avatar
+        isSelf
       }
       lastMessage {
         id
@@ -109,5 +110,11 @@ export const SEND_MESSAGE = gql`
       }
       createdAt
     }
+  }
+`;
+
+export const READ_ROOM_MESSAGES = gql`
+  mutation readRoomMessages($roomId: String!) {
+    readRoomMessages(roomId: $roomId)
   }
 `;

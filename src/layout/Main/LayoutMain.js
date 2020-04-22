@@ -32,7 +32,9 @@ export default ({ children }) => {
 
   const { data: { darkMode } } = useQuery(DARK_MODE);
 
-  const { data, loading } = useQuery(MY_PROFILE);
+  const { data, loading } = useQuery(MY_PROFILE, {
+    fetchPolicy: 'cache-and-network'
+  });
 
   useEffect(() => {
     if (data) {

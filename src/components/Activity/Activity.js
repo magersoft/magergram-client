@@ -79,7 +79,7 @@ const Activity = ({ show, onClose }) => {
                 }
               >
               { notifications.map(notification => {
-                const {id, createdAt, subscriber, post, type} = notification;
+                const {id, createdAt, subscriber, post, type, requesting} = notification;
                 return (
                   <NotificationCard
                     id={id}
@@ -87,6 +87,7 @@ const Activity = ({ show, onClose }) => {
                     type={type}
                     subscriber={subscriber}
                     post={post}
+                    requesting={requesting}
                     createdAt={createdAt}
                     updateNotification={handleUpdateNotification}
                     onClose={onClose}

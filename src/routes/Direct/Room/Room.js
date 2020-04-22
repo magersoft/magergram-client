@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import style from '../Direct.module.scss';
-import { NEW_MESSAGE_SUBSCRIPTION, SEE_MESSAGES, SEE_ROOM, SEND_MESSAGE } from '../DirectQueries';
+import { NEW_MESSAGE_SUBSCRIPTION, READ_ROOM_MESSAGES, SEE_MESSAGES, SEE_ROOM, SEND_MESSAGE } from '../DirectQueries';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useTranslation } from 'react-i18next';
 import AppHeader from '../../../components/AppHeader';
@@ -12,6 +12,7 @@ import { Loader } from '../../../components/Loader';
 import { Button, Message } from '../../../components/UI';
 import InfiniteScroll from 'react-infinite-scroller';
 import { upperFirst } from 'lodash';
+import { MY_PROFILE } from '../../../layout/Main/MainQueries';
 
 const PER_PAGE_MESSAGES = 10;
 
@@ -25,6 +26,9 @@ export default ({ match, history }) => {
   const [itScrollingBottom, setItScrollingBottom] = useState(false);
 
   const messagesEndRef = useRef(null);
+
+  const [readRoomMessages] = useMutation(READ_ROOM_MESSAGES);
+  const [sendMessage, { loading: sendMessageLoading }] = useMutation(SEND_MESSAGE);
 
   useEffect(() => {
     if (!match.params.id) {
@@ -78,6 +82,13 @@ export default ({ match, history }) => {
               seeMessages: [...prev.seeMessages, subscriptionData.data.newMessage]
             });
           }
+        });
+
+        readRoomMessages({
+          variables: {
+            roomId: match.params.id
+          },
+          refetchQueries: [{ query: MY_PROFILE }]
         })
       }
     }
@@ -125,8 +136,6 @@ export default ({ match, history }) => {
       })
     } catch {}
   }
-
-  const [sendMessage, { loading: sendMessageLoading }] = useMutation(SEND_MESSAGE);
 
   const handleSendMessage = event => {
     event.preventDefault();

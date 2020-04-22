@@ -75,13 +75,14 @@ export default () => {
               }
             >
             { notifications.map(notification => {
-              const { id, createdAt, subscriber, post, type } = notification;
+              const { id, createdAt, subscriber, post, type, requesting } = notification;
               return (
                 <NotificationCard
                   id={id}
                   key={id}
                   post={post}
                   type={type}
+                  requesting={requesting}
                   createdAt={createdAt}
                   subscriber={subscriber}
                   updateNotification={handleUpdateNotification}

@@ -330,10 +330,12 @@ export default ({ history, location }) => {
                     key={id}
                   />
                 }) }
-              </InfiniteScroll> :
-              <div className={style.Grid}>
-                { [...Array(9).keys()].map(idx => <SkeletonBlock maxHeight={293} maxWidth={293} key={idx} />) }
-              </div>
+              </InfiniteScroll> : null
+            }
+            { loadingPosts &&
+            <div className={style.Grid}>
+              { [...Array(9).keys()].map(idx => <SkeletonBlock maxHeight={293} maxWidth={293} key={idx} />) }
+            </div>
             }
             { !posts.length && !loadingPosts && (profile && !profile.isPrivate) && <EmptyPosts /> }
             { !posts.length && !loadingPosts && (profile && profile.isPrivate) && <PrivateAccount /> }

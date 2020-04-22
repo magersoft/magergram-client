@@ -164,10 +164,10 @@ export default () => {
                 </InfiniteScroll>
               }
             </div>
-            { loading &&
+            { loading && !feed.length ?
               <div className={style.MoreLoading}>
                 <Spinner width={50} height={50} />
-              </div>
+              </div> : null
             }
           </div>
           {  (!afterQuery || !!feed.length ) && showSidebar && <Sidebar leftFixedPosition={leftFixedPosition} isFeedGetted={feed.length} /> }
