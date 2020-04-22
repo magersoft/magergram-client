@@ -206,6 +206,7 @@ export default ({ history, location }) => {
             <DirectIcon width={24} height={24} color="var(--color-main)" />
           </Link>
         }
+        withNotification={!!profile}
       />
       <div className="container">
         <header className={style.Header}>

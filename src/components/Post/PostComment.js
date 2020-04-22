@@ -7,7 +7,7 @@ import timeAgo from '../../utils/timeAgo';
 import { ToolsIcon } from '../Icon';
 import { useApolloClient } from '@apollo/react-hooks';
 import style from './styles/PostComment.module.scss';
-import { MY_PROFILE } from '../Header/HeaderQueries';
+import { MY_PROFILE } from '../../layout/Main/MainQueries';
 import { Image } from '../UI';
 
 const PostComment = ({ id, user, text, createdAt, answerClick, showDialog }) => {

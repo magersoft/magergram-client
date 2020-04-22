@@ -5,7 +5,7 @@ import style from './EditProfile.module.scss';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../../components/Loader/Spinner';
 import { useQuery } from '@apollo/react-hooks';
-import { MY_PROFILE } from '../../components/Header/HeaderQueries';
+import { MY_PROFILE } from '../../layout/Main/MainQueries';
 import { BackIcon } from '../../components/Icon';
 import AppHeader from '../../components/AppHeader';
 

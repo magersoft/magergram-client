@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
-import { MY_PROFILE } from '../Header/HeaderQueries';
+import { MY_PROFILE } from '../../layout/Main/MainQueries';
 import { Image } from '../UI';
 import SkeletonAvatar from '../Skeleton/SkeletonAvatar';
 import style from './Sidebar.module.scss';

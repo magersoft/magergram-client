@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { MY_PROFILE } from '../../components/Header/HeaderQueries';
+import { MY_PROFILE } from '../../layout/Main/MainQueries';
 import filtersJson from '../../data/filters';
 import TEMPLATE_IMAGE from '../../assets/forFilter.jpg';
 import style from './GenerateFilterPreview.module.scss';

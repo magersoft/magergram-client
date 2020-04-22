@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import style from './AppHeader.module.scss';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,8 @@ import LogoImg from '../../assets/logo.png';
 import DarkLogoImgX2 from '../../assets/dark-logo-x2.png';
 import LogoImgX2 from '../../assets/logo-x2.png';
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import { MY_PROFILE } from '../../layout/Main/MainQueries';
 
 const DARK_MODE = gql`
   {
@@ -15,8 +16,20 @@ const DARK_MODE = gql`
   }
 `;
 
-const AppHeader = ({ leftButton, rightButton, title, customTitle }) => {
+const AppHeader = ({ leftButton, rightButton, title, customTitle, withNotification }) => {
+  const client = useApolloClient();
   const { data: { darkMode } } = useQuery(DARK_MODE);
+
+  const [newMessageCount, setMessageCount] = useState(0);
+
+  useEffect(() => {
+    if (withNotification) {
+      const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
+      if (myProfile) {
+        setMessageCount(myProfile.newMessagesCount);
+      }
+    }
+  }, [withNotification]);
 
   return (
     <nav className={style.Header}>
@@ -42,8 +55,17 @@ const AppHeader = ({ leftButton, rightButton, title, customTitle }) => {
                   </div>
             }
             <div className={style.RightButton}>
-              { rightButton }
-
+              <React.Fragment>
+                { withNotification &&
+                  newMessageCount &&
+                  newMessageCount !== 0
+                  ? <div className={style.NewNotificationsCount}>
+                      <span>{ newMessageCount }</span>
+                    </div>
+                  : null
+                }
+                { rightButton }
+              </React.Fragment>
             </div>
           </div>
         </div>
@@ -56,7 +78,8 @@ AppHeader.propTypes = {
   leftButton: PropTypes.node,
   rightButton: PropTypes.node,
   customTitle: PropTypes.node,
-  title: PropTypes.string
+  title: PropTypes.string,
+  withNotification: PropTypes.bool
 }
 
 export default AppHeader;

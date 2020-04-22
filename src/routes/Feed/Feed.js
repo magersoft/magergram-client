@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Helmet from 'react-helmet';
 import StoriesList from '../../components/StoriesList';
 import Sidebar from '../../components/Sidebar/Sidebar';
-import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { FEED_QUERY } from './FeedQueries';
 import { Post, PostSkeleton } from '../../components/Post';
 import style from './Feed.module.scss';
@@ -13,7 +13,6 @@ import AppHeader from '../../components/AppHeader';
 import NewStoryIcon from '../../components/Icon/NewStoryIcon';
 import { DirectIcon } from '../../components/Icon';
 import { Link } from 'react-router-dom';
-import { MY_PROFILE } from '../../components/Header/HeaderQueries';
 
 const RESIZE_BREAKPOINT = 1000;
 const RIGHT_POSITION = 28;
@@ -26,10 +25,7 @@ export default () => {
   const [showContainer, setShowContainer] = useState(true);
   const [leftFixedPosition, setLeftFixedPosition] = useState(null);
   const [noMoreFeed, setNoMoreFeed] = useState(false);
-  const [newMessageCount, setMessageCount] = useState(0);
   const feedRef = useRef();
-
-  const client = useApolloClient();
 
   const { data, loading, fetchMore } = useQuery(FEED_QUERY, {
     variables: {
@@ -76,15 +72,6 @@ export default () => {
     }
   }, [leftFixedPosition]);
 
-  useEffect(() => {
-    if (feed.length) {
-      const { myProfile } = client.cache.readQuery({ query: MY_PROFILE });
-      if (myProfile) {
-        setMessageCount(myProfile.newMessagesCount);
-      }
-    }
-  }, [feed.length]);
-
   const handleChangeContainer = () => {
     setShowContainer(false);
   };
@@ -125,16 +112,12 @@ export default () => {
         }
         rightButton={
           <React.Fragment>
-            { newMessageCount && newMessageCount !== 0 ?
-              <div className={style.MessagesCount}>
-                <span>{ newMessageCount }</span>
-              </div> : null
-            }
             <Link to="/direct/inbox">
               <DirectIcon width={24} height={24} color="var(--color-main)" />
             </Link>
           </React.Fragment>
         }
+        withNotification={!!feed.length}
       />
       { afterQuery && <RecommendForYou isExistPosts={feed.length} onLoading={handleChangeContainer} /> }
       { showContainer &&

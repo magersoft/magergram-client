@@ -3,7 +3,7 @@ import style from './AddPost.module.scss';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { UPLOAD_FILE } from '../../apollo/GlobalQueries';
 import { PostSkeleton } from '../../components/Post';
-import { MY_PROFILE } from '../../components/Header/HeaderQueries';
+import { MY_PROFILE } from '../../layout/Main/MainQueries';
 import ImageFilters from '../../components/ImageFilters';
 import canvasToBlob from '../../utils/canvasToBlob';
 import { useTranslation } from 'react-i18next';

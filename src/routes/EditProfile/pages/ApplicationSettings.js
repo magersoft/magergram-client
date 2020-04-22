@@ -5,7 +5,7 @@ import { Checkbox, RadioButton } from '../../../components/UI';
 import { useMutation } from '@apollo/react-hooks';
 import { CHANGE_LANGUAGE, TOGGLE_DARK_MODE } from '../EditProfileQueries';
 import { SET_LANGUAGE, TOGGLE_DARK_MODE_CLIENT } from '../../../apollo/GlobalQueries';
-import { MY_PROFILE } from '../../../components/Header/HeaderQueries';
+import { MY_PROFILE } from '../../../layout/Main/MainQueries';
 import Spinner from '../../../components/Loader/Spinner';
 
 export default ({ user }) => {

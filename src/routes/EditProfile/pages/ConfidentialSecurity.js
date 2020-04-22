@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Checkbox } from '../../../components/UI';
 import { useMutation } from '@apollo/react-hooks';
 import { PRIVATE_ACCOUNT } from '../EditProfileQueries';
-import { MY_PROFILE } from '../../../components/Header/HeaderQueries';
+import { MY_PROFILE } from '../../../layout/Main/MainQueries';
 import { SEE_NOTIFICATIONS } from '../../Activity/ActivityQueries';
 
 export default ({ user }) => {

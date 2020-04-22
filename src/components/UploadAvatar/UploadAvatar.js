@@ -4,7 +4,7 @@ import style from './UploadAvatar.module.scss';
 import { useTranslation } from 'react-i18next';
 import DialogButton from '../Dialog/DialogButton';
 import Dialog from '../Dialog/Dialog';
-import { MY_PROFILE } from '../Header/HeaderQueries';
+import { MY_PROFILE } from '../../layout/Main/MainQueries';
 import { useMutation } from '@apollo/react-hooks';
 import { UPDATE_AVATAR } from '../../routes/Profile/ProfileQuery';
 import { DELETE_FILE, UPLOAD_FILE } from '../../apollo/GlobalQueries';
