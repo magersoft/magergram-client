@@ -202,7 +202,7 @@ export default ({ match, history }) => {
             </button>
           }
         />
-        <div>
+        <div className={style.Room}>
           <InfiniteScroll
             pageStart={0}
             loadMore={handleFetchMore}

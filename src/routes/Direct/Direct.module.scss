@@ -1,3 +1,5 @@
+@import '../../theme/mixins';
+
 .Header {
   flex-direction: row;
   align-items: center;
@@ -28,6 +30,10 @@
     white-space: nowrap;
     margin-left: 12px;
   }
+}
+
+.Inbox {
+  @include whiteBox();
 }
 
 .Search {

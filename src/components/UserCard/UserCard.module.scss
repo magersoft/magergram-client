@@ -50,6 +50,9 @@
   align-content: stretch;
 
   a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-weight: 600;
     color: var(--color-main)!important;
   }
