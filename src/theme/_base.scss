@@ -4,4 +4,6 @@
   --medium-font: 16px;
   --large-font: 18px;
   --base-line-height: 18px;
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
 }

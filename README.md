@@ -1,8 +1,39 @@
-# Magergram - Instagram clone for practice React, GraphQL, Apollo 
+# Magergram
+Instagram clone for practice React, GraphQL, Apollo 
 
-### Application available now: [Magergram Client](http://magergram.herokuapp.com/) (alpha build)
+### SEE APPLICATION: [Magergram App](http://magergram.herokuapp.com/)
 
-[Go to Magergram API repository](https://github.com/magersoft/magergram-api).
+New Publication | Feed
+------ | ------
+![AddPost](https://i.gyazo.com/317d747cccaa8599e43c6e5c1ff004e4.png) | ![Feed](https://i.gyazo.com/22b452e0bcbbf73c95a970d4d2cb153e.png)
+
+
+Backend for Magergram - [Magergram API repository](https://github.com/magersoft/magergram-api).
+
+## Feature
+* Feed
+* SignUp/SignIn sms or email
+* Upload picture
+* Image filters
+* Personal profile
+* Recommended account
+* Followers
+* Following
+* Likes
+* Comments
+* Direct messages
+* Search users & posts
+* Explore
+* Edit account
+* English and Russian localization
+* Web-push Notifications
+* Dark theme
+* Private account
+* Support PWA
+
+
+This application developed to practice and teach relevant web technologies for fans.
+This application does not pursue the goals of making or selling advertising.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
