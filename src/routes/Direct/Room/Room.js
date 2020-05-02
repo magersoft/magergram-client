@@ -65,6 +65,7 @@ export default ({ match, history }) => {
       perPage: PER_PAGE_MESSAGES,
       page: 0
     },
+    fetchPolicy: 'cache-and-network',
     onCompleted: data => {
       const { seeMessages } = data;
       if (seeMessages) {

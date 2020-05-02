@@ -29,7 +29,7 @@ const AppHeader = ({ leftButton, rightButton, title, customTitle, withNotificati
         setMessagesCount(myProfile.newMessagesCount);
       }
     }
-  }, [withNotification]);
+  }, [withNotification, client]);
 
   return (
     <nav className={style.Header}>

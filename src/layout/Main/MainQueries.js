@@ -24,3 +24,26 @@ export const MY_PROFILE = gql`
     }
   }
 `;
+
+export const LISTEN_MESSAGE = gql`
+  subscription listenMessage($userId: String!) {
+    listenMessage(userId: $userId) {
+      id
+      text
+      from {
+        id
+        username
+        avatar
+      }
+      to {
+        id
+        username
+        avatar
+      }
+      room {
+        id
+      }
+      createdAt
+    }
+  }
+`;

@@ -11,10 +11,10 @@ import {
   TOGGLE_DARK_MODE_CLIENT
 } from '../../apollo/GlobalQueries';
 import { subscribeUser } from '../../subscription';
-import { MY_PROFILE } from './MainQueries';
+import { LISTEN_MESSAGE, MY_PROFILE } from './MainQueries';
 import { gql } from 'apollo-boost';
 import style from './Layout.module.scss';
-// import NewMessageListener from '../../components/NewMessageListener';
+import NewMessageListener from '../../components/NewMessageListener';
 
 const DARK_MODE = gql`
   {
@@ -24,6 +24,10 @@ const DARK_MODE = gql`
 
 export default ({ children }) => {
   const [user, setUser] = useState(null);
+  const [newMessage, setNewMessage] = useState({
+    active: false,
+    message: null
+  })
 
   const [setGlobalLoading] = useMutation(SET_LOADING);
   const [removeGlobalLoading] = useMutation(REMOVE_LOADING);
@@ -32,8 +36,33 @@ export default ({ children }) => {
 
   const { data: { darkMode } } = useQuery(DARK_MODE);
 
-  const { data, loading } = useQuery(MY_PROFILE, {
-    fetchPolicy: 'cache-and-network'
+  const { data, loading, subscribeToMore } = useQuery(MY_PROFILE, {
+    fetchPolicy: 'cache-and-network',
+    onCompleted: data => {
+      const { myProfile } = data;
+      if (myProfile) {
+        subscribeToMore({
+          document: LISTEN_MESSAGE,
+          variables: { userId: myProfile.id },
+          updateQuery: (prev, { subscriptionData }) => {
+            if (!subscriptionData.data) {
+              return prev;
+            }
+            const { listenMessage } = subscriptionData.data;
+            if (listenMessage) {
+              setNewMessage(prevState => ({
+                ...prevState,
+                active: true,
+                message: listenMessage
+              }));
+              return Object.assign({}, prev, {
+                myProfile: { ...prev.myProfile, newMessagesCount: prev.myProfile.newMessagesCount + 1 }
+              })
+            }
+          }
+        })
+      }
+    }
   });
 
   useEffect(() => {
@@ -71,7 +100,11 @@ export default ({ children }) => {
       <Header user={user} darkMode={darkMode} />
       <Footer />
       <BottomNavigation user={user} />
-      {/*<NewMessageListener />*/}
+      <NewMessageListener
+        active={newMessage.active}
+        message={newMessage.message}
+        onClose={() => setNewMessage(prevState => ({ ...prevState, active: false }))}
+      />
     </section>
   )
 
