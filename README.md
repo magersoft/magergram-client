@@ -2,6 +2,7 @@
 Instagram clone for practice React, GraphQL, Apollo 
 
 ### SEE APPLICATION: [Magergram App](http://magergram.herokuapp.com/)
+> The application is running on a free Heroku account. The first boot is very slow, so just wait ...
 
 New Publication | Feed
 ------ | ------
