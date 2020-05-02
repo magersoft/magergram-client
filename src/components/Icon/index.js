@@ -5,6 +5,7 @@ import UnlikeIcon from './UnlikeIcon';
 import CommentIcon from './CommentIcon';
 import SharedIcon from './SharedIcon';
 import FavoriteIcon from './FavoriteIcon';
+import RemoveFavoriteIcon from './RemoveFavoriteIcon';
 import ToolsIcon from './ToolsIcon';
 import PostsIcon from './PostsIcon';
 import PortretIcon from './PortretIcon';
@@ -23,6 +24,7 @@ export {
   CommentIcon,
   SharedIcon,
   FavoriteIcon,
+  RemoveFavoriteIcon,
   ToolsIcon,
   PostsIcon,
   PortretIcon,

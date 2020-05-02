@@ -167,7 +167,7 @@
     text-transform: uppercase;
     font-weight: 600;
     margin-top: -1px;
-    cursor: not-allowed;
+    cursor: pointer;
 
     svg {
       fill: var(--color-neutral-02);
@@ -181,6 +181,10 @@
       svg {
         fill: var(--color-main);
       }
+    }
+
+    &.ChangeView {
+      display: none;
     }
 
     @media (max-width: 735px) {
@@ -198,6 +202,24 @@
 
         svg {
           fill: var(--color-accent);
+        }
+      }
+
+      &.ChangeView {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .ChangeViewIcon {
+          display: block;
+          width: 24px;
+          height: 24px;
+          background-position: -234px -366px;
+          margin-left: 0;
+
+          &.FeedView {
+            background-position: -208px -366px;
+          }
         }
       }
     }

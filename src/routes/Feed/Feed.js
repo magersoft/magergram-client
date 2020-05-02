@@ -143,7 +143,7 @@ export default () => {
                   }
                 >
                   { feed.map(post => {
-                    const { id, location, caption, likeCount, isLiked, commentCount, files, user, lastComments, createdAt } = post;
+                    const { id, location, caption, likeCount, isLiked, isFavorite, commentCount, files, user, lastComments, createdAt } = post;
                     return (
                       !!files.length &&
                       <Post
@@ -157,6 +157,7 @@ export default () => {
                         commentCount={commentCount}
                         likeCount={likeCount}
                         isLiked={isLiked}
+                        isFavorite={isFavorite}
                         createdAt={createdAt}
                       />
                     )

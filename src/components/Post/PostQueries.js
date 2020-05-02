@@ -48,3 +48,15 @@ export const SEE_LIKES = gql`
     }
   }
 `;
+
+export const ADD_FAVORITE = gql`
+  mutation addFavorite($postId: String!) {
+    addFavorite(postId: $postId)
+  }
+`;
+
+export const REMOVE_FAVORITE = gql`
+  mutation removeFavorite($postId: String!) {
+    removeFavorite(postId: $postId)
+  }
+`;

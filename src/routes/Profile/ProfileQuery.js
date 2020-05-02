@@ -44,12 +44,48 @@ export const SEE_USER_POSTS = gql`
   query seeUserPosts($username: String!, $perPage: Int!, $page: Int!) {
     seeUserPosts(username: $username, perPage: $perPage, page: $page) {
       id
+      location
       caption
       likeCount
+      isLiked
+      isFavorite
       commentCount
+      user {
+        id
+        avatar
+        username
+        isSelf
+      }
       files {
         id
         url
+      }
+      lastComments {
+        id
+        text
+        user {
+          id
+          username
+        }
+      }
+      createdAt
+    }
+  }
+`;
+
+export const SEE_FAVORITE = gql`
+  query seeFavorite {
+    seeFavorite {
+      id
+      post {
+        id
+        caption
+        likeCount
+        commentCount
+        files {
+          id
+          url
+        }
       }
     }
   }

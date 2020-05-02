@@ -192,6 +192,7 @@ export default ({ match, history }) => {
                   ref={postButtonsRef}
                   postId={post.id}
                   isLiked={post.isLiked}
+                  isFavorite={post.isFavorite}
                   className={style.Actions}
                   onLike={handleLike}
                 />

@@ -5,8 +5,16 @@ import NoAvatarImg from '../../assets/noAvatar.jpg';
 import style from './Profile.module.scss';
 import { Button, Image } from '../../components/UI';
 import SettingIcon from '../../components/Icon/SettingIcon';
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { CANCEL_FOLLOW, FOLLOW, REQUEST_FOLLOW, SEE_USER, SEE_USER_POSTS, UNFOLLOW } from './ProfileQuery';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/react-hooks';
+import {
+  CANCEL_FOLLOW,
+  FOLLOW,
+  REQUEST_FOLLOW,
+  SEE_FAVORITE,
+  SEE_USER,
+  SEE_USER_POSTS,
+  UNFOLLOW
+} from './ProfileQuery';
 import Dialog from '../../components/Dialog/Dialog';
 import DialogButton from '../../components/Dialog/DialogButton';
 import { LOG_USER_OUT } from '../../apollo/GlobalQueries';
@@ -24,8 +32,13 @@ import UploadAvatar from '../../components/UploadAvatar';
 import PrivateAccount from '../../components/PrivateAccount';
 import AppHeader from '../../components/AppHeader';
 import { Link } from 'react-router-dom';
+import cx from 'classnames';
+import { Post } from '../../components/Post';
 
 const PER_PAGE_POST = 9;
+const NAV_PUBLICATION = 1;
+const NAV_SAVED = 2;
+const NAV_MARKS = 3;
 
 export default ({ history, location }) => {
   const username = location.pathname.replace('/', '');
@@ -33,10 +46,14 @@ export default ({ history, location }) => {
   const [profile, setProfile] = useState(null);
   const [posts, setPosts] = useState([]);
   const [noMorePosts, setNoMorePosts] = useState(false);
+  const [isFeedView, setFeedView] = useState(false);
   const [dialogChangePhoto, setDialogChangePhoto] = useState(false);
   const [dialogSettings, setDialogSettings] = useState(false);
   const [dialogFollowers, setDialogFollowers] = useState(false);
   const [dialogFollowing, setDialogFollowing] = useState(false);
+  const [navigation, setNavigation] = useState({
+    active: NAV_PUBLICATION
+  });
 
   useEffect(() => {
     const { pathname } = location;
@@ -88,6 +105,7 @@ export default ({ history, location }) => {
   const [logOut] = useMutation(LOG_USER_OUT);
 
   const handleFetchMore = async page => {
+    if (navigation.active !== NAV_PUBLICATION) return;
     try {
       await fetchMore({
         variables: {
@@ -109,6 +127,16 @@ export default ({ history, location }) => {
       })
     } catch {}
   };
+
+  const [seeFavorites, { data: dataFavorites, loading: loadingFavorite }] = useLazyQuery(SEE_FAVORITE, { fetchPolicy: 'network-only' });
+  useEffect(() => {
+    if (dataFavorites) {
+      const { seeFavorite } = dataFavorites;
+      if (seeFavorite) {
+        setPosts(seeFavorite.map(favorite => favorite.post));
+      }
+    }
+  }, [dataFavorites]);
 
   const handleClickAvatar = () => {
     if (!profile.isSelf) return;
@@ -192,6 +220,25 @@ export default ({ history, location }) => {
   const handleLogoutClick = () => {
     logOut();
   };
+
+  const handleClickNavigation = idx => {
+    setNavigation(prevState => ({ ...prevState, active: idx }));
+    if (idx === NAV_PUBLICATION) {
+      setFeedView(false);
+      setPosts(dataPosts.seeUserPosts);
+    }
+    if (idx === NAV_SAVED) {
+      seeFavorites();
+    }
+    if (idx === NAV_MARKS) {
+
+    }
+  }
+
+  const handleChangeView = () => {
+    setFeedView(!isFeedView);
+    setNavigation(prevState => ({ ...prevState, active: 0 }));
+  }
 
   return (
     <React.Fragment>
@@ -286,60 +333,83 @@ export default ({ history, location }) => {
           onDialogFollowers={() => setDialogFollowers(true)}
         />
         <div className={style.Navigation}>
-          <div className={style.NavigationItem + ' ' + style.active}>
+          <div className={cx(style.NavigationItem, navigation.active === NAV_PUBLICATION && style.active)} onClick={() => handleClickNavigation(NAV_PUBLICATION)}>
             <span className={style.NavigationIcon}>
               <PostsIcon width={12} height={12} />
               <span>{ t('Publication') }</span>
             </span>
           </div>
-          <div className={style.NavigationItem}>
+          { profile && profile.isSelf ?
+          <div className={cx(style.NavigationItem, navigation.active === NAV_SAVED && style.active)} onClick={() => handleClickNavigation(NAV_SAVED)}>
             <span className={style.NavigationIcon}>
               <FavoriteIcon width={12} height={12} />
               <span>{ t('Saved') }</span>
             </span>
           </div>
-          <div className={style.NavigationItem}>
+            :
+          <div className={(cx(style.NavigationItem, style.ChangeView))} onClick={handleChangeView}>
+            <div className={style.NavigationIcon}>
+              <span className={cx(style.ChangeViewIcon, isFeedView && style.FeedView, 'sprite-glyphs')} />
+            </div>
+          </div>
+          }
+          <div className={cx(style.NavigationItem, navigation.active === NAV_MARKS && style.active)} onClick={() => handleClickNavigation(NAV_MARKS)}>
             <span className={style.NavigationIcon}>
               <PortretIcon width={12} height={12} />
               <span>{ t('Mark') }</span>
             </span>
           </div>
         </div>
-          <article className={style.Posts}>
-            { posts.length ?
-              <InfiniteScroll
-                pageStart={0}
-                loadMore={handleFetchMore}
-                hasMore={!noMorePosts}
-                initialLoad={false}
-                className={posts.length ? style.Grid : null}
-                loader={
-                  <div key={0} className={style.MoreLoading}>
-                    { posts.length ? <Spinner width={50} height={50}/> : null }
-                  </div>
-                }
-              >
-                { posts.map(post => {
-                  const {id, caption, likeCount, commentCount, files} = post;
-                  return <PostCard
-                    id={id}
-                    caption={caption}
-                    files={files}
-                    likeCount={likeCount}
-                    commentCount={commentCount}
-                    key={id}
-                  />
-                }) }
-              </InfiniteScroll> : null
-            }
-            { loadingPosts &&
-            <div className={style.Grid}>
-              { [...Array(9).keys()].map(idx => <SkeletonBlock maxHeight={293} maxWidth={293} key={idx} />) }
-            </div>
-            }
-            { !posts.length && !loadingPosts && (profile && !profile.isPrivate) && <EmptyPosts /> }
-            { !posts.length && !loadingPosts && (profile && profile.isPrivate) && <PrivateAccount /> }
-          </article>
+        <article className={style.Posts}>
+          { posts.length ?
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={handleFetchMore}
+              hasMore={!noMorePosts}
+              initialLoad={false}
+              className={posts.length && !isFeedView ? style.Grid : null}
+              loader={
+                <div key={0} className={style.MoreLoading}>
+                  { posts.length ? <Spinner width={50} height={50}/> : null }
+                </div>
+              }
+            >
+              { posts.map(post => {
+                const { id, location, caption, likeCount, isLiked, isFavorite, commentCount, files, user, lastComments, createdAt } = post;
+                return isFeedView
+                  ? <Post
+                      key={id}
+                      postId={id}
+                      user={user}
+                      location={location}
+                      caption={caption}
+                      files={files}
+                      comments={lastComments}
+                      commentCount={commentCount}
+                      likeCount={likeCount}
+                      isLiked={isLiked}
+                      isFavorite={isFavorite}
+                      createdAt={createdAt}
+                    />
+                  : <PostCard
+                      id={id}
+                      caption={caption}
+                      files={files}
+                      likeCount={likeCount}
+                      commentCount={commentCount}
+                      key={id}
+                    />
+              }) }
+            </InfiniteScroll> : null
+          }
+          { (loadingPosts || loadingFavorite) &&
+          <div className={style.Grid}>
+            { [...Array(9).keys()].map(idx => <SkeletonBlock maxHeight={293} maxWidth={293} key={idx} />) }
+          </div>
+          }
+          { !posts.length && !loadingPosts && (profile && !profile.isPrivate) && <EmptyPosts /> }
+          { !posts.length && !loadingPosts && (profile && profile.isPrivate) && <PrivateAccount /> }
+        </article>
       </div>
       { profile && profile.isSelf &&
         <React.Fragment>

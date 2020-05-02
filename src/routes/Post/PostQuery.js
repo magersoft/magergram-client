@@ -8,6 +8,7 @@ export const POST = gql`
       caption
       likeCount
       isLiked
+      isFavorite
       commentCount
       files {
         id

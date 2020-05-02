@@ -14,7 +14,8 @@ const Message = ({ id, text, fromUser, toUser, currentUserId }) => {
     let onlyEmoji;
     // eslint-disable-next-line
     while (match = regexEmoji.exec(text)) {
-      onlyEmoji = match['index'] === 0;
+      // todo not working
+      onlyEmoji = match['index'] === 0 && match['input'].length === 1;
     }
     return (
       <div className={cx(style.MessageInner, onlyEmoji && style.Emoji)}>

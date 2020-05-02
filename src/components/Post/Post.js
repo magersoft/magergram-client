@@ -15,6 +15,7 @@ const Post = ({
   commentCount,
   likeCount,
   isLiked,
+  isFavorite,
   createdAt
 }) => {
   const { t } = useTranslation();
@@ -46,6 +47,7 @@ const Post = ({
           ref={postButtonsRef}
           postId={postId}
           isLiked={isLiked}
+          isFavorite={isFavorite}
           onLike={handleLike}
         />
         <PostLikes
@@ -109,6 +111,7 @@ Post.propTypes = {
   commentCount: PropTypes.number,
   likeCount: PropTypes.number,
   isLiked: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   createdAt: PropTypes.string.isRequired
 };
 

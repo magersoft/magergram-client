@@ -1,15 +1,20 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { CommentIcon, FavoriteIcon, LikeIcon, SharedIcon, UnlikeIcon } from '../Icon';
+import { CommentIcon, FavoriteIcon, LikeIcon, RemoveFavoriteIcon, SharedIcon, UnlikeIcon } from '../Icon';
 import { useMutation } from '@apollo/react-hooks';
-import { TOGGLE_LIKE } from './PostQueries';
+import { ADD_FAVORITE, REMOVE_FAVORITE, TOGGLE_LIKE } from './PostQueries';
 import { FEED_QUERY } from '../../routes/Feed/FeedQueries';
 import style from './styles/Post.module.scss';
 
-const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref) => {
+const PostButtons = forwardRef(({ postId, isLiked, isFavorite, className = '', onLike }, ref) => {
   const [like, setLiked] = useState(isLiked);
+  const [favorite, setFavorite] = useState(isFavorite);
+
   const [toggleLike] = useMutation(TOGGLE_LIKE);
+  const [addFavorite] = useMutation(ADD_FAVORITE);
+  const [removeFavorite] = useMutation(REMOVE_FAVORITE);
+
   const history = useHistory();
 
   const handleToggleLike = () => {
@@ -71,7 +76,20 @@ const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref
   };
 
   const handleFavoriteClick = () => {
-    alert('Coming soon ...')
+    setFavorite(!favorite);
+    if (!favorite) {
+      addFavorite({
+        variables: {
+          postId
+        }
+      })
+    } else {
+      removeFavorite({
+        variables: {
+          postId
+        }
+      })
+    }
   };
 
   useImperativeHandle(ref, () => ({
@@ -84,9 +102,9 @@ const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref
     <section className={`${style.Actions} ${className}`}>
       <span className={`${style.LikeButton} ${ like ? style.LikeButtonAnimationLike : style.LikeButtonAnimationUnLike }`}>
             <button type="button" className={style.ButtonIcon} onClick={handleToggleLike}>
-              { like ?
-                <UnlikeIcon width="24" height="24" color="var(--color-danger)" /> :
-                <LikeIcon width="24" height="24" color="var(--color-main)" />
+              { like
+                ? <UnlikeIcon width="24" height="24" color="var(--color-danger)" />
+                : <LikeIcon width="24" height="24" color="var(--color-main)" />
               }
             </button>
           </span>
@@ -100,7 +118,10 @@ const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref
       </button>
       <span className={style.FavoriteButton}>
         <button type="button" className={style.ButtonIcon} onClick={handleFavoriteClick}>
-          <FavoriteIcon width="24" height="24" color="var(--color-main)" />
+          { favorite
+            ? <RemoveFavoriteIcon width="24" height="24" color="var(--color-main)" />
+            : <FavoriteIcon width="24" height="24" color="var(--color-main)" />
+          }
         </button>
       </span>
     </section>
@@ -110,6 +131,7 @@ const PostButtons = forwardRef(({ postId, isLiked, className = '', onLike }, ref
 PostButtons.propTypes = {
   postId: PropTypes.string.isRequired,
   isLiked: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   className: PropTypes.string,
   onLike: PropTypes.func
 };

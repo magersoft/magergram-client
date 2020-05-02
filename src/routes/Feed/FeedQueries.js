@@ -8,6 +8,7 @@ export const FEED_QUERY = gql`
       caption
       likeCount
       isLiked
+      isFavorite
       commentCount
       user {
         id
