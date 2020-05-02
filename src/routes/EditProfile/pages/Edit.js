@@ -19,16 +19,20 @@ export default ({ user, setUser }) => {
     website: user.website,
     bio: user.bio,
     email: user.email,
-    phone: user.phone
+    phone: user.phone,
+    error: null
   });
 
   const [updateUser, { loading }] = useMutation(EDIT_USER, {
     variables: state,
     update: (_, result) => {
       const { data: { editUser } } = result;
-      if (editUser) {
-        setUser(editUser);
+      if (editUser.ok) {
+        setUser(editUser.data);
+        setState(prevState => ({ ...prevState, error: null }));
         setToastShow(!toastShow);
+      } else {
+        setState(prevState => ({ ...prevState, error: editUser.error }));
       }
     }
   });
@@ -134,6 +138,13 @@ export default ({ user, setUser }) => {
             />
           </div>
         </div>
+        { state.error &&
+        <div className={style.Error}>
+          <p role="alert">
+            { t(state.error) }
+          </p>
+        </div>
+        }
         <div className={style.Control}>
           <aside className={style.Label} />
           <div className={`${style.Input} ${style.Buttons}`}>

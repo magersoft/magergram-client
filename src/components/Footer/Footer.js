@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 export default () => {
   const { t } = useTranslation();
+
   return (
     <footer className={style.Footer} role="contentinfo">
       <div className={style.Container}>
@@ -19,7 +20,7 @@ export default () => {
               <a href="https://github.com/magersoft/magergram-client">{t('Client')}</a>
             </li>
             <li>
-              <a href="https://github.com/magersoft/magergrap-app">{t('Mobile Application')}</a>
+              <a href="/">{t('Mobile Application')}</a>
             </li>
           </ul>
         </nav>

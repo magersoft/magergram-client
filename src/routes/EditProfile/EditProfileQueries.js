@@ -20,16 +20,20 @@ export const EDIT_USER = gql`
       bio: $bio,
       avatar: $avatar
     ) {
-      id
-      avatar
-      username
-      fullName
-      firstName
-      lastName
-      email
-      phone
-      website
-      bio
+      ok
+      data {
+        id
+        avatar
+        username
+        fullName
+        firstName
+        lastName
+        email
+        phone
+        website
+        bio
+      }
+      error
     }
   }
 `;
