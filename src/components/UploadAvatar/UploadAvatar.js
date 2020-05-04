@@ -28,17 +28,17 @@ const UploadAvatar = ({ dialogShow, avatar, dialogClose, avatarUpdated }) => {
       },
       update: (cache, result) => {
         const { data: { editUser } } = result;
-        if (editUser) {
+        if (editUser.data) {
           try {
             const { myProfile } = cache.readQuery({ query: MY_PROFILE });
             if (myProfile) {
-              const updated = { ...myProfile, avatar: editUser.avatar };
+              const updated = { ...myProfile, avatar: editUser.data.avatar };
               cache.writeQuery({ query: MY_PROFILE, data: { myProfile: updated } });
             }
           } catch (e) {
             console.log(e);
           }
-          avatarUpdated(editUser.avatar);
+          avatarUpdated(editUser.data.avatar);
           dialogClose();
         }
       }

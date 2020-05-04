@@ -94,7 +94,9 @@ export const SEE_FAVORITE = gql`
 export const UPDATE_AVATAR = gql`
   mutation updateAvatar($avatar: String!) {
     editUser(avatar: $avatar) {
-      avatar
+      data {
+        avatar
+      }
     }
   }
 `;

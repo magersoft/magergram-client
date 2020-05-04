@@ -66,7 +66,7 @@ export default ({ history, location }) => {
     setDialogSettings(false);
   }, [location, history]);
 
-  const { data, loading } = useQuery(SEE_USER, {
+  const { data } = useQuery(SEE_USER, {
     variables: {
       username
     },
