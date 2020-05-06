@@ -48,6 +48,7 @@ export const SEE_ROOM = gql`
         username
         avatar
         isSelf
+        latestOnline
       }
     }
   }
@@ -62,11 +63,13 @@ export const SEE_MESSAGES = gql`
         id
         username
         avatar
+        latestOnline
       }
       to {
         id
         username
         avatar
+        latestOnline
       }
       createdAt
     }
@@ -82,11 +85,13 @@ export const NEW_MESSAGE_SUBSCRIPTION = gql`
         id
         username
         avatar
+        latestOnline
       }
       to {
         id
         username
         avatar
+        latestOnline
       }
       createdAt
     }
@@ -102,11 +107,13 @@ export const SEND_MESSAGE = gql`
         id
         username
         avatar
+        latestOnline
       }
       to {
         id
         username
         avatar
+        latestOnline
       }
       createdAt
     }

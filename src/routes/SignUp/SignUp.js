@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './SignUp.module.scss';
 import { useTranslation } from 'react-i18next';
 import { gql } from 'apollo-boost';
@@ -30,6 +30,7 @@ export default ({ history }) => {
     error: null,
     usernameFieldIcon: ''
   });
+  const [ipData, setIpData] = useState();
   const [confirm, setConfirm] = useState(false);
   const [confirmText, setConfirmText] = useState('');
   const [checkUserExist] = useMutation(EXIST_USER);
@@ -37,6 +38,18 @@ export default ({ history }) => {
   const [logUserIn] = useMutation(LOG_USER_IN);
   const [confirmSecret, { loading: secretLoading }] = useMutation(CONFIRM_SECRET);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const getIpData = async () => {
+      try {
+        const response = await fetch('http://ip-api.com/json');
+        setIpData(await response.json());
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    getIpData();
+  }, [setIpData]);
 
   const onSubmit = event => {
     event.preventDefault();
@@ -56,7 +69,8 @@ export default ({ history }) => {
         phone,
         password: state.password,
         firstName: state.fullName.split(' ')[0],
-        lastName: state.fullName.split(' ')[1]
+        lastName: state.fullName.split(' ')[1],
+        ipdata: JSON.stringify(ipData)
       },
       update: (_, result) => {
         const { data: { createAccount } } = result;

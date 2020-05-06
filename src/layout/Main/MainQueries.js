@@ -47,3 +47,9 @@ export const LISTEN_MESSAGE = gql`
     }
   }
 `;
+
+export const UPDATE_USER_IPDATA = gql`
+  mutation setIpData($ipdata: String!) {
+    setIpData(ipdata: $ipdata)
+  }
+`;

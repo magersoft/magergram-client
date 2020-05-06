@@ -7,7 +7,8 @@ export const SIGN_UP = gql`
     $phone: String,
     $password: String!, 
     $firstName: String, 
-    $lastName: String
+    $lastName: String,
+    $ipdata: String!
   ) 
   {
     createAccount(
@@ -16,7 +17,8 @@ export const SIGN_UP = gql`
       phone: $phone,
       password: $password, 
       firstName: $firstName, 
-      lastName: $lastName
+      lastName: $lastName,
+      ipdata: $ipdata
     ) {
       ok
       error

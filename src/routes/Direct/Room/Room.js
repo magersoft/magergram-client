@@ -13,6 +13,7 @@ import { Button, Message } from '../../../components/UI';
 import InfiniteScroll from 'react-infinite-scroller';
 import { upperFirst } from 'lodash';
 import { MY_PROFILE } from '../../../layout/Main/MainQueries';
+import timeAgo from '../../../utils/timeAgo';
 
 const PER_PAGE_MESSAGES = 10;
 
@@ -195,6 +196,7 @@ export default ({ match, history }) => {
               <Link to={`/${companionUser.username}`}>
                 <h1 className={style.Username}>{ companionUser.username }</h1>
               </Link>
+              <span className={style.lastOnline}>{ t('was') } { timeAgo.format(new Date(companionUser.latestOnline)) }</span>
             </div>
           }
           leftButton={

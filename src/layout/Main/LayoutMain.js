@@ -11,7 +11,7 @@ import {
   TOGGLE_DARK_MODE_CLIENT
 } from '../../apollo/GlobalQueries';
 import { subscribeUser } from '../../subscription';
-import { LISTEN_MESSAGE, MY_PROFILE } from './MainQueries';
+import { LISTEN_MESSAGE, MY_PROFILE, UPDATE_USER_IPDATA } from './MainQueries';
 import { gql } from 'apollo-boost';
 import style from './Layout.module.scss';
 import NewMessageListener from '../../components/NewMessageListener';
@@ -27,7 +27,8 @@ export default ({ children }) => {
   const [newMessage, setNewMessage] = useState({
     active: false,
     message: null
-  })
+  });
+  const [ipData, setIpData] = useState(null);
 
   const [setGlobalLoading] = useMutation(SET_LOADING);
   const [removeGlobalLoading] = useMutation(REMOVE_LOADING);
@@ -91,6 +92,28 @@ export default ({ children }) => {
   useEffect(() => {
     subscribeUser(sendSubscription);
   }, [sendSubscription]);
+
+  useEffect(() => {
+    const getIpData = async () => {
+      try {
+        const response = await fetch('http://ip-api.com/json');
+        setIpData(await response.json());
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    getIpData();
+  }, [setIpData]);
+
+  const [updateIpData] = useMutation(UPDATE_USER_IPDATA);
+
+  useEffect(() => {
+    updateIpData({
+      variables: {
+        ipdata: JSON.stringify(ipData)
+      }
+    })
+  }, [ipData]);
 
   return (
     <section className={style.Section}>
