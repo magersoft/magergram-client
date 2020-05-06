@@ -13,6 +13,7 @@ import Logo from '../../assets/logoLogin.png';
 import LogoX2 from '../../assets/logoLogin-x2.png';
 import DarkLogoImg from '../../assets/dark-logoLogin.png';
 import DarkLogoImgX2 from '../../assets/dark-logoLogin-x2.png';
+import fetchIpData from '../../utils/fetchIpData';
 
 const DARK_MODE = gql`
   {
@@ -41,12 +42,7 @@ export default ({ history }) => {
 
   useEffect(() => {
     const getIpData = async () => {
-      try {
-        const response = await fetch('http://ip-api.com/json');
-        setIpData(await response.json());
-      } catch (e) {
-        console.error(e);
-      }
+      setIpData(await fetchIpData());
     }
     getIpData();
   }, [setIpData]);

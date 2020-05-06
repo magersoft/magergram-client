@@ -15,6 +15,7 @@ import { LISTEN_MESSAGE, MY_PROFILE, UPDATE_USER_IPDATA } from './MainQueries';
 import { gql } from 'apollo-boost';
 import style from './Layout.module.scss';
 import NewMessageListener from '../../components/NewMessageListener';
+import fetchIpData from '../../utils/fetchIpData';
 
 const DARK_MODE = gql`
   {
@@ -95,12 +96,7 @@ export default ({ children }) => {
 
   useEffect(() => {
     const getIpData = async () => {
-      try {
-        const response = await fetch('http://ip-api.com/json');
-        setIpData(await response.json());
-      } catch (e) {
-        console.error(e);
-      }
+      setIpData(await fetchIpData());
     }
     getIpData();
   }, [setIpData]);
