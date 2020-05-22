@@ -34,6 +34,37 @@ const PostTools = ({ postId, itsMe, className }) => {
     })
   };
 
+  const handleSharePublication = async () => {
+    try {
+      await navigator.share({
+        title: 'Publication in Magergram',
+        url: `${window.location.origin}/post/${postId}`
+      })
+    } catch (e) {
+      alert(t('Your browser or device not supported share'));
+      console.error('Wrong shared publication', e);
+    }
+  };
+
+  const handleCopyPublicationLink = async () => {
+    const link = `${window.location.origin}/post/${postId}`;
+    try {
+      await navigator.clipboard.writeText(link);
+      setShow(false);
+    } catch (e) {
+      console.log('Wrong copy publication link', e);
+    }
+  }
+
+  const handleGoPublication = () => {
+    history.push(`/post/${postId}`);
+    setShow(false);
+  }
+
+  const handleReportPublication = () => {
+    alert('Coming soon');
+  }
+
   return (
     <React.Fragment>
       <div className={`${style.Tools} ${className}`} onClick={() => setShow(true)}>
@@ -47,11 +78,11 @@ const PostTools = ({ postId, itsMe, className }) => {
             loading={removePostLoading}
             onClick={handleRemovePublication}
           /> :
-          <DialogButton text={t('Report on publication')} type="danger" />
+          <DialogButton text={t('Report on publication')} type="danger" onClick={handleReportPublication} />
         }
-        <DialogButton text={t('Go to publication')} />
-        <DialogButton text={t('Share')} />
-        <DialogButton text={t('Copy link')} />
+        <DialogButton text={t('Go to publication')} onClick={handleGoPublication} />
+        <DialogButton text={t('Share')} onClick={handleSharePublication} />
+        <DialogButton text={t('Copy link')} onClick={handleCopyPublicationLink} />
         <DialogButton text={t('Cancel')} onClick={() => setShow(false)} />
       </Dialog>
     </React.Fragment>

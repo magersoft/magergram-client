@@ -71,6 +71,7 @@ export default ({ history }) => {
                 const { data: { addPost } } = result;
                 if (addPost) {
                   history.push('/');
+                  window.location.reload();
                 }
               }
             })
