@@ -1,0 +1,5 @@
+@import '../../../theme/mixins';
+
+.Logo {
+  @include logoInstagram();
+}

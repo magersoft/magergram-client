@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import Router from './Routes';
+import Router from '../routes/Routes';
 import { Loader } from './Loader';
 import ThemeSwitcher from 'react-css-vars';
 import light from '../theme/light';

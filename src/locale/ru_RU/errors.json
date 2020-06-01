@@ -9,5 +9,6 @@
   "Email or phone required field": "Эл. адрес или телефона является обязательным",
   "Server not response! Wait or reload application later": "Ожидание ответа сервера! Приложение скоро будет доступно, пожалуйста подождите",
   "New password must be different from current password": "Новый пароль должен отличаться от текущего пароля",
-  "Only english lower case letter and digits": "Имя пользователя может содержать только латинские буквы и цифры в нижнем регистре"
+  "Only english lower case letter and digits": "Имя пользователя может содержать только латинские буквы и цифры в нижнем регистре",
+  "Token is not verify. Try again.": "Токен не прошел проверку авторизации! Запросите новый"
 }

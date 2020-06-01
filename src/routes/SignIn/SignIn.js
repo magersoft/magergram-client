@@ -3,16 +3,13 @@ import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { gql } from 'apollo-boost';
 import { useTranslation } from 'react-i18next';
-import { Button, Input, Separator } from '../../components/UI';
+import { Button, Input, MainLogo, Separator } from '../../components/UI';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { SIGN_IN } from './SignInQueries';
 import { LOG_USER_IN } from '../../apollo/GlobalQueries';
 import { isValidPhone } from '../../utils/phoneRegExp';
 import style from './SignIn.module.scss';
-import Logo from '../../assets/logoLogin.png';
-import LogoX2 from '../../assets/logoLogin-x2.png';
-import DarkLogoImg from '../../assets/dark-logoLogin.png';
-import DarkLogoImgX2 from '../../assets/dark-logoLogin-x2.png';
+import AuthFooter from '../../components/AuthFooter';
 
 const DARK_MODE = gql`
   {
@@ -75,12 +72,10 @@ export default () => {
   return (
     <div className={style.Content}>
       <Helmet>
-        <title>Sign In | Magergram</title>
+        <title>{ t('Sign In') } | Magergram</title>
       </Helmet>
       <div className={style.Box}>
-        <div className={style.Logo}>
-          <img src={darkMode ? DarkLogoImg : Logo} srcSet={darkMode ? DarkLogoImgX2 : LogoX2} alt="Magergram" />
-        </div>
+        <MainLogo darkMode={darkMode} />
         <div className={style.Controls}>
           <form className={style.Form} method="post" onSubmit={onSubmit}>
             <div className={style.SpacingL} />
@@ -123,19 +118,16 @@ export default () => {
                 </p>
               </div>
             }
-            <Link to="/" className={style.ForgotPassword} onClick={() => alert('Coming soon ...')}>{t('Forgot password')}?</Link>
+            <Link to="/recovery-password" className={style.ForgotPassword}>{t('Forgot password')}?</Link>
           </form>
         </div>
       </div>
       <div className={style.Box}>
-        <div className={style.SignUp}>
-          <p className={style.SignUpText}>
-            { t('Don\'t have an account') }?
-            <Link to="/signup" >
-              <span className={style.SignUpLink}>{t('Sign Up')}</span>
-            </Link>
-          </p>
-        </div>
+        <AuthFooter
+          text="Don't have an account?"
+          linkText="Sign Up"
+          linkPath="/signup"
+        />
       </div>
       {/*<AppButtons />*/}
     </div>

@@ -4,19 +4,20 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import LayoutDefault from '../layout/Default';
 import LayoutMain from '../layout/Main';
 import ScrollToTop from '../utils/ScrollToTop';
-import { LoaderJSX } from './Loader';
+import { LoaderJSX } from '../components/Loader';
 
-const SignIn = lazy(() => import('../routes/SignIn/SignIn'));
-const SignUp = lazy(() => import('../routes/SignUp/SignUp'));
-const Feed = lazy(() => import('../routes/Feed/Feed'));
-const Post = lazy(() => import('../routes/Post/Post'));
-const Profile = lazy(() => import('../routes/Profile/Profile'));
-const EditProfile = lazy(() => import('../routes/EditProfile/EditProfile'));
-const Explore = lazy(() => import('../routes/Explore/Explore'));
-const AddPost = lazy(() => import('../routes/AddPost/AddPost'));
-const Activity = lazy(() => import('../routes/Activity/Activity'));
-const Direct = lazy(() => import('../routes/Direct/Direct'));
-const GenerateFilterPreview = lazy(() => import('../routes/Admin/GenerateFilterPreview'));
+const SignIn = lazy(() => import('./SignIn/SignIn'));
+const SignUp = lazy(() => import('./SignUp/SignUp'));
+const RecoveryPassword = lazy(() => import('./RecoveryPassword/RecoveryPassword'));
+const Feed = lazy(() => import('./Feed/Feed'));
+const Post = lazy(() => import('./Post/Post'));
+const Profile = lazy(() => import('./Profile/Profile'));
+const EditProfile = lazy(() => import('./EditProfile/EditProfile'));
+const Explore = lazy(() => import('./Explore/Explore'));
+const AddPost = lazy(() => import('./AddPost/AddPost'));
+const Activity = lazy(() => import('./Activity/Activity'));
+const Direct = lazy(() => import('./Direct/Direct'));
+const GenerateFilterPreview = lazy(() => import('./Admin/GenerateFilterPreview'));
 
 const AppRouter = ({ isLoggedIn }) =>
   <BrowserRouter>
@@ -48,6 +49,7 @@ const LoggedOutRoutes = () =>
       <Switch>
         <Route path="/" exact={true} component={SignIn} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/recovery-password" component={RecoveryPassword} />
         <Redirect from={'*'} to={'/'} />
       </Switch>
     </Suspense>

@@ -2,18 +2,15 @@ import React, { useEffect, useState } from 'react';
 import style from './SignUp.module.scss';
 import { useTranslation } from 'react-i18next';
 import { gql } from 'apollo-boost';
-import { Button, Input, Separator } from '../../components/UI';
+import { Button, Input, MainLogo, Separator } from '../../components/UI';
 import { Link } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { CONFIRM_SECRET, EXIST_USER, SIGN_UP } from './SignUpQueries';
 import { LOG_USER_IN } from '../../apollo/GlobalQueries';
 import { isValidPhone } from '../../utils/phoneRegExp';
 import Helmet from 'react-helmet';
-import Logo from '../../assets/logoLogin.png';
-import LogoX2 from '../../assets/logoLogin-x2.png';
-import DarkLogoImg from '../../assets/dark-logoLogin.png';
-import DarkLogoImgX2 from '../../assets/dark-logoLogin-x2.png';
 import fetchIpData from '../../utils/fetchIpData';
+import AuthFooter from '../../components/AuthFooter';
 
 const DARK_MODE = gql`
   {
@@ -74,7 +71,6 @@ export default ({ history }) => {
           setConfirm(true);
           setState({ ...state, error: null })
         } else {
-          console.log(createAccount.error);
           setState({ ...state, error: createAccount.error })
         }
       }
@@ -148,12 +144,10 @@ export default ({ history }) => {
   return (
     <div className={style.Content}>
       <Helmet>
-        <title>Sign Up | Magergram</title>
+        <title>{ t('Sign Up') } | Magergram</title>
       </Helmet>
       <div className={style.Box}>
-        <div className={style.Logo}>
-          <img src={darkMode ? DarkLogoImg : Logo} srcSet={darkMode ? DarkLogoImgX2 : LogoX2} alt="Magergram" />
-        </div>
+        <MainLogo darkMode={darkMode} />
         { !confirm ?
           <form className={style.Form} method="post" onSubmit={onSubmit}>
             <h2 className={style.Subtitle}>
@@ -225,14 +219,11 @@ export default ({ history }) => {
         }
       </div>
       <div className={style.Box}>
-        <div className={style.SignUp}>
-          <p className={style.SignUpText}>
-            { t('Have an account') }?
-            <Link to="/" >
-              <span className={style.SignUpLink}>{t('Sign In')}</span>
-            </Link>
-          </p>
-        </div>
+        <AuthFooter
+          text="Have an account?"
+          linkText="Sign In"
+          linkPath="/"
+        />
       </div>
       {/*<AppButtons />*/}
     </div>

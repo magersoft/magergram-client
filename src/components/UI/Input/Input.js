@@ -7,6 +7,7 @@ const Input = ({
     value,
     name,
     placeholder,
+    disabled,
     required,
     icon,
     onChange,
@@ -30,6 +31,7 @@ const Input = ({
           autoCorrect="off"
           maxLength="75"
           name={name}
+          disabled={disabled}
           required={required}
           className={style.Input}
           onChange={onChange}
@@ -47,12 +49,14 @@ const Input = ({
 Input.propTypes = {
   type: PropType.string,
   name: PropType.string,
-  placeholder: PropType.string
+  placeholder: PropType.string,
+  disabled: PropType.bool
 };
 
 Input.defaultProps = {
   type: 'text',
-  placeholder: ''
+  placeholder: '',
+  disabled: false
 };
 
 export default Input;
