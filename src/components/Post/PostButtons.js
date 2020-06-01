@@ -6,8 +6,11 @@ import { useMutation } from '@apollo/react-hooks';
 import { ADD_FAVORITE, REMOVE_FAVORITE, TOGGLE_LIKE } from './PostQueries';
 import { FEED_QUERY } from '../../routes/Feed/FeedQueries';
 import style from './styles/Post.module.scss';
+import { sharePublication } from './postShare';
+import { useTranslation } from 'react-i18next';
 
 const PostButtons = forwardRef(({ postId, isLiked, isFavorite, className = '', onLike }, ref) => {
+  const { t } = useTranslation();
   const [like, setLiked] = useState(isLiked);
   const [favorite, setFavorite] = useState(isFavorite);
 
@@ -71,9 +74,7 @@ const PostButtons = forwardRef(({ postId, isLiked, isFavorite, className = '', o
     }, 500);
   };
 
-  const handleSharedClick = () => {
-    alert('Coming soon...')
-  };
+  const handleSharedClick = () => sharePublication(postId, t);
 
   const handleFavoriteClick = () => {
     setFavorite(!favorite);

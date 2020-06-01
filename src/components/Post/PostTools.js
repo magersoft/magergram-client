@@ -8,6 +8,7 @@ import Dialog from '../Dialog/Dialog';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/react-hooks';
 import { REMOVE_POST } from './PostQueries';
+import { sharePublication } from './postShare';
 
 const PostTools = ({ postId, itsMe, className }) => {
   const { t } = useTranslation();
@@ -34,17 +35,7 @@ const PostTools = ({ postId, itsMe, className }) => {
     })
   };
 
-  const handleSharePublication = async () => {
-    try {
-      await navigator.share({
-        title: 'Publication in Magergram',
-        url: `${window.location.origin}/post/${postId}`
-      })
-    } catch (e) {
-      alert(t('Your browser or device not supported share'));
-      console.error('Wrong shared publication', e);
-    }
-  };
+  const handleSharePublication = () => sharePublication(postId, t);
 
   const handleCopyPublicationLink = async () => {
     const link = `${window.location.origin}/post/${postId}`;
