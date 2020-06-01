@@ -16,5 +16,8 @@
   "commented your photo": "прокомментировал(-а) ваше фото",
   "started following you": "подписался(-сь) на ваши обновления",
   "Subscribe to start chatting": "Чтобы начать общение, подпишитесь на кого-нибудь",
-  "Your browser or device not supported share": "Ваш браузер или устройство не поддерживает возможность поделиться"
+  "Your browser or device not supported share": "Ваш браузер или устройство не поддерживает возможность поделиться",
+  "Enter username or email and we send your link for recover access to the account": "Введите имя пользователя или электронный адрес, и мы отправим вам ссылку для восстановления доступа к аккаунту.",
+  "Email submitted": "Письмо отправлено",
+  "Check your mail. You should receive an email with a link to reset your password. If nothing, check spam.": "Проверьте свою почту. Вы должно получить письмо с ссылкой на сброс пароля. Если ничего нет, проверьте спам."
 }

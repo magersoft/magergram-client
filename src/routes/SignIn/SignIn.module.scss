@@ -10,10 +10,6 @@
   @include whiteBox()
 }
 
-.Logo {
-  @include logoInstagram();
-}
-
 .Controls {
   margin-bottom: 10px;
 }
@@ -77,24 +73,6 @@
   &:hover, &:visited, &:active {
     @include smallLink();
   }
-}
-
-.SingUp {
-  display: block;
-  color: var(--color-neutral-02);
-  font-weight: 300;
-  margin: -3px 0 -4px;
-}
-
-.SignUpText {
-  margin: 15px;
-  text-align: center;
-}
-
-.SignUpLink {
-  margin-left: 3px;
-  display: inline;
-  @include link();
 }
 
 .Error {
