@@ -22,6 +22,7 @@ import PostCard from '../../components/PostCard';
 import { Link } from 'react-router-dom';
 import AppHeader from '../../components/AppHeader';
 import { BackIcon, DirectIcon } from '../../components/Icon';
+import Toast from '../../components/Toast';
 
 const PER_PAGE_POSTS = 3;
 
@@ -37,6 +38,8 @@ export default ({ match, history }) => {
     userId: null,
     commentUserId: null
   });
+  const [editable, setEditable] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const postButtonsRef = useRef();
 
@@ -145,6 +148,10 @@ export default ({ match, history }) => {
     })
   };
 
+  const handleChangePostCaption = () => {
+    setEditable(true);
+  };
+
   return (
     <React.Fragment>
       <AppHeader
@@ -182,10 +189,13 @@ export default ({ match, history }) => {
                   postId={post.id}
                   itsMe={post.user.isSelf}
                   user={post.user}
+                  editable={editable}
                   caption={post.caption}
                   comments={post.comments}
                   answerClick={handleAnswerClick}
                   showDialog={handleShowDialog}
+                  setEditable={setEditable}
+                  setShowToast={setShowToast}
                   className={style.Comments}
                 />
                 <PostButtons
@@ -216,7 +226,11 @@ export default ({ match, history }) => {
                   className={style.AddComment}
                 />
               </div>
-              <PostTools postId={post.id} itsMe={post.user.isSelf} />
+              <PostTools
+                postId={post.id}
+                itsMe={post.user.isSelf}
+                onChangePostCaption={handleChangePostCaption}
+              />
             </article>
           }
         </div>
@@ -262,6 +276,7 @@ export default ({ match, history }) => {
         }
         <DialogButton text={t('Cancel')} onClick={() => setDialog({ ...dialog, show: false })} />
       </Dialog>
+      <Toast show={showToast} duration={4000} message={t('Post changed')} />
     </React.Fragment>
   )
 };

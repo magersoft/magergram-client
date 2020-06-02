@@ -195,8 +195,8 @@ export default ({ history }) => {
                   className={style.Caption}
                   placeholder={`${t('Add caption')} ...`}
                   aria-label={`${t('Add caption')} ...`}
-                  autoComplete="off"
-                  autoCorrect="off"
+                  autoComplete="on"
+                  autoCorrect="on"
                   value={state.caption}
                   onChange={handleChange('caption')}
                 />

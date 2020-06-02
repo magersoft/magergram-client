@@ -100,3 +100,10 @@
     }
   }
 }
+
+.Editable {
+  outline: 0;
+  padding-right: var(--spacing-xs);
+  border: 2px solid var(--color-accent);
+  line-height: 25px;
+}

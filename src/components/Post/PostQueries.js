@@ -34,6 +34,14 @@ export const REMOVE_POST = gql`
   }
 `;
 
+export const EDIT_POST = gql`
+  mutation editPost($id: String!, $caption: String!) {
+    editPost(id: $id, caption: $caption) {
+      id
+    }
+  }
+`
+
 export const SEE_LIKES = gql`
   query seeLikesPost($postId: String!) {
     seeLikesPost(postId: $postId) {

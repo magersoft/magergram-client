@@ -10,7 +10,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { REMOVE_POST } from './PostQueries';
 import { sharePublication } from './postShare';
 
-const PostTools = ({ postId, itsMe, className }) => {
+const PostTools = ({ postId, itsMe, className, onChangePostCaption }) => {
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
   const { pathname } = useLocation();
@@ -56,20 +56,31 @@ const PostTools = ({ postId, itsMe, className }) => {
     alert('Coming soon');
   }
 
+  const handleChangePublication = () => {
+    onChangePostCaption();
+    setShow(false);
+  };
+
   return (
     <React.Fragment>
       <div className={`${style.Tools} ${className}`} onClick={() => setShow(true)}>
         <ToolsIcon width={16} height={16} color="var(--color-main)" />
       </div>
       <Dialog show={show}>
-        { itsMe ?
-          <DialogButton
-            text={t('Remove publication')}
-            type="danger"
-            loading={removePostLoading}
-            onClick={handleRemovePublication}
-          /> :
-          <DialogButton text={t('Report on publication')} type="danger" onClick={handleReportPublication} />
+        { itsMe
+          ? <React.Fragment>
+              <DialogButton
+                text={t('Remove publication')}
+                type="danger"
+                loading={removePostLoading}
+                onClick={handleRemovePublication}
+              />
+              <DialogButton
+                text={t('Change')}
+                onClick={handleChangePublication}
+              />
+            </React.Fragment>
+          : <DialogButton text={t('Report on publication')} type="danger" onClick={handleReportPublication} />
         }
         <DialogButton text={t('Go to publication')} onClick={handleGoPublication} />
         <DialogButton text={t('Share')} onClick={handleSharePublication} />

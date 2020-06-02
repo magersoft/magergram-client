@@ -255,6 +255,13 @@
   justify-content: flex-start;
 }
 
+.Editable {
+  outline: 0;
+  padding-right: var(--spacing-xs);
+  border: 2px solid var(--color-accent);
+  line-height: 25px;
+}
+
 .Comments {
   padding-left: var(--spacing-m);
   padding-right: var(--spacing-m);
