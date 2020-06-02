@@ -19,5 +19,6 @@
   "Your browser or device not supported share": "Ваш браузер или устройство не поддерживает возможность поделиться",
   "Enter username or email and we send your link for recover access to the account": "Введите имя пользователя или электронный адрес, и мы отправим вам ссылку для восстановления доступа к аккаунту.",
   "Email submitted": "Письмо отправлено",
-  "Check your mail. You should receive an email with a link to reset your password. If nothing, check spam.": "Проверьте свою почту. Вы должно получить письмо с ссылкой на сброс пароля. Если ничего нет, проверьте спам."
+  "Check your mail. You should receive an email with a link to reset your password. If nothing, check spam.": "Проверьте свою почту. Вы должно получить письмо с ссылкой на сброс пароля. Если ничего нет, проверьте спам.",
+  "In your account does not exist email address. Contact to developer in Telegram - magersoft": "Вы не указали email адрес в своем аккаунте. Свяжитесь с разработчиком в Telegram - magersoft"
 }
