@@ -31,6 +31,7 @@
   }
 
   li {
+    position: relative;
     display: inline-block;
     margin-bottom: 7px;
     margin-right: var(--spacing-m);
@@ -40,4 +41,11 @@
 .Info {
   color: var(--color-neutral-02);
   margin-bottom: 7px;
+}
+
+.LanguageSelect {
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  opacity: 0;
 }
