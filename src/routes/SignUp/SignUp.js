@@ -217,6 +217,11 @@ export default ({ history }) => {
             </p>
           </div>
         }
+        <div className={style.Error}>
+          <p role="alert">
+            { t('Registration by phone number is temporarily not available! Please use email') }
+          </p>
+        </div>
       </div>
       <div className={style.Box}>
         <AuthFooter
